@@ -1,181 +1,96 @@
-import React, {Component} from 'react';
+import React from 'react';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
-import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Table, Button } from 'reactstrap';
+import { Container, Row, Col, } from 'reactstrap';
 
-class App extends Component {
+
+import SkillTree from './skill_trees/SkillTree';
+
+ class App extends React.Component {
     state = {
-        books: [],
-        newBookData: {
-            title: '',
-            rating: 0.0
-        },
-        editBookData: {
-            id: '',
-            title: '',
-            rating: 0.0
-        },
-        newBookModal: false,
-        editBookModal: false
-    }
-    componentWillMount() {
-       this._refreshBooks();
+        // skills: [],
+        combat: [],
+        general: [],
+        production: [],
+        roleplaying: [],
+        aegis: [],
+        battle: [],
+        nature: [],
+        necromancy: [],
+        compulsion: [],
+        restoration: [],
+        enchantment: [],
+        resource: []
     }
 
-    toggleNewBookModal() {
-        this.setState({
-            newBookModal: ! this.state.newBookModal
-        });
-    }
-    toggleEditBookModal() {
-        this.setState({
-            editBookModal: ! this.state.editBookModal
-        });
+    componentDidMount() {
+        let skills = [];
+        axios.get('http://localhost:8080/skills')
+            .then(res => {
+                skills = [...res.data];
+                this.sortSkillsByTree(skills);
+                console.log(this.state)});
     }
 
-    addBook() {
-        axios.post('http://localhost:8080/books', this.state.newBookData).then((response) => {
-            console.log(response.data);
-            let { books } = this.state;
+    // sort skills by tree
+    sortSkillsByTree = (skills) => {
+        for (let key in this.state) {
+            for (let skill in skills) {
+                if (key === skills[skill].tree) {
+                    this.setState(prevState => ({
+                        [key]: [...prevState[key], skills[skill]]
+                    }));
+                }
+            }
+        } 
+    };
 
-            books.push(response.data);
-
-            this.setState({ books, newBookModal: false, newBookData: {
-                title: '',
-                rating: 0.0
-            } });
-        });
-    }
-
-    updateBook() {
-        axios.put('http://localhost:8080/books/' + this.state.editBookData.id, this.state.editBookData).then((response) => {
-        this._refreshBooks();        
-        
-        this.setState({
-            editBookModal: false, editBookData: { id: '', title: '', rating: 0.0}
-        })
-
-        console.log(response.data);
-        });
-    }
-
-    _refreshBooks() {
-        axios.get('http://localhost:8080/books').then((response) => {
-            this.setState({
-                books: response.data
-            })
-        });
-    }
-
-    editBook(id, title, rating) {
-        this.setState({
-            editBookData: { id, title, rating },
-            editBookModal: ! this.state.editBookModal
-        });
-    }
-
-    deleteBook(id) {
-        axios.delete('http://localhost:8080/books/' + id).then((response) => {
-            this._refreshBooks();
-        });
-    }
-  
     render() {
-        let books = this.state.books.map((book) => {
-            return (
-                <tr key={book.id}>
-                        <td>{book.id}</td>
-                        <td>{book.title}</td>
-                        <td>{book.rating}</td>
-                        <td>
-                            <Button color="success" size="sm" className="mr-2" onClick={this.editBook.bind(this, book.id, book.title, book.rating)}>Edit</Button>
-                            <Button color="danger" size="sm" onClick={this.deleteBook.bind(this, book.id)}>Delete</Button>
-                        </td>
-                    </tr>
-            )
-        });
-
         return (
-            <div className="App container">
+            <div className="App">
+                <Container>
+                    <Row>
+                        <Col>
+                            <h3>Combat</h3>
+                            <SkillTree skills={this.state.combat} />
+                        </Col>
 
-            <h1>Books App</h1>
+                        <Col>
+                            <h3>General</h3>
+                            <SkillTree skills={this.state.general} />
+                        </Col>
+                    </Row>
 
-                <Button className="my-3" color="primary" onClick={this.toggleNewBookModal.bind(this)}>Add Book</Button>
-                <Modal isOpen={this.state.newBookModal} toggle={this.toggleNewBookModal.bind(this)}>
-                    <ModalHeader toggle={this.toggleNewBookModal.bind(this)}>Add a new book</ModalHeader>
-                        <ModalBody>
-                            <FormGroup>
-                                <Label for="title">Title</Label>
-                                <Input id="title" value={this.state.newBookData.title} onChange={(e) => {
-                                    let { newBookData } = this.state;
+                    <h3>Production</h3>
+                    <SkillTree skills={this.state.production} />
 
-                                    newBookData.title = e.target.value;
+                    <h3>Roleplaying</h3>
+                    <SkillTree skills={this.state.roleplaying} />
 
-                                    this.setState({ newBookData });
-                                }}/>
-                                
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="rating">Rating</Label>
-                                <Input id="rating" value={this.state.newBookData.rating} onChange={(e) => {
-                                    let { newBookData } = this.state;
+                    <h3>Aegis</h3>
+                    <SkillTree skills={this.state.aegis} />
 
-                                    newBookData.rating = e.target.value;
+                    <h3>Battle</h3>
+                    <SkillTree skills={this.state.battle} />
 
-                                    this.setState({ newBookData });
-                                }}/>
-                            </FormGroup>
-                        </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.addBook.bind(this)}>Add Book</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleNewBookModal.bind(this)}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
+                    <h3>Nature</h3>
+                    <SkillTree skills={this.state.nature} />
 
-                <Modal isOpen={this.state.editBookModal} toggle={this.toggleEditBookModal.bind(this)}>
-                    <ModalHeader toggle={this.toggleEditBookModal.bind(this)}>Edit a new book</ModalHeader>
-                        <ModalBody>
-                            <FormGroup>
-                                <Label for="title">Title</Label>
-                                <Input id="title" value={this.state.editBookData.title} onChange={(e) => {
-                                    let { editBookData } = this.state;
+                    <h3>Necromancy</h3>
+                    <SkillTree skills={this.state.necromancy} />
 
-                                    editBookData.title = e.target.value;
+                    <h3>Compulsion</h3>
+                    <SkillTree skills={this.state.compulsion} />
 
-                                    this.setState({ editBookData });
-                                }}/>
-                                
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="rating">Rating</Label>
-                                <Input id="rating" value={this.state.editBookData.rating} onChange={(e) => {
-                                    let { editBookData } = this.state;
+                    <h3>Restoration</h3>
+                    <SkillTree skills={this.state.restoration} />
 
-                                    editBookData.rating = e.target.value;
+                    <h3>Enchantment</h3>
+                    <SkillTree skills={this.state.enchantment} />
 
-                                    this.setState({ editBookData });
-                                }}/>
-                            </FormGroup>
-                        </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.updateBook.bind(this)}>Update Book</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleEditBookModal.bind(this)}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Rating</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {books}
-                    </tbody>
-                </Table>
+                    <h3>Resources</h3>
+                    <SkillTree skills={this.state.resource} />
+                </Container>
             </div>
         );
     }
