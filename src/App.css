@@ -18,6 +18,14 @@ a {
     padding: 0 1rem;
 }
 
+.skilltree {
+    
+}
+
+.skilltree p {
+    margin:0;
+}
+
 /* .btn {
     display: inline-block;
     border: none;

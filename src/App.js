@@ -8,7 +8,6 @@ import SkillTree from './skill_trees/SkillTree';
 
  class App extends React.Component {
     state = {
-        // skills: [],
         combat: [],
         general: [],
         production: [],
@@ -50,46 +49,72 @@ import SkillTree from './skill_trees/SkillTree';
             <div className="App">
                 <Container>
                     <Row>
-                        <Col>
+                        <Col className="skilltree">
                             <h3>Combat</h3>
                             <SkillTree skills={this.state.combat} />
                         </Col>
 
-                        <Col>
+                        <Col className="skilltree">
                             <h3>General</h3>
                             <SkillTree skills={this.state.general} />
                         </Col>
+
+                        <Col className="skilltree">
+                            <h3>Production</h3>
+                            <SkillTree skills={this.state.production} />
+                        </Col>
                     </Row>
 
-                    <h3>Production</h3>
-                    <SkillTree skills={this.state.production} />
+                    <Row>
+                        <Col className="skilltree">
+                            <h3>Roleplaying</h3>
+                            <SkillTree skills={this.state.roleplaying} />
+                        </Col>
 
-                    <h3>Roleplaying</h3>
-                    <SkillTree skills={this.state.roleplaying} />
+                        <Col className="skilltree">                        
+                            <h3>Aegis</h3>
+                            <SkillTree skills={this.state.aegis} />
+                        </Col>
 
-                    <h3>Aegis</h3>
-                    <SkillTree skills={this.state.aegis} />
+                        <Col className="skilltree">                            
+                            <h3>Battle</h3>
+                            <SkillTree skills={this.state.battle} />
+                        </Col>
+                    </Row>
 
-                    <h3>Battle</h3>
-                    <SkillTree skills={this.state.battle} />
+                    <Row>
+                        <Col className="skilltree">
+                            <h3>Nature</h3>
+                            <SkillTree skills={this.state.nature} />
+                        </Col>
 
-                    <h3>Nature</h3>
-                    <SkillTree skills={this.state.nature} />
+                        <Col className="skilltree">
+                            <h3>Necromancy</h3>
+                            <SkillTree skills={this.state.necromancy} />
+                        </Col>
 
-                    <h3>Necromancy</h3>
-                    <SkillTree skills={this.state.necromancy} />
+                        <Col className="skilltree">
+                            <h3>Compulsion</h3>
+                            <SkillTree skills={this.state.compulsion} />
+                        </Col>
+                    </Row>
 
-                    <h3>Compulsion</h3>
-                    <SkillTree skills={this.state.compulsion} />
+                    <Row>
+                        <Col className="skilltree">
+                            <h3>Restoration</h3>
+                            <SkillTree skills={this.state.restoration} />
+                        </Col>
 
-                    <h3>Restoration</h3>
-                    <SkillTree skills={this.state.restoration} />
+                        <Col className="skilltree">
+                            <h3>Enchantment</h3>
+                            <SkillTree skills={this.state.enchantment} />
+                        </Col>
 
-                    <h3>Enchantment</h3>
-                    <SkillTree skills={this.state.enchantment} />
-
-                    <h3>Resources</h3>
-                    <SkillTree skills={this.state.resource} />
+                        <Col className="skilltree">
+                            <h3>Resources</h3>
+                            <SkillTree skills={this.state.resource} />
+                        </Col>
+                    </Row>
                 </Container>
             </div>
         );
