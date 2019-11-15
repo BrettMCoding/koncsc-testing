@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Text&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,8 +7,27 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Big Shoulders Text', cursive;
     line-height: 1.4;
+    background-color: rgb(204, 173, 108);
+    color: rgb(255, 255, 255);
+    white-space: nowrap;
+}
+
+.header {
+    text-align: left;
+    background: #333;
+}
+
+.header .characterinfo{
+    /* background: rgb(153, 153, 153); */
+    margin-left: 15px;
+}
+
+input {
+    background: #333;
+    color: aliceblue;
+    border: none;
 }
 
 a {
@@ -18,12 +39,68 @@ a {
     padding: 0 1rem;
 }
 
-.skilltree {
-    
+.skill {
+    background-color: rgb(139, 0, 0);
+}
+
+.skilltree h3 {
+    text-align: center;
+    background: #333;
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
 .skilltree p {
-    margin:0;
+    white-space: pre;
+    margin:2px;
+}
+
+.skilltree .combat h3 {
+    color: rgb(226, 43, 43);
+}
+
+.skilltree .production h3 {
+    color: rgb(4, 156, 67);
+}
+
+.skilltree .roleplaying h3 {
+    color: rgb(243, 202, 66);
+}
+
+.skilltree .general h3 {
+    color: rgb(226, 95, 43);
+}
+
+.skilltree .aegis h3 {
+    color: rgb(150, 186, 202);
+}
+
+.skilltree .compulsion h3 {
+    color: rgb(226, 43, 150);
+}
+
+.skilltree .nature h3 {
+    color: rgb(132, 202, 3);
+}
+
+.skilltree .battle h3 {
+    color: rgb(248, 46, 46);
+}
+
+.skilltree .restoration h3 {
+    color: rgb(34, 240, 255);
+}
+
+.skilltree .necromancy h3 {
+    color: rgb(171, 117, 179);
+}
+
+.skilltree .resources h3 {
+    color: rgb(243, 223, 135);
+}
+
+.skilltree .enchantment h3 {
+    color: rgb(124, 133, 255);
 }
 
 /* .btn {

@@ -1,0 +1,968 @@
+[
+    {
+        "id": 1,
+        "name": "Body 1",
+        "cost": 1,
+        "tree": "combat"
+    },
+    {
+        "id": 2,
+        "name": "  Body 2",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 4,
+        "name": "    Body 3",
+        "cost": 3,
+        "tree": "combat"
+    },
+    {
+        "id": 5,
+        "name": "      Body 4",
+        "cost": 4,
+        "tree": "combat"
+    },
+    {
+        "id": 6,
+        "name": "Buckler Fighting",
+        "cost": 1,
+        "tree": "combat"
+    },
+    {
+        "id": 7,
+        "name": "  Shield Fighting",
+        "cost": 1,
+        "tree": "combat"
+    },
+    {
+        "id": 8,
+        "name": "Melee Training",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 9,
+        "name": "  Melee Proficiency",
+        "cost": 3,
+        "tree": "combat"
+    },
+    {
+        "id": 10,
+        "name": "    Melee Expert",
+        "cost": 4,
+        "tree": "combat"
+    },
+    {
+        "id": 11,
+        "name": "      Melee Master",
+        "cost": 5,
+        "tree": "combat"
+    },
+    {
+        "id": 12,
+        "name": "  Two Weapon Fighting",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 13,
+        "name": "    Two Weapon Expert",
+        "cost": 3,
+        "tree": "combat"
+    },
+    {
+        "id": 14,
+        "name": "      Two Weapon Master",
+        "cost": 4,
+        "tree": "combat"
+    },
+    {
+        "id": 15,
+        "name": "  Great Weapon Training",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 16,
+        "name": "Missile Training",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 17,
+        "name": "  Missile Proficiency",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 18,
+        "name": "    Missile Expert",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 19,
+        "name": "      Missile Master",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 20,
+        "name": "Thrown Weapons",
+        "cost": 2,
+        "tree": "combat"
+    },
+    {
+        "id": 21,
+        "name": "  Thrown Weapon Master",
+        "cost": 3,
+        "tree": "combat"
+    },
+    {
+        "id": 22,
+        "name": "Alchemy 1",
+        "cost": 1,
+        "tree": "production"
+    },
+    {
+        "id": 23,
+        "name": "  Alchemy 2",
+        "cost": 2,
+        "tree": "production"
+    },
+    {
+        "id": 24,
+        "name": "    Alchemy 3",
+        "cost": 3,
+        "tree": "production"
+    },
+    {
+        "id": 25,
+        "name": "      Alchemy 4",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 26,
+        "name": "        Alchemy 5",
+        "cost": 5,
+        "tree": "production"
+    },
+    {
+        "id": 27,
+        "name": "Brew Potion",
+        "cost": 2,
+        "tree": "production"
+    },
+    {
+        "id": 28,
+        "name": "Ornamenter 1",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 29,
+        "name": "  Ornamenter 2",
+        "cost": 2,
+        "tree": "production"
+    },
+    {
+        "id": 30,
+        "name": "    Ornamenter 3",
+        "cost": 3,
+        "tree": "production"
+    },
+    {
+        "id": 31,
+        "name": "      Ornamenter 4",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 32,
+        "name": "        Ornamenter 5",
+        "cost": 5,
+        "tree": "production"
+    },
+    {
+        "id": 33,
+        "name": "Scribe Scroll",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 34,
+        "name": "Tinkerer 1",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 35,
+        "name": "  Tinkerer 2",
+        "cost": 2,
+        "tree": "production"
+    },
+    {
+        "id": 36,
+        "name": "    Tinkerer 3",
+        "cost": 3,
+        "tree": "production"
+    },
+    {
+        "id": 37,
+        "name": "      Tinkerer 4",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 38,
+        "name": "        Tinkerer 5",
+        "cost": 5,
+        "tree": "production"
+    },
+    {
+        "id": 39,
+        "name": "Weaponsmith 1",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 40,
+        "name": "  Weaponsmith 2",
+        "cost": 2,
+        "tree": "production"
+    },
+    {
+        "id": 41,
+        "name": "    Weaponsmith 3",
+        "cost": 3,
+        "tree": "production"
+    },
+    {
+        "id": 42,
+        "name": "      Weaponsmith 4",
+        "cost": 4,
+        "tree": "production"
+    },
+    {
+        "id": 43,
+        "name": "        Weaponsmith 5",
+        "cost": 5,
+        "tree": "production"
+    },
+    {
+        "id": 44,
+        "name": "Chosen 1",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 45,
+        "name": "  Chosen 2",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 46,
+        "name": "    Chosen 3",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 47,
+        "name": "      Chosen 4",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 48,
+        "name": "        Chosen 5",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 49,
+        "name": "Druid 1",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 50,
+        "name": "  Druid 2",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 51,
+        "name": "    Druid 3",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 52,
+        "name": "      Druid 4",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 53,
+        "name": "        Druid 5",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 54,
+        "name": "Medium 1",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 55,
+        "name": "  Medium 2",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 56,
+        "name": "    Medium 3",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 57,
+        "name": "      Medium 4",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 58,
+        "name": "        Medium 5",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 59,
+        "name": "Merchant 1",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 60,
+        "name": "  Merchant 2",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 61,
+        "name": "    Merchant 3",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 62,
+        "name": "      Merchant 4",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 63,
+        "name": "        Merchant 5",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 64,
+        "name": "Status 1",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 65,
+        "name": "  Status 2",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 66,
+        "name": "    Status 3",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 67,
+        "name": "      Status 4",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 68,
+        "name": "        Status 5",
+        "cost": 4,
+        "tree": "roleplaying"
+    },
+    {
+        "id": 69,
+        "name": "Estimate Value",
+        "cost": 2,
+        "tree": "general"
+    },
+    {
+        "id": 70,
+        "name": "First Aid",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 71,
+        "name": "Herbalist",
+        "cost": 2,
+        "tree": "general"
+    },
+    {
+        "id": 72,
+        "name": "Identify Magic",
+        "cost": 2,
+        "tree": "general"
+    },
+    {
+        "id": 73,
+        "name": "Language: Andaranian",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 74,
+        "name": "Language: Draconian ",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 75,
+        "name": "Language: Elven",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 76,
+        "name": "Language: Snow Goblin",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 77,
+        "name": "Language: Sylvan",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 78,
+        "name": "Language: Terran",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 79,
+        "name": "Language: ",
+        "cost": 1,
+        "tree": "general"
+    },
+    {
+        "id": 80,
+        "name": "Lore",
+        "cost": 2,
+        "tree": "general"
+    },
+    {
+        "id": 81,
+        "name": "Advanced Lore",
+        "cost": 3,
+        "tree": "general"
+    },
+    {
+        "id": 82,
+        "name": "Read Magic",
+        "cost": 2,
+        "tree": "general"
+    },
+    {
+        "id": 83,
+        "name": "Rituals of Protection",
+        "cost": 1,
+        "tree": "aegis"
+    },
+    {
+        "id": 84,
+        "name": "Magic Armor",
+        "cost": 1,
+        "tree": "aegis"
+    },
+    {
+        "id": 85,
+        "name": "Toughness",
+        "cost": 1,
+        "tree": "aegis"
+    },
+    {
+        "id": 86,
+        "name": "  Anti-Magic Shield",
+        "cost": 2,
+        "tree": "aegis"
+    },
+    {
+        "id": 87,
+        "name": "  Spirit Shield",
+        "cost": 2,
+        "tree": "aegis"
+    },
+    {
+        "id": 88,
+        "name": "    Improved Magic Armor",
+        "cost": 3,
+        "tree": "aegis"
+    },
+    {
+        "id": 89,
+        "name": "    Sanctuary",
+        "cost": 3,
+        "tree": "aegis"
+    },
+    {
+        "id": 90,
+        "name": "      Anti-Magic Aura",
+        "cost": 4,
+        "tree": "aegis"
+    },
+    {
+        "id": 91,
+        "name": "      Synchronize",
+        "cost": 4,
+        "tree": "aegis"
+    },
+    {
+        "id": 92,
+        "name": "        Aura of Reflection",
+        "cost": 5,
+        "tree": "aegis"
+    },
+    {
+        "id": 93,
+        "name": "        Poison Immunity",
+        "cost": 5,
+        "tree": "aegis"
+    },
+    {
+        "id": 94,
+        "name": "Rituals of Battle",
+        "cost": 1,
+        "tree": "battle"
+    },
+    {
+        "id": 95,
+        "name": "Magic Strike",
+        "cost": 1,
+        "tree": "battle"
+    },
+    {
+        "id": 96,
+        "name": "Strength",
+        "cost": 1,
+        "tree": "battle"
+    },
+    {
+        "id": 97,
+        "name": "  Mageblade",
+        "cost": 2,
+        "tree": "battle"
+    },
+    {
+        "id": 98,
+        "name": "  Magic Swarm",
+        "cost": 2,
+        "tree": "battle"
+    },
+    {
+        "id": 99,
+        "name": "    Slaying Swarm",
+        "cost": 3,
+        "tree": "battle"
+    },
+    {
+        "id": 100,
+        "name": "    Spellstore",
+        "cost": 3,
+        "tree": "battle"
+    },
+    {
+        "id": 101,
+        "name": "      Maelstrom",
+        "cost": 4,
+        "tree": "battle"
+    },
+    {
+        "id": 102,
+        "name": "      Ruin",
+        "cost": 4,
+        "tree": "battle"
+    },
+    {
+        "id": 103,
+        "name": "        Battle Mastery",
+        "cost": 5,
+        "tree": "battle"
+    },
+    {
+        "id": 104,
+        "name": "        Devastation",
+        "cost": 5,
+        "tree": "battle"
+    },
+    {
+        "id": 105,
+        "name": "Rituals of Nature",
+        "cost": 1,
+        "tree": "nature"
+    },
+    {
+        "id": 106,
+        "name": "Grounding",
+        "cost": 1,
+        "tree": "nature"
+    },
+    {
+        "id": 107,
+        "name": "Mend Armor",
+        "cost": 1,
+        "tree": "nature"
+    },
+    {
+        "id": 108,
+        "name": "  Dissipate",
+        "cost": 2,
+        "tree": "nature"
+    },
+    {
+        "id": 109,
+        "name": "  Natural Repulsion",
+        "cost": 2,
+        "tree": "nature"
+    },
+    {
+        "id": 110,
+        "name": "    Elemental Dart",
+        "cost": 3,
+        "tree": "nature"
+    },
+    {
+        "id": 111,
+        "name": "    Elemental Weapon",
+        "cost": 3,
+        "tree": "nature"
+    },
+    {
+        "id": 112,
+        "name": "      Banish",
+        "cost": 4,
+        "tree": "nature"
+    },
+    {
+        "id": 113,
+        "name": "      Nature's Command",
+        "cost": 4,
+        "tree": "nature"
+    },
+    {
+        "id": 114,
+        "name": "        Ley Lines",
+        "cost": 5,
+        "tree": "nature"
+    },
+    {
+        "id": 115,
+        "name": "        Primal Form",
+        "cost": 5,
+        "tree": "nature"
+    },
+    {
+        "id": 116,
+        "name": "Rituals of Necromancy",
+        "cost": 1,
+        "tree": "necromancy"
+    },
+    {
+        "id": 117,
+        "name": "Ghastly Visage",
+        "cost": 1,
+        "tree": "necromancy"
+    },
+    {
+        "id": 118,
+        "name": "Reap Spirit",
+        "cost": 1,
+        "tree": "necromancy"
+    },
+    {
+        "id": 119,
+        "name": "  Creeping Rot",
+        "cost": 2,
+        "tree": "necromancy"
+    },
+    {
+        "id": 120,
+        "name": "  Repel Undead",
+        "cost": 2,
+        "tree": "necromancy"
+    },
+    {
+        "id": 121,
+        "name": "    Brackish Boon",
+        "cost": 3,
+        "tree": "necromancy"
+    },
+    {
+        "id": 122,
+        "name": "    Curse",
+        "cost": 3,
+        "tree": "necromancy"
+    },
+    {
+        "id": 123,
+        "name": "      Detect Spark",
+        "cost": 4,
+        "tree": "necromancy"
+    },
+    {
+        "id": 124,
+        "name": "      Enfeeble",
+        "cost": 4,
+        "tree": "necromancy"
+    },
+    {
+        "id": 125,
+        "name": "        Abomination",
+        "cost": 5,
+        "tree": "necromancy"
+    },
+    {
+        "id": 126,
+        "name": "        Dreadlord",
+        "cost": 5,
+        "tree": "necromancy"
+    },
+    {
+        "id": 127,
+        "name": "Rituals of Compulsion",
+        "cost": 1,
+        "tree": "compulsion"
+    },
+    {
+        "id": 128,
+        "name": "Disengage",
+        "cost": 1,
+        "tree": "compulsion"
+    },
+    {
+        "id": 129,
+        "name": "Weaken",
+        "cost": 1,
+        "tree": "compulsion"
+    },
+    {
+        "id": 130,
+        "name": "  Charm",
+        "cost": 2,
+        "tree": "compulsion"
+    },
+    {
+        "id": 131,
+        "name": "  Silence",
+        "cost": 2,
+        "tree": "compulsion"
+    },
+    {
+        "id": 132,
+        "name": "    Memory Loss",
+        "cost": 3,
+        "tree": "compulsion"
+    },
+    {
+        "id": 133,
+        "name": "    Pin",
+        "cost": 3,
+        "tree": "compulsion"
+    },
+    {
+        "id": 134,
+        "name": "      Fear",
+        "cost": 4,
+        "tree": "compulsion"
+    },
+    {
+        "id": 135,
+        "name": "      Stun",
+        "cost": 4,
+        "tree": "compulsion"
+    },
+    {
+        "id": 136,
+        "name": "        Dominate",
+        "cost": 5,
+        "tree": "compulsion"
+    },
+    {
+        "id": 137,
+        "name": "        Mind Blank",
+        "cost": 5,
+        "tree": "compulsion"
+    },
+    {
+        "id": 138,
+        "name": "Rituals of Restoration",
+        "cost": 1,
+        "tree": "restoration"
+    },
+    {
+        "id": 139,
+        "name": "Diagnosis",
+        "cost": 1,
+        "tree": "restoration"
+    },
+    {
+        "id": 140,
+        "name": "Heal Body",
+        "cost": 1,
+        "tree": "restoration"
+    },
+    {
+        "id": 141,
+        "name": "  Purify Spirit",
+        "cost": 2,
+        "tree": "restoration"
+    },
+    {
+        "id": 142,
+        "name": "  Restore Limbs",
+        "cost": 2,
+        "tree": "restoration"
+    },
+    {
+        "id": 143,
+        "name": "    Heal Mortal Wound",
+        "cost": 3,
+        "tree": "restoration"
+    },
+    {
+        "id": 144,
+        "name": "    Resilience",
+        "cost": 3,
+        "tree": "restoration"
+    },
+    {
+        "id": 145,
+        "name": "      Panacea",
+        "cost": 4,
+        "tree": "restoration"
+    },
+    {
+        "id": 146,
+        "name": "      Triage",
+        "cost": 4,
+        "tree": "restoration"
+    },
+    {
+        "id": 147,
+        "name": "        Revive",
+        "cost": 5,
+        "tree": "restoration"
+    },
+    {
+        "id": 148,
+        "name": "        Second Breath",
+        "cost": 5,
+        "tree": "restoration"
+    },
+    {
+        "id": 149,
+        "name": "Rituals of Enchantment",
+        "cost": 1,
+        "tree": "enchantment"
+    },
+    {
+        "id": 150,
+        "name": "Enhance Armor",
+        "cost": 1,
+        "tree": "enchantment"
+    },
+    {
+        "id": 151,
+        "name": "Magic Lock",
+        "cost": 1,
+        "tree": "enchantment"
+    },
+    {
+        "id": 152,
+        "name": "  Enchant Shield ",
+        "cost": 2,
+        "tree": "enchantment"
+    },
+    {
+        "id": 153,
+        "name": "  Silvershine",
+        "cost": 2,
+        "tree": "enchantment"
+    },
+    {
+        "id": 154,
+        "name": "    Enchant Weapon",
+        "cost": 3,
+        "tree": "enchantment"
+    },
+    {
+        "id": 155,
+        "name": "    Spellburst",
+        "cost": 3,
+        "tree": "enchantment"
+    },
+    {
+        "id": 156,
+        "name": "      Ablative Armor",
+        "cost": 4,
+        "tree": "enchantment"
+    },
+    {
+        "id": 157,
+        "name": "      Dispel Magic",
+        "cost": 4,
+        "tree": "enchantment"
+    },
+    {
+        "id": 158,
+        "name": "        Shadowskin",
+        "cost": 5,
+        "tree": "enchantment"
+    },
+    {
+        "id": 159,
+        "name": "        Wraithbane",
+        "cost": 5,
+        "tree": "enchantment"
+    },
+    {
+        "id": 160,
+        "name": "Production",
+        "cost": 2,
+        "tree": "resource"
+    },
+    {
+        "id": 161,
+        "name": "Craft",
+        "cost": 2,
+        "tree": "resource"
+    },
+    {
+        "id": 162,
+        "name": "Magic Power",
+        "cost": 1,
+        "tree": "resource"
+    }
+]
