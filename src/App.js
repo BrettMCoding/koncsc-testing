@@ -1,4 +1,5 @@
 import React from 'react';
+import Nav from './layout/Nav';
 import Header from './layout/Header';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
@@ -8,6 +9,15 @@ import SkillTree from './skill_trees/SkillTree';
 
  class App extends React.Component {
     state = {
+        character: {
+            name: "",
+            race: "",
+            player: "",
+            country: "",
+            level: 0,
+            skillPointsRemaining: 0,
+            savedXP: 0,
+        },
         combat: [],
         general: [],
         production: [],
@@ -36,13 +46,12 @@ import SkillTree from './skill_trees/SkillTree';
 
     // sort skills by tree
     sortSkillsByTree = (skills) => {
+        // keys in state currently empty arrays
         for (let key in this.state) {
             for (let skill in skills) {
-
-                // skills[skill].name = 
-                //     this.renderSkillWhitespace(skills[skill].name)
-
+                // if state key is the same as skill tree
                 if (key === skills[skill].tree) {
+                    // state is immutable. so, we spread the previous state + add skill to matching key and set state to equal the new array
                     this.setState(prevState => ({
                         [key]: [...prevState[key], skills[skill]]
                     }));
@@ -51,28 +60,33 @@ import SkillTree from './skill_trees/SkillTree';
         } 
     };
 
-    renderSkillWhitespace = (string) => {
-        let newString = "";
-        // match whitespace at start of string
-        if (string.match(/(^\s+)/) !== null) {
-            
-            let match = string.match(/(^\s+)/)[0];
-            // for each whitespace, add a non-breaking space
-            for (let i = 0; i < match.length; i++) {
-                newString += "&nbsp;"
-            }
-        }
-        return newString += string;
-    }
-
-
+    saveCharacter = () => {}
+    loadCharacter = (character) => {}
+    calculateSkillPointsRemaining = () => {}
+    checkAvailableSkillPoints = () => {}
+    checkRequirements = () => {}
+    addSkill = (skill) => {}
+    
     render() {
         return (
             <div className="App">
+                <Nav></Nav>
 
                 <Header></Header>
 
                 <Container>
+                    <div className="resourcebox">
+                        <h3 className="resources">Resources</h3>
+                        <Row className="d-flex justify-content-center">
+                            <div>Magic Power</div>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                            <div>Production</div>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                            <div>Craft</div>
+                        </Row>
+                    </div>
                     <Row>
                         <Col className="skilltree">
                             <div className="combat">

@@ -39,8 +39,16 @@ a {
     padding: 0 1rem;
 }
 
+.resourcebox {
+    margin-top: 10px;
+    text-align: center;
+    background: #333;
+    justify-content: center;
+}
+
 .skill {
     background-color: rgb(139, 0, 0);
+    border-radius: 3px;
 }
 
 .skilltree h3 {
