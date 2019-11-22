@@ -9,15 +9,16 @@ import SkillTree from './skill_trees/SkillTree';
 
  class App extends React.Component {
     state = {
-        character: {
+        // character info
             name: "",
             race: "",
             player: "",
             country: "",
-            level: 0,
-            skillPointsRemaining: 0,
+            level: 1,
+            skillPointsRemaining: 4,
             savedXP: 0,
-        },
+
+        locked: false,
         combat: [],
         general: [],
         production: [],
@@ -29,12 +30,13 @@ import SkillTree from './skill_trees/SkillTree';
         compulsion: [],
         restoration: [],
         enchantment: [],
-        resource: []
+        resource: [],
+        playerHasSkill: []
     }
 
     componentDidMount() {
         // JSON of all skills
-        var skillList = require('./skill_trees/skillList.json');
+        var skillList = require('./skill_trees/jason.json');
         this.sortSkillsByTree(skillList);
         // let skills = [];
         // axios.get('http://localhost:8080/skills')
@@ -62,17 +64,47 @@ import SkillTree from './skill_trees/SkillTree';
 
     saveCharacter = () => {}
     loadCharacter = (character) => {}
-    calculateSkillPointsRemaining = () => {}
+
+    // updateValue = (stateValue) => {
+    //     this.setState(prevState => ({[stateValue]}))
+    // }
+
+    setLevel = (newLevel) => {
+        this.setState({level: newLevel});
+        this.calculateSkillPointsRemaining();
+    }
+    
+    calculateSkillPointsRemaining = () => {
+        this.setState(prevState => ({
+            skillPointsRemaining: (prevState.level * 2) + 4 }));
+        console.log(this.state);
+    }
+
+
     checkAvailableSkillPoints = () => {}
     checkRequirements = () => {}
-    addSkill = (skill) => {}
+    
+    // add/remove skill
+    check = (skill) => {
+        this.setState({
+            playerHasSkill: ([...this.state.playerHasSkill, skill]) });
+    }
+
+
+    lockChanges = () => {
+        this.setState(prevState => ({locked: !prevState.locked}));
+        this.calculateSkillPointsRemaining();
+    }
     
     render() {
         return (
             <div className="App">
-                <Nav></Nav>
+                <Nav lockChanges={this.lockChanges}></Nav>
 
-                <Header></Header>
+                <Header skillPointsRemaining={this.state.skillPointsRemaining}
+                        level={this.state.level}
+                        setLevel={this.setLevel}
+                        calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}></Header>
 
                 <Container>
                     <div className="resourcebox">
@@ -91,20 +123,20 @@ import SkillTree from './skill_trees/SkillTree';
                         <Col className="skilltree">
                             <div className="combat">
                                 <h3>Combat</h3>
-                                <SkillTree skills={this.state.combat} />
+                                <SkillTree skills={this.state.combat} check={this.check} lockChanges={this.state.locked} />
                             </div>
 
                             <div className="general">
                                 <h3>General</h3>
-                                <SkillTree skills={this.state.general} />
+                                <SkillTree skills={this.state.general} check={this.check} lockChanges={this.state.locked} />
                             </div>
                             <div className="nature">
                                 <h3>Nature</h3>
-                                <SkillTree skills={this.state.nature} />
+                                <SkillTree skills={this.state.nature} check={this.check} lockChanges={this.state.locked} />
                             </div>
                             <div className="necromancy">
                                 <h3>Necromancy</h3>
-                                <SkillTree skills={this.state.necromancy} />
+                                <SkillTree skills={this.state.necromancy} check={this.check} lockChanges={this.state.locked} />
                             </div>
                         </Col>
 
@@ -112,22 +144,22 @@ import SkillTree from './skill_trees/SkillTree';
 
                             <div className="production">
                                 <h3>Production</h3>
-                                <SkillTree skills={this.state.production} />
+                                <SkillTree skills={this.state.production} check={this.check} lockChanges={this.state.locked} />
                             </div>
                             
                             <div className="aegis">
                                 <h3>Aegis</h3>
-                                <SkillTree skills={this.state.aegis} />
+                                <SkillTree skills={this.state.aegis} check={this.check} lockChanges={this.state.locked} />
                             </div>
 
                             <div className="battle">
                                 <h3>Battle</h3>
-                                <SkillTree skills={this.state.battle} />
+                                <SkillTree skills={this.state.battle} check={this.check} lockChanges={this.state.locked} />
                             </div>
 
                             <div className="resources">
                                 <h3>Resources</h3>
-                                <SkillTree skills={this.state.resource} />
+                                <SkillTree skills={this.state.resource} check={this.check} lockChanges={this.state.locked} />
                             </div>
                         </Col>
 
@@ -135,22 +167,22 @@ import SkillTree from './skill_trees/SkillTree';
 
                             <div className="roleplaying">
                                 <h3>Roleplaying</h3>
-                                <SkillTree skills={this.state.roleplaying} />
+                                <SkillTree skills={this.state.roleplaying} check={this.check} lockChanges={this.state.locked} />
                             </div>
 
                             <div className="compulsion">
                                 <h3>Compulsion</h3>
-                                <SkillTree skills={this.state.compulsion} />
+                                <SkillTree skills={this.state.compulsion} check={this.check} lockChanges={this.state.locked} />
                             </div>
         
                             <div className="restoration">
                                 <h3>Restoration</h3>
-                                <SkillTree skills={this.state.restoration} />
+                                <SkillTree skills={this.state.restoration} check={this.check} lockChanges={this.state.locked} />
                             </div>
 
                             <div className="enchantment">
                                 <h3>Enchantment</h3>
-                                <SkillTree skills={this.state.enchantment} />
+                                <SkillTree skills={this.state.enchantment} check={this.check} lockChanges={this.state.locked} />
                             </div>
                         </Col>
                     </Row>

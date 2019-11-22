@@ -111,6 +111,11 @@ a {
     color: rgb(124, 133, 255);
 }
 
+.skillpointsremaining ::placeholder {
+    color: white;
+    opacity: 1;
+}
+
 /* .btn {
     display: inline-block;
     border: none;
