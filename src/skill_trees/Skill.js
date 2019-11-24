@@ -1,29 +1,47 @@
-import React, { Component, Input } from 'react'
+import React, { Component, Input, useState } from 'react'
 import PropTypes from 'prop-types';
 
-export class Skill extends Component {
+function Skill(props){
+   // const { tree, cost, id, name, prereq } = this.props.skill
+   // const {check, lockChanges} = this.props
 
-    render() {
-        const { tree, cost, id, name, prereq } = this.props.skill
-        const {check, lockChanges} = this.props
+   const [isChecked, setIsChecked] = useState(false);
 
-        return (
-            <div className="skill">
-                <p>
-                <input disabled={lockChanges} type="checkbox" onChange={check}/> {' '}
-                    {name}
-                </p>
-            </div>
-        )
-    }
-    
+   const addSpaces = (string) => {
+           if (string.includes("2")) {
+                return '  ';
+           } else if (string.includes("3")) {
+                return '    ';
+           } else if (string.includes("4")) {
+                return '      ';
+           } else if (string.includes("5")) {
+                return '        ';
+           }
+   }
+
+    return (
+        <div className="skill">
+            <p>
+            <input disabled={props.lockChanges} type="checkbox" checked={isChecked} 
+            
+                onChange={e => {
+                    setIsChecked(
+                        props.check(props.skill, e.target.checked)
+                    );
+
+            }}/> 
+                {' '} {addSpaces(props.skill.name)}
+                 {props.skill.name}
+            </p>
+        </div>
+    )
 }
 
-Skill.propTypes = {
-    skill: PropTypes.object.isRequired,
-    // isLearned: PropTypes.bool.isRequired,
-    check: PropTypes.func.isRequired,
-    locked: PropTypes.bool.isRequired,
-}
+// Skill.propTypes = {
+//     skill: PropTypes.object.isRequired,
+//     // isLearned: PropTypes.bool.isRequired,
+//     check: PropTypes.func.isRequired,
+//     locked: PropTypes.bool.isRequired,
+// }
 
 export default Skill

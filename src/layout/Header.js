@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import Level from './character_info/Level';
 
 export class Header extends Component {
-
+    
     render() {
+
         return (
             <div>
                 <Container>

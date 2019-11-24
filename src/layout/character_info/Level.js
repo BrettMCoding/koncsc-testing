@@ -6,7 +6,7 @@ function Level(props) {
         <div>Level:&nbsp;
         <input type="text" value={props.level} onChange = {e => props.setLevel(e.target.value)}/>
         </div>
-    );
+);
 
 }
 

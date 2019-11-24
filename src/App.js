@@ -36,7 +36,7 @@ import SkillTree from './skill_trees/SkillTree';
 
     componentDidMount() {
         // JSON of all skills
-        var skillList = require('./skill_trees/jason.json');
+        var skillList = require('./skill_trees/skillsjsn.json');
         this.sortSkillsByTree(skillList);
         // let skills = [];
         // axios.get('http://localhost:8080/skills')
@@ -44,6 +44,9 @@ import SkillTree from './skill_trees/SkillTree';
         //         skills = [...res.data];
         //         this.sortSkillsByTree(skills);
         //         console.log(this.state)});
+    }
+
+    componentDidUpdate() {
     }
 
     // sort skills by tree
@@ -70,24 +73,119 @@ import SkillTree from './skill_trees/SkillTree';
     // }
 
     setLevel = (newLevel) => {
-        this.setState({level: newLevel});
-        this.calculateSkillPointsRemaining();
+        this.setState({level: newLevel}, function() {
+            this.calculateSkillPointsRemaining();
+        });    
     }
     
     calculateSkillPointsRemaining = () => {
-        this.setState(prevState => ({
-            skillPointsRemaining: (prevState.level * 2) + 4 }));
-        console.log(this.state);
+
+        var newSkillPointsRemaining = 0;
+
+        if (this.state.level === 1) {
+            newSkillPointsRemaining = 4;
+        } else {
+            newSkillPointsRemaining = ( (this.state.level * 2) + 4 );
+        }
+
+        newSkillPointsRemaining -= this.calculateSpentSkillPoints();
+
+        this.setState({skillPointsRemaining: newSkillPointsRemaining});
+
+        return newSkillPointsRemaining;
+    }
+
+    calculateSpentSkillPoints = () => {
+        var spent = 0;
+        var playerSkills = this.state.playerHasSkill;
+
+        for (let skill in playerSkills) {
+            spent += playerSkills[skill].cost;
+        }
+
+        return spent;
     }
 
 
-    checkAvailableSkillPoints = () => {}
-    checkRequirements = () => {}
+    checkAvailableSkillPoints = (cost, skillPointsRemaining) => {
+        return cost < skillPointsRemaining;
+    }
+
+    checkRequirements = (skill) => {
+
+        let requiredSkill = skill.requires
+
+        if (requiredSkill === "") {
+            
+            return true; 
+
+        }
+
+        if (this.state.playerHasSkill
+            .find(skill => skill.name === requiredSkill) !== undefined) {
+            
+            return true;
+
+        } else {
+           
+            return false;
+
+        }
+    
+        console.log('error in checkRequirements Function');
+        return  0;
+    }
     
     // add/remove skill
-    check = (skill) => {
+    // make sure enough skill points are available
+    // make sure requirements are met?
+    // add skill to playerHasSkill Array, or remove it
+    check = (checkedSkill, e) => {
+        if (!this.checkRequirements(checkedSkill)) {
+            console.log("You do not meet the requirements for " + checkedSkill.name)
+            return false;
+        };
+ 
+        if (e) {
+            
+            if (this.calculateSkillPointsRemaining() - checkedSkill.cost < 0) {
+                console.log("You do not have enough skill points for " + checkedSkill.name);
+                return false;
+            };
+
+            return this.addSkill(checkedSkill);
+
+        } else {
+
+            // filter previous state.playerhasskill array to return a new array without matching skill
+            return this.removeSkill(checkedSkill);
+        }
+        
+        return true;
+    }
+
+    addSkill = (skill) => {
+
         this.setState({
-            playerHasSkill: ([...this.state.playerHasSkill, skill]) });
+            playerHasSkill: ([...this.state.playerHasSkill, skill]) }, function ()   {
+                this.calculateSkillPointsRemaining()
+
+                console.log("You have acquired the " + skill.name + " skill");
+                return true;
+        });
+    }
+
+    
+    removeSkill = (skill) => {
+
+        this.setState(prevState => ({
+            playerHasSkill: prevState.playerHasSkill.filter(arrSkill => arrSkill !== skill)
+        }), function () {
+            this.calculateSkillPointsRemaining()
+
+            console.log("You have removed the " + skill.name + " skill")
+            return false;
+        })
     }
 
 
@@ -101,10 +199,10 @@ import SkillTree from './skill_trees/SkillTree';
             <div className="App">
                 <Nav lockChanges={this.lockChanges}></Nav>
 
-                <Header skillPointsRemaining={this.state.skillPointsRemaining}
+                <Header
                         level={this.state.level}
                         setLevel={this.setLevel}
-                        calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}></Header>
+                        skillPointsRemaining={this.state.skillPointsRemaining}></Header>
 
                 <Container>
                     <div className="resourcebox">
