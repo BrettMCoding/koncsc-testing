@@ -46,10 +46,45 @@ a {
     justify-content: center;
 }
 
+.progress-bar {
+    position: relative;
+    height: 20px;
+    width: 80%;
+    border-radius: 50px;
+    border: 1px solid #333;
+}
+
+.bar-text {
+    position:absolute;      
+    display:block;
+    height:100%;
+    width: 100%;
+    padding-bottom: 22px;
+    text-align:center;
+}
+  
+.filler {
+    background: #1DA598;
+    height: 100%;
+    border-radius: inherit;
+    transition: width .2s ease-in;
+}
+
 .skill {
     background-color: rgb(139, 0, 0);
     border-radius: 3px;
+    margin: 2px;
 }
+
+/* .skillBody {
+    display: inline-flex;
+}
+
+.skillCost {
+    justify-content: right;
+    float: right;
+    flex-wrap: nowrap;
+} */
 
 .skilltree h3 {
     text-align: center;

@@ -1,7 +1,8 @@
 import React from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Container, Row, Col, } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import { InputGroup, InputGroupAddon, InputGroupText, Input, Container, Row, Col, } from 'reactstrap';
+import {Container} from 'reactstrap';
+// import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 
 class Nav extends React.Component {
     render() {
@@ -19,8 +20,8 @@ class Nav extends React.Component {
     }
 }
 
-Nav.propTypes = {
-    lockChanges: PropTypes.func.isRequired
-}
+// Nav.propTypes = {
+//     lockChanges: PropTypes.func.isRequired
+// }
 
 export default Nav;

@@ -1,8 +1,9 @@
 import React from 'react';
 import Nav from './layout/Nav';
 import Header from './layout/Header';
+import Resources from './layout/Resources';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { Container, Row, Col, } from 'reactstrap';
 
 import SkillTree from './skill_trees/SkillTree';
@@ -132,8 +133,9 @@ import SkillTree from './skill_trees/SkillTree';
 
         }
     
-        console.log('error in checkRequirements Function');
-        return  0;
+        //  unreachable
+        // console.log('error in checkRequirements Function');
+        // return  0;
     }
     
     // add/remove skill
@@ -146,22 +148,75 @@ import SkillTree from './skill_trees/SkillTree';
             return false;
         };
  
-        if (e) {
-            
+        if (e) {        
             if (this.calculateSkillPointsRemaining() - checkedSkill.cost < 0) {
                 console.log("You do not have enough skill points for " + checkedSkill.name);
                 return false;
             };
-
             return this.addSkill(checkedSkill);
-
         } else {
+            if (this.skillIsRequired(checkedSkill)) {
+                return true;
+            }
 
-            // filter previous state.playerhasskill array to return a new array without matching skill
             return this.removeSkill(checkedSkill);
         }
-        
-        return true;
+        // unreachable
+        // return true;
+    }
+
+    skillIsRequired = (skill) => {
+        for (let playerSkill in this.state.playerHasSkill) {
+            let requirement = this.state.playerHasSkill[playerSkill].requires
+            if (skill.name === requirement) {
+                console.log("cannot remove " + skill.name + ". it is a prerequisite for " + this.state.playerHasSkill[playerSkill].name)
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    addResource = (newResource, e) => {
+
+        if (this.calculateSkillPointsRemaining() - newResource.cost < 0) {
+            console.log("You do not have enough skill points for " + newResource.name);
+            return false;
+        };
+
+        var numberOfPoints = 0;
+
+        for (let resources in this.state.playerHasSkill) {
+
+            let hasAPoint = this.state.playerHasSkill[resources].name;
+
+            if (newResource.name === hasAPoint) {
+                numberOfPoints++;
+            }
+        }
+
+        if (numberOfPoints >= 10) {
+            if (newResource.name === "Craft" || newResource.name === "Production") {
+                console.log(newResource.name + " limit reached")
+                return false;
+            }
+
+            if (numberOfPoints >= 20) {
+                console.log(newResource.name + " limit reached")
+                return false;
+            }
+        }
+
+        return this.addSkill(newResource);
+    }
+
+    removeResource = (removeResourceName) => {
+        if (!this.state.playerHasSkill.includes(removeResourceName)) {
+            console.log("you can't go below 0, you idiot")
+            return false;
+        }
+
+        this.removeSkill(removeResourceName, true);
     }
 
     addSkill = (skill) => {
@@ -169,23 +224,35 @@ import SkillTree from './skill_trees/SkillTree';
         this.setState({
             playerHasSkill: ([...this.state.playerHasSkill, skill]) }, function ()   {
                 this.calculateSkillPointsRemaining()
-
-                console.log("You have acquired the " + skill.name + " skill");
-                return true;
         });
-    }
+
+        console.log("You have acquired the " + skill.name + " skill");
+        return true;
+        }
 
     
-    removeSkill = (skill) => {
+    removeSkill = (skill, resourceFlag) => {
+        // if it's a resource, remove one copy
+        if (resourceFlag) {
+            this.setState(prevState => ({
+                // filter previous state.playerhasskill array to return a new array without first index of matching skill(resource, in this case)
+                playerHasSkill: prevState.playerHasSkill.filter((arrSkill, index) => prevState.playerHasSkill.indexOf(skill) !== index)
+            }), function () {
+                this.calculateSkillPointsRemaining()
+            })
+            console.log("You have removed one point of the " + skill.name + " skill")
+            return true;
+        }
 
         this.setState(prevState => ({
+            // filter previous state.playerhasskill array to return a new array without matching skill
             playerHasSkill: prevState.playerHasSkill.filter(arrSkill => arrSkill !== skill)
         }), function () {
             this.calculateSkillPointsRemaining()
-
-            console.log("You have removed the " + skill.name + " skill")
-            return false;
         })
+
+        console.log("You have removed the " + skill.name + " skill")
+        return false;
     }
 
 
@@ -205,18 +272,8 @@ import SkillTree from './skill_trees/SkillTree';
                         skillPointsRemaining={this.state.skillPointsRemaining}></Header>
 
                 <Container>
-                    <div className="resourcebox">
-                        <h3 className="resources">Resources</h3>
-                        <Row className="d-flex justify-content-center">
-                            <div>Magic Power</div>
-                        </Row>
-                        <Row className="d-flex justify-content-center">
-                            <div>Production</div>
-                        </Row>
-                        <Row className="d-flex justify-content-center">
-                            <div>Craft</div>
-                        </Row>
-                    </div>
+                    <Resources resources={this.state.resource} addResource={this.addResource} removeResource={this.removeResource} lockChanges={this.state.locked} playerHasSkill={this.state.playerHasSkill}/>
+                    
                     <Row>
                         <Col className="skilltree">
                             <div className="combat">
@@ -253,11 +310,6 @@ import SkillTree from './skill_trees/SkillTree';
                             <div className="battle">
                                 <h3>Battle</h3>
                                 <SkillTree skills={this.state.battle} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-
-                            <div className="resources">
-                                <h3>Resources</h3>
-                                <SkillTree skills={this.state.resource} check={this.check} lockChanges={this.state.locked} />
                             </div>
                         </Col>
 

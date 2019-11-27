@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import Skill from './Skill';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 export class SkillTree extends Component {
@@ -12,11 +12,11 @@ export class SkillTree extends Component {
     }
 }
 
-SkillTree.propTypes = {
-    skills: PropTypes.array.isRequired,
-    // isLearned: PropTypes.bool.isRequired,
-    check: PropTypes.func.isRequired,
-    locked: PropTypes.bool.isRequired
-}
+// SkillTree.propTypes = {
+//     skills: PropTypes.array.isRequired,
+//     // isLearned: PropTypes.bool.isRequired,
+//     check: PropTypes.func.isRequired,
+//     locked: PropTypes.bool.isRequired
+// }
 
 export default SkillTree

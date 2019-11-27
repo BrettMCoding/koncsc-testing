@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Container, Row, Col, } from 'reactstrap';
+import { Container, Row, Col, } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Level from './character_info/Level';
 
 export class Header extends Component {
@@ -49,7 +48,7 @@ export class Header extends Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <div className="skillpointsremaining">Skill Points Remaining: <input type="text" readOnly="true" placeholder={this.props.skillPointsRemaining} id="item"></input></div>
+                                        <div className="skillpointsremaining">Skill Points Remaining: <input type="text" readOnly={true} placeholder={this.props.skillPointsRemaining} id="item"></input></div>
                                     </Col>
                                     
                                     <Col>
