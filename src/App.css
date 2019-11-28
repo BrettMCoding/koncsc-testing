@@ -19,9 +19,19 @@ body {
     background: #333;
 }
 
-.header .characterinfo{
+.navbar {
+    background: #333;
+}
+
+.characterinfo-box{
     /* background: rgb(153, 153, 153); */
-    margin-left: 15px;
+    background: #333;
+}
+
+.characterinfo-content{
+    /* background: rgb(153, 153, 153); */
+    background: #333;
+    margin: 15px;
 }
 
 input {
@@ -40,7 +50,6 @@ a {
 }
 
 .resourcebox {
-    margin-top: 10px;
     text-align: center;
     background: #333;
     justify-content: center;

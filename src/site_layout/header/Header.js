@@ -1,10 +1,11 @@
 import React from 'react';
+import Navigation from './Navigation';
 // import { InputGroup, InputGroupAddon, InputGroupText, Input, Container, Row, Col, } from 'reactstrap';
 import {Container} from 'reactstrap';
 // import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
-class Title extends React.Component {
+class Header extends React.Component {
     render() {
         return (
             <div>
@@ -13,7 +14,7 @@ class Title extends React.Component {
                         <input type="checkbox" onChange={this.props.lockChanges.bind(this)}/>
                     <h1>KINGDOMS OF NOVITAS</h1>
                     <h2>Character Sheet | Skill Calculator</h2>
-                    <p> login logout save load help rules forum facebook</p>
+                    <Navigation lockChanges={this.props.lockChanges}/>
                 </Container>
             </div>
         )
@@ -24,4 +25,4 @@ class Title extends React.Component {
 //     lockChanges: PropTypes.func.isRequired
 // }
 
-export default Title;
+export default Header;

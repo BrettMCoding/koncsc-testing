@@ -1,12 +1,12 @@
 import React from 'react';
-import Title from './layout/Title';
-import CharacterInfo from './layout/CharacterInfo';
-import Resources from './layout/Resources';
+import { Container, Row, Col, } from 'reactstrap';
+import Header from './site_layout/header/Header';
+import CharacterInfo from './site_layout/character_info/CharacterInfo';
+import Resources from './site_layout/resources/Resources';
+import SkillTree from './site_layout/skill_trees/SkillTree';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import axios from 'axios';
-import { Container, Row, Col, } from 'reactstrap';
 
-import SkillTree from './skill_trees/SkillTree';
 
  class App extends React.Component {
     state = {
@@ -41,7 +41,7 @@ import SkillTree from './skill_trees/SkillTree';
 
     componentDidMount() {
         // JSON of all skills
-        var skillList = require('./skill_trees/skillsjsn.json');
+        var skillList = require('./site_layout/skill_trees/skillsjsn.json');
         this.sortSkillsByTree(skillList);
         // let skills = [];
         // axios.get('http://localhost:8080/skills')
@@ -280,12 +280,15 @@ import SkillTree from './skill_trees/SkillTree';
     render() {
         return (
             <div className="App">
-                <Title lockChanges={this.lockChanges}></Title>
+                <Header lockChanges={this.lockChanges}>
+
+                </Header>
 
                 <CharacterInfo
                         level={this.state.level}
                         setLevel={this.setLevel}
-                        calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}></CharacterInfo>
+                        calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}
+                />
 
                 <Container>
                     <Resources resources={this.state.resource} addResource={this.addResource} getResourceCount={this.getResourceCount} removeResource={this.removeResource} lockChanges={this.state.locked} playerHasSkill={this.state.playerHasSkill}/>
