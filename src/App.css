@@ -44,6 +44,12 @@ a {
     text-align: center;
     background: #333;
     justify-content: center;
+    position: relative;
+}
+
+.resource-cost {
+    position:absolute; 
+    right: 10%;
 }
 
 .progress-bar {
@@ -52,6 +58,7 @@ a {
     width: 80%;
     border-radius: 50px;
     border: 1px solid #333;
+    background-color: #304b68;
 }
 
 .bar-text {
@@ -67,7 +74,18 @@ a {
     background: #1DA598;
     height: 100%;
     border-radius: inherit;
-    transition: width .2s ease-in;
+}
+
+.filler.magic{
+    background: rgb(20, 102, 255);
+}
+
+.filler.production {
+    background: rgb(34, 165, 29);
+}
+
+.filler.craft{
+    background: rgb(202, 155, 0);
 }
 
 .skill {

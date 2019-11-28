@@ -36,19 +36,12 @@ export class Header extends Component {
                                     </Col>
                                     
                                     <Col>
-                                        {/* <div>Level: <input type="text" 
-                                            value={this.propTypes.level}placeholder="enter a level" 
-                                            id="item" 
-                                            onChange={this.propTypes
-                                                .updateValue("level")}
-                                            ></input>
-                                        </div> */}
                                         <Level level={this.props.level} setLevel={this.props.setLevel}/>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <div className="skillpointsremaining">Skill Points Remaining: <input type="text" readOnly={true} placeholder={this.props.skillPointsRemaining} id="item"></input></div>
+                                        <div className="skillpointsremaining">Skill Points Remaining: <input type="text" readOnly={true} placeholder={this.props.calculateSkillPointsRemaining()} id="item"></input></div>
                                     </Col>
                                     
                                     <Col>

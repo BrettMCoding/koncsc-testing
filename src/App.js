@@ -1,6 +1,6 @@
 import React from 'react';
-import Nav from './layout/Nav';
-import Header from './layout/Header';
+import Title from './layout/Title';
+import CharacterInfo from './layout/CharacterInfo';
 import Resources from './layout/Resources';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import axios from 'axios';
@@ -16,7 +16,11 @@ import SkillTree from './skill_trees/SkillTree';
             player: "",
             country: "",
             level: 1,
-            skillPointsRemaining: 4,
+
+            // did I successfully eliminate the need for this?
+
+            //skillPointsRemaining: 4,
+
             savedXP: 0,
 
         locked: false,
@@ -79,19 +83,17 @@ import SkillTree from './skill_trees/SkillTree';
         });    
     }
     
+    calculateBaseSkillPoints = () => { 
+        return this.state.level === 1 ? 4 : (this.state.level * 2) + 4
+    }
+
     calculateSkillPointsRemaining = () => {
 
-        var newSkillPointsRemaining = 0;
-
-        if (this.state.level === 1) {
-            newSkillPointsRemaining = 4;
-        } else {
-            newSkillPointsRemaining = ( (this.state.level * 2) + 4 );
-        }
+        var newSkillPointsRemaining = this.calculateBaseSkillPoints();
 
         newSkillPointsRemaining -= this.calculateSpentSkillPoints();
 
-        this.setState({skillPointsRemaining: newSkillPointsRemaining});
+        //this.setState({skillPointsRemaining: newSkillPointsRemaining});
 
         return newSkillPointsRemaining;
     }
@@ -177,7 +179,7 @@ import SkillTree from './skill_trees/SkillTree';
         return false;
     }
 
-    addResource = (newResource, e) => {
+    addResource = (newResource, max) => {
 
         if (this.calculateSkillPointsRemaining() - newResource.cost < 0) {
             console.log("You do not have enough skill points for " + newResource.name);
@@ -208,6 +210,20 @@ import SkillTree from './skill_trees/SkillTree';
         }
 
         return this.addSkill(newResource);
+    }
+
+    getResourceCount = (resourceName) => {
+        if (resourceName == undefined) {
+            return null;
+        }
+        var count = 0;
+        for (let resources in this.state.playerHasSkill) {    
+           
+            if (this.state.playerHasSkill[resources].name === resourceName) {
+                count++;
+            }
+        }
+        return count;
     }
 
     removeResource = (removeResourceName) => {
@@ -264,15 +280,15 @@ import SkillTree from './skill_trees/SkillTree';
     render() {
         return (
             <div className="App">
-                <Nav lockChanges={this.lockChanges}></Nav>
+                <Title lockChanges={this.lockChanges}></Title>
 
-                <Header
+                <CharacterInfo
                         level={this.state.level}
                         setLevel={this.setLevel}
-                        skillPointsRemaining={this.state.skillPointsRemaining}></Header>
+                        calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}></CharacterInfo>
 
                 <Container>
-                    <Resources resources={this.state.resource} addResource={this.addResource} removeResource={this.removeResource} lockChanges={this.state.locked} playerHasSkill={this.state.playerHasSkill}/>
+                    <Resources resources={this.state.resource} addResource={this.addResource} getResourceCount={this.getResourceCount} removeResource={this.removeResource} lockChanges={this.state.locked} playerHasSkill={this.state.playerHasSkill}/>
                     
                     <Row>
                         <Col className="skilltree">

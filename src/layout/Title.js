@@ -4,7 +4,7 @@ import {Container} from 'reactstrap';
 // import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
-class Nav extends React.Component {
+class Title extends React.Component {
     render() {
         return (
             <div>
@@ -24,4 +24,4 @@ class Nav extends React.Component {
 //     lockChanges: PropTypes.func.isRequired
 // }
 
-export default Nav;
+export default Title;

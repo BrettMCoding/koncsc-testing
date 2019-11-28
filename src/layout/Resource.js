@@ -1,21 +1,25 @@
 import React from 'react';
 import {Row} from 'reactstrap';
+import { useSpring, animated } from 'react-spring';
 
 export default function Resource(props) {
     // simplify prop drilling
-    const { removeResource, addResource, lockChanges } = props.props;
-    const { getResourceCount, resource, max } = props;
-
+    const { removeResource, addResource, lockChanges, getResourceCount } = props.props;
+    const { resource, max, skillCss } = props;
+    
     // Resource bar step
-    const step = (max) => {
+    const step = () => {
         if (max == 20) {
             return 5;
         }
         return 10;
     }
 
+    // calculated width % string, send to Filler
+    const fillBarAnim = useSpring({ width: resource ? getResourceCount(resource.name) * step() + '%' : 0 + '%' })
+
     // Resource ProgressBar
-    const ProgressBar = () => {
+    const ResourceBar = () => {
         return (
             <div className="progress-bar">
                 <div className="bar-text">{resource.name}: {getResourceCount(resource.name)} / {max}</div>
@@ -24,8 +28,9 @@ export default function Resource(props) {
             )
     }
       
+    // ANIMATION CALL ON CLICKING TOO FAST LEAKING MEMORY
     const Filler = () => {
-        return <div className="filler" style={{ width: `${getResourceCount(resource.name) * step(max)}%` }} />
+        return <animated.div className={"filler " + skillCss} style={fillBarAnim} />
     }
 
     const isLoaded = (resource) => {
@@ -43,18 +48,20 @@ export default function Resource(props) {
 
             </button>
             
-            {/* <div>{resource.name}: {getResourceCount(resource.name)} / {max}</div> */}
-            <ProgressBar />
+            <ResourceBar />
 
             <button type="button" className="btn btn-success btn-sm" disabled={lockChanges} onClick={() => {
-                addResource(resource)
+                addResource(resource, max)
             }} >
                 
                 +
                 
             </button>
 
+            <div className="resource-cost">{resource.cost}</div>
+
             </Row>
+
 
             };
 
