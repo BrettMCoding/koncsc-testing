@@ -23,6 +23,16 @@ body {
     background: #333;
 }
 
+.navButton {
+    background:none;
+    border:none;
+    color:rgb(136, 136, 136);
+}
+
+.navButton:hover {
+    color: white;
+}
+
 .characterinfo-box{
     /* background: rgb(153, 153, 153); */
     background: #333;
@@ -58,14 +68,28 @@ a {
 
 .resource-cost {
     position:absolute; 
-    right: 10%;
+    right: 7%;
+    margin-top: 6px;
+}
+
+.rscrow {
+    padding-bottom: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.rscbtn {
+    padding:5px;
 }
 
 .progress-bar {
     position: relative;
-    height: 20px;
-    width: 80%;
-    border-radius: 50px;
+    height: 23px;
+    width: 90%;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
     border: 1px solid #333;
     background-color: #304b68;
 }
@@ -98,20 +122,23 @@ a {
 }
 
 .skill {
-    background-color: rgb(139, 0, 0);
+    background-color: rgb(61, 0, 0);
     border-radius: 3px;
     margin: 2px;
 }
 
-/* .skillBody {
-    display: inline-flex;
+.skillBody {
+    color: rgb(161, 161, 161);
+}
+
+.checked {
+    color: rgb(255, 255, 255);
+    background-color: rgb(139, 0, 0);
 }
 
 .skillCost {
-    justify-content: right;
-    float: right;
-    flex-wrap: nowrap;
-} */
+    color:white;
+}
 
 .skilltree h3 {
     text-align: center;

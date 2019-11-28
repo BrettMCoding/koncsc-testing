@@ -10,11 +10,9 @@ class Header extends React.Component {
         return (
             <div>
                 <Container>
-                        {/* lock skill changes */}
-                        <input type="checkbox" onChange={this.props.lockChanges.bind(this)}/>
                     <h1>KINGDOMS OF NOVITAS</h1>
-                    <h2>Character Sheet | Skill Calculator</h2>
-                    <Navigation lockChanges={this.props.lockChanges}/>
+                    <h2>Online Character Sheet | Skill Calculator</h2>
+                    <Navigation lockChanges={this.props.lockChanges} locked={this.props.locked}/>
                 </Container>
             </div>
         )

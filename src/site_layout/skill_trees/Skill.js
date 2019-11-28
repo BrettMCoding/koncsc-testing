@@ -16,9 +16,11 @@ function Skill(props){
            }
    }
 
+   const checkedStyle = isChecked ? " checked" : "";
+
     return (
-        <div className="skill row d-flex flex-nowrap">
-            <div className="skillBody col pl-1">
+        <div className={"skill row d-flex flex-nowrap" + checkedStyle}>
+            <div className={"skillBody col pl-1" + checkedStyle}>
                 <p>
                 <input disabled={props.lockChanges} type="checkbox" checked={isChecked} 
                 

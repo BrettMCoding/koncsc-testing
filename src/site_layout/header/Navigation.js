@@ -11,7 +11,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-//   NavbarText
+    // NavbarText
 } from 'reactstrap';
 
 function Navigation(props) {
@@ -28,10 +28,6 @@ function Navigation(props) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
 
-            <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-
             <NavItem >
               <NavLink href="http://kingdomsofnovitas.net/">kingdomsofnovitas.net</NavLink>
             </NavItem>
@@ -41,12 +37,15 @@ function Navigation(props) {
             </NavItem>
 
             <NavItem>
-            <input type="checkbox" onChange={props.lockChanges}/><NavLink>Lock Skill Editing</NavLink>
+                <NavLink>
+                    {/* this might be my favorite piece of code that I've ever written */}
+                     <button className="navButton" onClick={props.lockChanges} >{props.locked ? "Unl" : "L"}ock Skill Editing</button>
+                </NavLink>
             </NavItem>
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Options
+                Save/Load/Login
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>

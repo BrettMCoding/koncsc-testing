@@ -280,7 +280,7 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
     render() {
         return (
             <div className="App">
-                <Header lockChanges={this.lockChanges}>
+                <Header lockChanges={this.lockChanges} locked={this.state.locked}>
 
                 </Header>
 

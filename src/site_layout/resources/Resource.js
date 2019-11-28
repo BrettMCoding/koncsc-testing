@@ -38,9 +38,9 @@ export default function Resource(props) {
         // render the component as "Loading..."
         return (resource === undefined) ? <div>Loading...</div> : 
 
-            <Row className="d-flex justify-content-center">
+            <Row className="d-flex flex-nowrap justify-content-center rscrow">
 
-            <button type="button" className="btn btn-danger btn-sm" disabled={lockChanges} onClick={() => {
+            <button type="button" className="btn btn-danger btn-sm rscbtn" disabled={lockChanges} onClick={() => {
                 removeResource(resource)
             }}>
 
@@ -50,7 +50,7 @@ export default function Resource(props) {
             
             <ResourceBar />
 
-            <button type="button" className="btn btn-success btn-sm" disabled={lockChanges} onClick={() => {
+            <button type="button" className="btn btn-success btn-sm rscbtn" disabled={lockChanges} onClick={() => {
                 addResource(resource, max)
             }} >
                 
