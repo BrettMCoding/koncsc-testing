@@ -5,7 +5,7 @@ import { useSpring, animated } from 'react-spring';
 export default function Resource(props) {
     // simplify prop drilling
     const { removeResource, addResource, lockChanges, getResourceCount } = props.props;
-    const { resource, max, skillCss } = props;
+    const { resourceName, resource, max, skillCss, cost, displayName } = props;
     
     // Resource bar step
     const step = () => {
@@ -16,19 +16,19 @@ export default function Resource(props) {
     }
 
     // calculated width % string, send to Filler
-    const fillBarAnim = useSpring({ width: resource ? getResourceCount(resource.name) * step() + '%' : 0 + '%' })
+    const fillBarAnim = useSpring({ width: resource ? resource * step() + '%' : 0 + '%' })
 
     // Resource ProgressBar
     const ResourceBar = () => {
         return (
             <div className="progress-bar">
-                <div className="bar-text">{resource.name}: {getResourceCount(resource.name)} / {max}</div>
+                <div className="bar-text">{displayName}: {resource} / {max}</div>
                 <Filler />
             </div>
             )
     }
       
-    // ANIMATION CALL ON CLICKING TOO FAST LEAKING MEMORY
+    // ANIMATION CALL ON CLICKING TOO FAST LEAKING MEMORY?
     const Filler = () => {
         return <animated.div className={"filler " + skillCss} style={fillBarAnim} />
     }
@@ -41,7 +41,7 @@ export default function Resource(props) {
             <Row className="d-flex flex-nowrap justify-content-center rscrow">
 
             <button type="button" className="btn btn-danger btn-sm rscbtn" disabled={lockChanges} onClick={() => {
-                removeResource(resource)
+                removeResource(resourceName)
             }}>
 
                 -
@@ -51,14 +51,14 @@ export default function Resource(props) {
             <ResourceBar />
 
             <button type="button" className="btn btn-success btn-sm rscbtn" disabled={lockChanges} onClick={() => {
-                addResource(resource, max)
+                addResource(resourceName, cost, max)
             }} >
                 
                 +
                 
             </button>
 
-            <div className="resource-cost">{resource.cost}</div>
+            <div className="resource-cost">{cost}</div>
 
             </Row>
 

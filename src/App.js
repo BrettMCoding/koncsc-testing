@@ -5,7 +5,7 @@ import CharacterInfo from './site_layout/character_info/CharacterInfo';
 import Resources from './site_layout/resources/Resources';
 import SkillTree from './site_layout/skill_trees/SkillTree';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 
  class App extends React.Component {
@@ -16,12 +16,19 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
             player: "",
             country: "",
             level: 1,
-
-            // did I successfully eliminate the need for this?
-
-            //skillPointsRemaining: 4,
-
             savedXP: 0,
+
+            // With resources, the cost is set in state, and not in the database. ...For now.
+
+            // RESOURCES
+            resources: {
+                magicPoints: 5,
+                craftPoints: 0,
+                productionPoints: 0,
+            },
+                MAGIC_POINT_COST: 1,
+                CRAFT_POINT_COST: 2,
+                PRODUCTION_POINT_COST:2,
 
         locked: false,
         combat: [],
@@ -35,20 +42,19 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
         compulsion: [],
         restoration: [],
         enchantment: [],
-        resource: [],
         playerHasSkill: []
     }
 
     componentDidMount() {
         // JSON of all skills
-        var skillList = require('./site_layout/skill_trees/skillsjsn.json');
-        this.sortSkillsByTree(skillList);
-        // let skills = [];
-        // axios.get('http://localhost:8080/skills')
-        //     .then(res => {
-        //         skills = [...res.data];
-        //         this.sortSkillsByTree(skills);
-        //         console.log(this.state)});
+        // var skillList = require('./site_layout/skill_trees/skillsjsn.json');
+        // this.sortSkillsByTree(skillList);
+        let skills = [];
+        axios.get('http://localhost:8080/skills')
+            .then(res => {
+                skills = [...res.data];
+                this.sortSkillsByTree(skills);
+                console.log(this.state)});
     }
 
     componentDidUpdate() {
@@ -101,10 +107,13 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
     calculateSpentSkillPoints = () => {
         var spent = 0;
         var playerSkills = this.state.playerHasSkill;
+        var playerResources = this.state.resources;
 
         for (let skill in playerSkills) {
             spent += playerSkills[skill].cost;
         }
+
+        spent += (playerResources.craftPoints * 2) + (playerResources.productionPoints * 2) + playerResources.magicPoints;
 
         return spent;
     }
@@ -118,7 +127,7 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
 
         let requiredSkill = skill.requires
 
-        if (requiredSkill === "") {
+        if (requiredSkill === "" || requiredSkill === null) {
             
             return true; 
 
@@ -179,60 +188,38 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
         return false;
     }
 
-    addResource = (newResource, max) => {
+    addResource = (resourceName, cost, max) => {
 
-        if (this.calculateSkillPointsRemaining() - newResource.cost < 0) {
-            console.log("You do not have enough skill points for " + newResource.name);
+        if (this.calculateSkillPointsRemaining() - cost < 0) {
+            console.log("You do not have enough skill points for " + resourceName);
             return false;
         };
 
-        var numberOfPoints = 0;
-
-        for (let resources in this.state.playerHasSkill) {
-
-            let hasAPoint = this.state.playerHasSkill[resources].name;
-
-            if (newResource.name === hasAPoint) {
-                numberOfPoints++;
-            }
-        }
-
-        if (numberOfPoints >= 10) {
-            if (newResource.name === "Craft" || newResource.name === "Production") {
-                console.log(newResource.name + " limit reached")
+        if (this.state.resources[resourceName] >= max) {
+                console.log(resourceName + " limit reached")
                 return false;
-            }
+        };
 
-            if (numberOfPoints >= 20) {
-                console.log(newResource.name + " limit reached")
-                return false;
-            }
-        }
+        let resources = this.state.resources
+        resources[resourceName] += 1;
 
-        return this.addSkill(newResource);
+        this.setState({resources}, () => {this.calculateSkillPointsRemaining()});
+
+        return true;
     }
 
-    getResourceCount = (resourceName) => {
-        if (resourceName == undefined) {
-            return null;
-        }
-        var count = 0;
-        for (let resources in this.state.playerHasSkill) {    
-           
-            if (this.state.playerHasSkill[resources].name === resourceName) {
-                count++;
-            }
-        }
-        return count;
-    }
+    removeResource = (resourceName) => {
+        console.log(this.state.resources)
 
-    removeResource = (removeResourceName) => {
-        if (!this.state.playerHasSkill.includes(removeResourceName)) {
+        if (this.state.resources[resourceName] == 0) {
             console.log("you can't go below 0, you idiot")
             return false;
         }
 
-        this.removeSkill(removeResourceName, true);
+        let resources = this.state.resources
+        resources[resourceName] -= 1;
+
+        this.setState({resources});
     }
 
     addSkill = (skill) => {
@@ -245,8 +232,7 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
         console.log("You have acquired the " + skill.name + " skill");
         return true;
         }
-
-    
+   
     removeSkill = (skill, resourceFlag) => {
         // if it's a resource, remove one copy
         if (resourceFlag) {
@@ -291,7 +277,16 @@ import SkillTree from './site_layout/skill_trees/SkillTree';
                 />
 
                 <Container>
-                    <Resources resources={this.state.resource} addResource={this.addResource} getResourceCount={this.getResourceCount} removeResource={this.removeResource} lockChanges={this.state.locked} playerHasSkill={this.state.playerHasSkill}/>
+                    <Resources resources={this.state.resources}
+
+                     addResource={this.addResource} 
+
+                     removeResource={this.removeResource} 
+                     lockChanges={this.state.locked} 
+                    
+                    MAGIC_POINT_COST={this.state.MAGIC_POINT_COST}
+                    PRODUCTION_POINT_COST={this.state.PRODUCTION_POINT_COST}
+                    CRAFT_POINT_COST={this.state.CRAFT_POINT_COST}/>
                     
                     <Row>
                         <Col className="skilltree">

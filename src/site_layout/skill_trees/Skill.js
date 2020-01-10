@@ -5,13 +5,13 @@ function Skill(props){
    const [isChecked, setIsChecked] = useState(false);
 
    const addSpaces = (string) => {
-           if (string.includes("2")) {
+           if (props.skill.tier == 2) {
                 return '  ';
-           } else if (string.includes("3")) {
+           } else if (props.skill.tier == 3) {
                 return '    ';
-           } else if (string.includes("4")) {
+           } else if (props.skill.tier == 4) {
                 return '      ';
-           } else if (string.includes("5")) {
+           } else if (props.skill.tier == 5) {
                 return '        ';
            }
    }
