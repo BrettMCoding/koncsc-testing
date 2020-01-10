@@ -16,36 +16,36 @@ export class CharacterInfo extends Component {
                                 <div className="characterinfo-content">
                                     <Row>
                                         <Col>
-                                            <div>
-                                                Character Name: <input type="text" placeholder="enter a name" id="item"></input>
+                                            <div className="inputbox">
+                                                Character Name: <input type="text" maxLength="33" placeholder="enter a name" id="item"></input>
                                             </div>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <div>Race: <input type="text" placeholder="enter a race" id="item"></input></div>
+                                            <div className="inputbox">Race: <input type="text" maxLength="33" placeholder="enter a race" id="item"></input></div>
                                         </Col>
 
                                         <Col>
-                                            <div>Country: <input type="text" placeholder="enter a country" id="item"></input></div>
+                                            <div className="inputbox">Country: <input type="text" maxLength="33"placeholder="enter a country" id="item"></input></div>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <div>Player: <input type="text" placeholder="enter a player name" id="item"></input></div>
+                                            <div className="inputbox">Player: <input type="text" maxLength="33" placeholder="enter a player name" id="item"></input></div>
                                         </Col>
                                         
                                         <Col>
-                                            <Level level={this.props.level} setLevel={this.props.setLevel}/>
+                                            <Level className="inputbox" level={this.props.level} setLevel={this.props.setLevel}/>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <div className="skillpointsremaining">Skill Points Remaining: <input type="text" readOnly={true} placeholder={this.props.calculateSkillPointsRemaining()} id="item"></input></div>
+                                            <div className="skillpointsremaining">Skill Points Remaining: {this.props.calculateSkillPointsRemaining()}</div>
                                         </Col>
                                         
                                         <Col>
-                                            <div>Saved XP: <input type="text" placeholder="0" id="item"></input></div>
+                                            <div className="inputbox">Saved XP: <input type="text" maxLength="33" placeholder="0" id="item"></input></div>
                                         </Col>
                                     </Row>
                                 </div>

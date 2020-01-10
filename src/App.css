@@ -33,6 +33,12 @@ body {
     color: white;
 }
 
+.infocolOverride {
+    padding: 0px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 .characterinfo-box{
     /* background: rgb(153, 153, 153); */
     background: #333;
@@ -44,10 +50,16 @@ body {
     margin: 15px;
 }
 
+.inputbox {
+    display: flex;
+}
+
 input {
     background: #333;
     color: aliceblue;
     border: none;
+    flex: 1;
+    padding-left: 4px;
 }
 
 a {
@@ -204,29 +216,3 @@ a {
     color: white;
     opacity: 1;
 }
-
-/* .btn {
-    display: inline-block;
-    border: none;
-    background: #555;
-    color: #fff;
-    padding: 7px 20px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    color: #666;
-}
-
-.leftTodo {
-    float: left;
-}
-
-.rightTodo {
-    float: left;
-}
-
-.flexboy {
-    display: flexbox;
-    
-} */
