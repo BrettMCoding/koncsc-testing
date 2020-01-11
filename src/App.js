@@ -11,18 +11,19 @@ import axios from 'axios';
  class App extends React.Component {
     state = {
         // character info
-            name: "",
-            race: "",
-            player: "",
-            country: "",
-            level: 1,
-            savedXP: 0,
+            id: 1,
+            name: "sd",
+            race: "adad",
+            player: "adsfdv",
+            country: "afaf",
+            level: 12222,
+            savedXp: 0,
 
             // With resources, the cost is set in state, and not in the database. ...For now.
 
             // RESOURCES
             resources: {
-                magicPoints: 5,
+                magicPoints: 0,
                 craftPoints: 0,
                 productionPoints: 0,
             },
@@ -76,8 +77,52 @@ import axios from 'axios';
         } 
     };
 
-    saveCharacter = () => {}
-    loadCharacter = (character) => {}
+    saveCharacter = () => {
+        let values = this.state
+
+        let character = {
+            
+            id: values.id,
+            name: values.name,
+            race: values.race,
+            country: values.country,
+            level: values.level,
+            savedXp: values.savedXP,
+            magicPoints: values.resources.magicPoints,
+            craftPoints: values.resources.craftPoints,
+            productionPoints: values.resources.productionPoints,
+            skills: values.playerHasSkill
+        }
+        console.log(character);
+    }
+
+    loadCharacter = (id) => {
+
+        axios.get('http://localhost:8080/character',
+        { "id": id })
+
+            .then((res) => {
+
+                this.setState(prevState =>({
+                    id : res.data.id,
+                    name: res.data.name,
+                    race: res.data.race,
+                    country: res.data.country,
+                    level: res.data.level,
+                    savedXp: res.data.savedXp,
+                    magicPoints: res.data.resources.magicPoints,
+                    craftPoints: res.data.resources.craftPoints,
+                    productionPoints: res.data.resources.productionPoints,
+                    playerHasSkill: res.data.skills
+
+                }))
+
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+            })
+
+    }
 
     // updateValue = (stateValue) => {
     //     this.setState(prevState => ({[stateValue]}))
@@ -230,6 +275,7 @@ import axios from 'axios';
         });
 
         console.log("You have acquired the " + skill.name + " skill");
+        this.saveCharacter();
         return true;
         }
    
