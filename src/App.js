@@ -4,34 +4,44 @@ import Header from './site_layout/header/Header';
 import CharacterInfo from './site_layout/character_info/CharacterInfo';
 import Resources from './site_layout/resources/Resources';
 import SkillTree from './site_layout/skill_trees/SkillTree';
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import axios from 'axios';
+
+import UserLoginLogoutComponent from './site_layout/user_management/components/UserLoginLogoutComponent';
+import RegisterNewUserComponent from './site_layout/user_management/components/RegisterNewUserComponent';
+import NewPasswordComponent from './site_layout/user_management/components/NewPasswordComponent';
+import ForgotPasswordComponent from './site_layout/user_management/components/ForgotPasswordComponent';
+import AuthenticationService from './site_layout/user_management/services/AuthenticationService';
 
 
  class App extends React.Component {
     state = {
         // character info
-            id: 1,
-            name: "sd",
-            race: "adad",
-            player: "adsfdv",
-            country: "afaf",
-            level: 12222,
-            savedXp: 0,
+        id: 1,
+        characterName: "Bryan Callen",
+        country: "LosAngelesita",
+        player: "Chris Deelia",
+        race: "ManDragon",
+        level: 69,
+        savedXp: 4,
+        playerHasSkill: [],
 
-            // With resources, the cost is set in state, and not in the database. ...For now.
+        // With resources, the cost is set in state, and not in the database. ...For now.
 
-            // RESOURCES
-            resources: {
-                magicPoints: 0,
-                craftPoints: 0,
-                productionPoints: 0,
-            },
-                MAGIC_POINT_COST: 1,
-                CRAFT_POINT_COST: 2,
-                PRODUCTION_POINT_COST:2,
-
+        // RESOURCES
+        resources: {
+            magicPoints: 5,
+            craftPoints: 7,
+            productionPoints: 8,
+        },
+            MAGIC_POINT_COST: 1,
+            CRAFT_POINT_COST: 2,
+            PRODUCTION_POINT_COST:2,
+        
+        // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
+
+        // SKILL TREES
         combat: [],
         general: [],
         production: [],
@@ -42,8 +52,7 @@ import axios from 'axios';
         necromancy: [],
         compulsion: [],
         restoration: [],
-        enchantment: [],
-        playerHasSkill: []
+        enchantment: []
     }
 
     componentDidMount() {
@@ -56,6 +65,10 @@ import axios from 'axios';
                 skills = [...res.data];
                 this.sortSkillsByTree(skills);
                 console.log(this.state)});
+        if (AuthenticationService.isUserLoggedIn()) {
+            AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
+            console.log(sessionStorage.getItem("USER_TOKEN"))
+        };
     }
 
     componentDidUpdate() {
@@ -81,38 +94,51 @@ import axios from 'axios';
         let values = this.state
 
         let character = {
-            
-            id: values.id,
-            name: values.name,
+            characterName: values.characterName,
+            player: values.player,
             race: values.race,
             country: values.country,
             level: values.level,
-            savedXp: values.savedXP,
+            savedXp: values.savedXp,
             magicPoints: values.resources.magicPoints,
             craftPoints: values.resources.craftPoints,
             productionPoints: values.resources.productionPoints,
             skills: values.playerHasSkill
         }
-        console.log(character);
+
+        return axios({
+            method: 'post',
+            url: `http://localhost:8080/character`,
+            data: character })
+            .then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err.response.data)
+            })
+        
     }
 
     loadCharacter = (id) => {
+        let wtf = {"id":1}
 
-        axios.get('http://localhost:8080/character',
-        { "id": id })
-
+        return axios({
+            method: 'get',
+            url: 'http://localhost:8080/character',
+            params: {"id":1}})
             .then((res) => {
-
+                console.log(res.data)
                 this.setState(prevState =>({
                     id : res.data.id,
-                    name: res.data.name,
+                    characterName: res.data.characterName,
                     race: res.data.race,
                     country: res.data.country,
                     level: res.data.level,
                     savedXp: res.data.savedXp,
-                    magicPoints: res.data.resources.magicPoints,
-                    craftPoints: res.data.resources.craftPoints,
-                    productionPoints: res.data.resources.productionPoints,
+                    magicPoints: res.data.magicPoints,
+
+                    craftPoints: res.data.craftPoints,
+                    
+                    productionPoints: res.data.productionPoints,
                     playerHasSkill: res.data.skills
 
                 }))
@@ -275,7 +301,7 @@ import axios from 'axios';
         });
 
         console.log("You have acquired the " + skill.name + " skill");
-        this.saveCharacter();
+        
         return true;
         }
    
@@ -312,91 +338,116 @@ import axios from 'axios';
     render() {
         return (
             <div className="App">
-                <Header lockChanges={this.lockChanges} locked={this.state.locked}>
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} STATE={this.state}>
 
-                </Header>
+                            </Header>
 
-                <CharacterInfo
-                        level={this.state.level}
-                        setLevel={this.setLevel}
-                        calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}
-                />
+                            <CharacterInfo
+                                    level={this.state.level}
+                                    setLevel={this.setLevel}
+                                    calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}
+                            />
 
-                <Container>
-                    <Resources resources={this.state.resources}
+                            <Container>
+                        <Resources resources={this.state.resources}
 
-                     addResource={this.addResource} 
+                        addResource={this.addResource} 
 
-                     removeResource={this.removeResource} 
-                     lockChanges={this.state.locked} 
-                    
-                    MAGIC_POINT_COST={this.state.MAGIC_POINT_COST}
-                    PRODUCTION_POINT_COST={this.state.PRODUCTION_POINT_COST}
-                    CRAFT_POINT_COST={this.state.CRAFT_POINT_COST}/>
-                    
-                    <Row>
-                        <Col className="skilltree">
-                            <div className="combat">
-                                <h3>Combat</h3>
-                                <SkillTree skills={this.state.combat} check={this.check} lockChanges={this.state.locked} />
-                            </div>
+                        removeResource={this.removeResource} 
+                        lockChanges={this.state.locked} 
+                        
+                        MAGIC_POINT_COST={this.state.MAGIC_POINT_COST}
+                        PRODUCTION_POINT_COST={this.state.PRODUCTION_POINT_COST}
+                        CRAFT_POINT_COST={this.state.CRAFT_POINT_COST}/>
+                        
+                        <Row>
+                            <Col className="skilltree">
+                                <div className="combat">
+                                    <h3>Combat</h3>
+                                    <SkillTree skills={this.state.combat} check={this.check} lockChanges={this.state.locked} />
+                                </div>
 
-                            <div className="general">
-                                <h3>General</h3>
-                                <SkillTree skills={this.state.general} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-                            <div className="nature">
-                                <h3>Nature</h3>
-                                <SkillTree skills={this.state.nature} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-                            <div className="necromancy">
-                                <h3>Necromancy</h3>
-                                <SkillTree skills={this.state.necromancy} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-                        </Col>
+                                <div className="general">
+                                    <h3>General</h3>
+                                    <SkillTree skills={this.state.general} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+                                <div className="nature">
+                                    <h3>Nature</h3>
+                                    <SkillTree skills={this.state.nature} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+                                <div className="necromancy">
+                                    <h3>Necromancy</h3>
+                                    <SkillTree skills={this.state.necromancy} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+                            </Col>
 
-                        <Col className="skilltree">
+                            <Col className="skilltree">
 
-                            <div className="production">
-                                <h3>Production</h3>
-                                <SkillTree skills={this.state.production} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-                            
-                            <div className="aegis">
-                                <h3>Aegis</h3>
-                                <SkillTree skills={this.state.aegis} check={this.check} lockChanges={this.state.locked} />
-                            </div>
+                                <div className="production">
+                                    <h3>Production</h3>
+                                    <SkillTree skills={this.state.production} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+                                
+                                <div className="aegis">
+                                    <h3>Aegis</h3>
+                                    <SkillTree skills={this.state.aegis} check={this.check} lockChanges={this.state.locked} />
+                                </div>
 
-                            <div className="battle">
-                                <h3>Battle</h3>
-                                <SkillTree skills={this.state.battle} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-                        </Col>
+                                <div className="battle">
+                                    <h3>Battle</h3>
+                                    <SkillTree skills={this.state.battle} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+                            </Col>
 
-                        <Col className="skilltree">
+                            <Col className="skilltree">
 
-                            <div className="roleplaying">
-                                <h3>Roleplaying</h3>
-                                <SkillTree skills={this.state.roleplaying} check={this.check} lockChanges={this.state.locked} />
-                            </div>
+                                <div className="roleplaying">
+                                    <h3>Roleplaying</h3>
+                                    <SkillTree skills={this.state.roleplaying} check={this.check} lockChanges={this.state.locked} />
+                                </div>
 
-                            <div className="compulsion">
-                                <h3>Compulsion</h3>
-                                <SkillTree skills={this.state.compulsion} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-        
-                            <div className="restoration">
-                                <h3>Restoration</h3>
-                                <SkillTree skills={this.state.restoration} check={this.check} lockChanges={this.state.locked} />
-                            </div>
+                                <div className="compulsion">
+                                    <h3>Compulsion</h3>
+                                    <SkillTree skills={this.state.compulsion} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+            
+                                <div className="restoration">
+                                    <h3>Restoration</h3>
+                                    <SkillTree skills={this.state.restoration} check={this.check} lockChanges={this.state.locked} />
+                                </div>
 
-                            <div className="enchantment">
-                                <h3>Enchantment</h3>
-                                <SkillTree skills={this.state.enchantment} check={this.check} lockChanges={this.state.locked} />
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
+                                <div className="enchantment">
+                                    <h3>Enchantment</h3>
+                                    <SkillTree skills={this.state.enchantment} check={this.check} lockChanges={this.state.locked} />
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                        </Route>
+                        <Route exact path="/login">
+                            <UserLoginLogoutComponent />
+                                <div className="registerbox d-flex flex-column align-items-center m-5">
+                                    <div>No account?</div>
+                                    <Link to="/register">
+                                        <button className="btn btn-success">Register</button>
+                                    </Link>
+                                    <div>Forgot your password?</div>
+                                    <Link to="/forgot">
+                                        <button className="btn btn-success">Reset Password</button>
+                                    </Link>
+                                </div>
+                        </Route>
+
+                        <Route path="/register" exact component={RegisterNewUserComponent} />
+
+                        <Route path="/forgot" exact component={ForgotPasswordComponent} />
+
+                        <Route path="/newpass:token" exact component={NewPasswordComponent} /> 
+                    </Switch>
+                </Router>
             </div>
         );
     }

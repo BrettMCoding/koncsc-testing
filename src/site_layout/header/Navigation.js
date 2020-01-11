@@ -13,6 +13,7 @@ import {
   DropdownItem,
     // NavbarText
 } from 'reactstrap';
+import { USER_NAME_SESSION_ATTRIBUTE_NAME } from '../user_management/services/AuthenticationService';
 
 function Navigation(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +41,30 @@ function Navigation(props) {
                 <NavLink>
                     {/* this might be my favorite piece of code that I've ever written */}
                      <button className="navButton" onClick={props.lockChanges} >{props.locked ? "Unl" : "L"}ock Skill Editing</button>
+                </NavLink>
+            </NavItem>
+
+            <NavItem>
+                <NavLink>
+                     <button className="navButton" onClick={props.saveCharacter} >Save Character</button>
+                </NavLink>
+            </NavItem>
+
+            <NavItem>
+                <NavLink>
+                     <button className="navButton" onClick={props.loadCharacter} >Load Character</button>
+                </NavLink>
+            </NavItem>
+
+            <NavItem>
+                <NavLink>
+                     <button className="navButton" onClick={()=>{console.log(props.STATE)}} >console.log(STATE)</button>
+                </NavLink>
+            </NavItem>
+
+            <NavItem>
+                <NavLink>
+                     <button className="navButton" onClick={()=>{console.log(sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME))}} >console.log(sessionstorageusername)</button>
                 </NavLink>
             </NavItem>
 
