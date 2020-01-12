@@ -137,7 +137,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
                     magicPoints: res.data.magicPoints,
 
                     craftPoints: res.data.craftPoints,
-                    
+
                     productionPoints: res.data.productionPoints,
                     playerHasSkill: res.data.skills
 
@@ -154,10 +154,10 @@ import AuthenticationService from './site_layout/user_management/services/Authen
     //     this.setState(prevState => ({[stateValue]}))
     // }
 
-    setLevel = (newLevel) => {
-        this.setState({level: newLevel}, function() {
+    characterInfoChange = (infoName, updatedInfo) => {
+        this.setState({[infoName]: updatedInfo}, function() {
             this.calculateSkillPointsRemaining();
-        });    
+        });  
     }
     
     calculateBaseSkillPoints = () => { 
@@ -194,30 +194,27 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         return cost < skillPointsRemaining;
     }
 
+    // return true if player meets requirements for skill
     checkRequirements = (skill) => {
-
+    
         let requiredSkill = skill.requires
 
+        // skill does not have a required skill
         if (requiredSkill === "" || requiredSkill === null) {
-            
             return true; 
-
         }
 
-        if (this.state.playerHasSkill
-            .find(skill => skill.name === requiredSkill) !== undefined) {
-            
-            return true;
+        let pSkills = this.state.playerHasSkill;
 
-        } else {
-           
-            return false;
+        for (let pSkill in pSkills) {
 
+            if (requiredSkill.includes(pSkills[pSkill].name)) {
+
+                return true;
+            }
         }
-    
-        //  unreachable
-        // console.log('error in checkRequirements Function');
-        // return  0;
+
+        return false;
     }
     
     // add/remove skill
@@ -247,13 +244,50 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         // return true;
     }
 
+    // don't allow player to remove a skillpoint if it's a necessary requirement for another skill the player has
     skillIsRequired = (skill) => {
-        for (let playerSkill in this.state.playerHasSkill) {
-            let requirement = this.state.playerHasSkill[playerSkill].requires
-            if (skill.name === requirement) {
-                console.log("cannot remove " + skill.name + ". it is a prerequisite for " + this.state.playerHasSkill[playerSkill].name)
-                return true;
+
+        // THIS FUNCTION IS ATROCIOUS
+
+        let pSkills = this.state.playerHasSkill;
+
+        for (let pSkill in pSkills) {
+
+            // current iterations required skills
+            let requirementSkillString = pSkills[pSkill].requires
+
+            // if the current playerskill has a prerequisite skill
+            if (requirementSkillString !== "" && requirementSkillString !== null) {
+
+                // if it includes the skill we are trying to remove, it's a requirement
+                if (requirementSkillString.includes(skill.name)) {
+
+                    // if it includes a pipe, there's another prerequisite
+                    if(requirementSkillString.includes("|")) {
+
+                        // iterate again
+                        for (let pSkill2 in pSkills) {
+
+                            // if the current playerskill has a prerequisite skill
+                            if (requirementSkillString !== "" && requirementSkillString !== null) {
+
+                                // if the NEW FOUND SKILL is required by the FIRST FOUND SKILL
+                                // but it does not equal the SKILL BEING REMOVED
+                                // the player still meets the requirements
+                                // (this took me way too long and it seems overcomplicated)
+                                if (skill.name !== pSkills[pSkill2].name && requirementSkillString.includes(pSkills[pSkill2].name)) {
+                                    console.log(skill.name + " is a prerequisite for " + pSkills[pSkill].name + ", but player has " + pSkills[pSkill2].name + ", which is also a prerequisite")
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                        console.log("cannot remove " + skill.name + ". it is a prerequisite for " + pSkills[pSkill].name)
+    
+                        return true;    
+                }
             }
+
         }
 
         return false;
@@ -305,18 +339,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         return true;
         }
    
-    removeSkill = (skill, resourceFlag) => {
-        // if it's a resource, remove one copy
-        if (resourceFlag) {
-            this.setState(prevState => ({
-                // filter previous state.playerhasskill array to return a new array without first index of matching skill(resource, in this case)
-                playerHasSkill: prevState.playerHasSkill.filter((arrSkill, index) => prevState.playerHasSkill.indexOf(skill) !== index)
-            }), function () {
-                this.calculateSkillPointsRemaining()
-            })
-            console.log("You have removed one point of the " + skill.name + " skill")
-            return true;
-        }
+    removeSkill = (skill) => {
 
         this.setState(prevState => ({
             // filter previous state.playerhasskill array to return a new array without matching skill
@@ -347,8 +370,22 @@ import AuthenticationService from './site_layout/user_management/services/Authen
 
                             <CharacterInfo
                                     level={this.state.level}
-                                    setLevel={this.setLevel}
+                                    characterName={this.state.characterName}
+                                    country={this.state.country}
+                                    player={this.state.player}
+                                    race={this.state.race}
+                                    savedXp={this.state.savedXp}
+
+                                    characterInfoChange={this.characterInfoChange}
+                                    lockChanges={this.state.locked}
                                     calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}
+
+
+
+
+
+
+
                             />
 
                             <Container>

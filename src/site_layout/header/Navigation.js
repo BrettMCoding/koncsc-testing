@@ -40,7 +40,7 @@ function Navigation(props) {
             <NavItem>
                 <NavLink>
                     {/* this might be my favorite piece of code that I've ever written */}
-                     <button className="navButton" onClick={props.lockChanges} >{props.locked ? "Unl" : "L"}ock Skill Editing</button>
+                     <button className="navButton" onClick={props.lockChanges} >{props.locked ? "Unl" : "L"}ock Editing</button>
                 </NavLink>
             </NavItem>
 
