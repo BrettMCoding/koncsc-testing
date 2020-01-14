@@ -2,7 +2,20 @@ import React, { useState } from 'react'
 
 function Skill(props){
 
-   const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+
+    const playerHasSkill = (playerSkills) => { 
+        // if state.playerskills are undefined, return false
+        return (playerSkills === undefined) ?
+            false : compareIds(playerSkills)
+    }
+    
+    // search playerskills for a match
+    const compareIds = (playerSkills) => {
+
+        return playerSkills.some(skill => skill.id === props.skill.id);
+
+    }
 
    const addSpaces = (string) => {
            if (props.skill.tier == 2) {
@@ -16,15 +29,16 @@ function Skill(props){
            }
    }
 
-   const checkedStyle = isChecked ? " checked" : "";
+   const checkedStyle = playerHasSkill(props.playerSkills) ? " checked" : "";
 
     return (
         <div className={"skill row d-flex flex-nowrap" + checkedStyle}>
             <div className={"skillBody col pl-1" + checkedStyle}>
                 <p>
-                <input disabled={props.lockChanges} type="checkbox" checked={isChecked} 
+                <input disabled={props.lockChanges} type="checkbox" checked={playerHasSkill(props.playerSkills)} 
                 
                     onChange={e => {
+
                         setIsChecked(
                             props.check(props.skill, e.target.checked)
                         );
