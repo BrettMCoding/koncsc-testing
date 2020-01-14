@@ -19,6 +19,7 @@ function LoginComponent(props) {
                 AuthenticationService.registerSuccessfulLogin(email, password)
                 // this.props.history.push(`/courses`)
 
+                props.toggleModal();
                 props.getUserLoggedInProp(AuthenticationService.isUserLoggedIn())
 
             }).catch(() => {
@@ -40,7 +41,7 @@ function LoginComponent(props) {
 
                     {hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
 
-                    {showSuccessMessage && <div className="alert alert-success text-center">Login Sucessful</div>}
+                    {showSuccessMessage && <div className="alert alert-success text-center">Login Successful</div>}
 
                     Email: <input type="text" class="form-control" name="email" value={email} onChange={eventUpdateEmail}/>
 

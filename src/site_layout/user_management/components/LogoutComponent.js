@@ -15,7 +15,7 @@ export default function LogoutComponent(props) {
     return (
         <div>
             {props.isUserLoggedIn && 
-                <button className="btn btn-success" onClick={logout}>Logout</button> 
+                <button className="btn btn-danger" onClick={logout}>Logout</button> 
             }
         </div>
     )
