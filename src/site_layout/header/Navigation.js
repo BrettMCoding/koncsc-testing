@@ -18,6 +18,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Fade,
   Form,
   FormGroup,
   Label,
@@ -27,13 +28,18 @@ import {
 } from 'reactstrap';
 import { USER_NAME_SESSION_ATTRIBUTE_NAME } from '../user_management/services/AuthenticationService';
 import AuthenticationService from '../user_management/services/AuthenticationService';
+import NavCharacterList from '../user_management/components/NavCharacterList';
 
 
 function Navigation(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
 
+  const logs = () => {console.log(props.staate)}
+
   const toggle = () => setIsOpen(!isOpen);
+
+  // login modal
   const toggleModal = () => setModal(isUserLoggedIn ? false : !modal);
 
   const [isUserLoggedIn, setUserLoggedIn] = useState(AuthenticationService.isUserLoggedIn());
@@ -72,18 +78,8 @@ function Navigation(props) {
                     Save Character
                 </DropdownToggle>
                 <DropdownMenu right>
-                    {/*
-                        LIST OF CHARACTERS
-                         <DropdownItem>
-                    
-                    </DropdownItem>
-                    <DropdownItem>
-                    Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                    Reset
-                    </DropdownItem> */}
+                    <NavCharacterList characterList={props.characterList} handleCharacter={props.saveCharacter}/>
+                    <div onClick={()=>{props.saveCharacter()}}>New Character</div>
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </NavItem>
@@ -94,18 +90,7 @@ function Navigation(props) {
                     Load Character
                 </DropdownToggle>
                 <DropdownMenu right>
-                    {/*
-                        LIST OF CHARACTERS
-                         <DropdownItem>
-                    
-                    </DropdownItem>
-                    <DropdownItem>
-                    Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                    Reset
-                    </DropdownItem> */}
+                    <NavCharacterList characterList={props.characterList} handleCharacter={props.loadCharacter}/>
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </NavItem>
@@ -115,8 +100,33 @@ function Navigation(props) {
                 {isUserLoggedIn && <LogoutComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} />}
 
                 {!isUserLoggedIn && <Button color="success" onClick={toggleModal}>Login</Button>}
+                
+            </NavItem>
+                <NavItem>
+                    <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                        Delete Character
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <NavCharacterList characterList={props.characterList} handleCharacter={props.deleteCharacter}/>
+                    </DropdownMenu>
+                    </UncontrolledDropdown>
+                </NavItem>
 
-                <Modal isOpen={modal} toggle={toggleModal} className="">
+          <NavItem>
+                <NavLink>
+                     <button className="navButton" onClick={logs} > log state</button>
+                </NavLink>
+            </NavItem>
+          </Nav>
+
+
+          {/* <NavbarText>Simple Text</NavbarText> */}
+
+        </Collapse>
+      </Navbar>
+
+      <Modal isOpen={modal} toggle={toggleModal} className="" fade={true}>
                     <ModalHeader toggle={toggleModal}>Login</ModalHeader>
                     <ModalBody>
                         <LoginComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} toggleModal={toggleModal}/>
@@ -125,13 +135,6 @@ function Navigation(props) {
                             <Button className=" m-auto w-50 " color="secondary" onClick={toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
-            </NavItem>
-          </Nav>
-
-          {/* <NavbarText>Simple Text</NavbarText> */}
-
-        </Collapse>
-      </Navbar>
     </div>
   );
 }

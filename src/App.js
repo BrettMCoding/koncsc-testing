@@ -26,6 +26,8 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         savedXp: 4,
         playerHasSkill: [],
 
+        characterList: [],
+
         
         // RESOURCES
         resources: {
@@ -62,7 +64,8 @@ import AuthenticationService from './site_layout/user_management/services/Authen
             console.log(sessionStorage.getItem("USER_TOKEN"))
         };
 
-        this.loadCharacter();
+        this.loadCharacterList();
+
         // JSON of all skills
         // var skillList = require('./site_layout/skill_trees/skillsjsn.json');
         // this.sortSkillsByTree(skillList);
@@ -93,11 +96,11 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         } 
     };
 
-    saveCharacter = () => {
+    saveCharacter = (id) => {
         let values = this.state
 
         let character = {
-            id: 2,
+            id: id,
             characterName: values.characterName,
             player: values.player,
             race: values.race,
@@ -116,10 +119,27 @@ import AuthenticationService from './site_layout/user_management/services/Authen
             data: character })
             .then((res) => {
                 console.log(res)
+                this.loadCharacterList();
             }).catch((err) => {
                 console.log(err.response.data)
             })
         
+    }
+
+    loadCharacterList = () => {
+        return axios({
+            method: 'get',
+            url: 'http://localhost:8080/characters'})
+            .then((res) => {
+                console.log(res.data)
+                this.setState(() =>({
+                    characterList: [...res.data]
+                }))
+
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+            })
     }
 
     loadCharacter = (id) => {
@@ -127,7 +147,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         return axios({
             method: 'get',
             url: 'http://localhost:8080/character',
-            params: {"id":2}})
+            params: {"id":id}})
             .then((res) => {
                 console.log(res.data)
                 this.setState(prevState =>({
@@ -147,6 +167,22 @@ import AuthenticationService from './site_layout/user_management/services/Authen
 
                 }))
 
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+            })
+
+    }
+
+    deleteCharacter = (id) => {
+
+        return axios({
+            method: 'delete',
+            url: 'http://localhost:8080/character',
+            params: {"id":id}})
+            .then((res) => {
+                console.log(res.data)
+                this.loadCharacterList()
             })
             .catch((err) => {
                 console.log(err.response.data)
@@ -378,7 +414,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} STATE={this.state}>
+                            <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} deleteCharacter={this.deleteCharacter} staate={this.state} characterList={this.state.characterList}>
 
                             </Header>
 

@@ -36,16 +36,16 @@ function LoginComponent(props) {
     return (
         <div>
         {!props.isUserLoggedIn &&
-                <div class="container form-group d-flex flex-column">
+                <div className="container form-group d-flex flex-column">
                     <h1 className="text-center">Login</h1>
 
                     {hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
 
                     {showSuccessMessage && <div className="alert alert-success text-center">Login Successful</div>}
 
-                    Email: <input type="text" class="form-control" name="email" value={email} onChange={eventUpdateEmail}/>
+                    Email: <input type="text" className="form-control" name="email" value={email} onChange={eventUpdateEmail}/>
 
-                    Password: <input type="password" class="form-control" name="password" value={password} onChange={eventUpdatePassword}/>
+                    Password: <input type="password" className="form-control" name="password" value={password} onChange={eventUpdatePassword}/>
 
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={loginClicked}>Login</button>
                 </div>
