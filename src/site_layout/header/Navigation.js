@@ -26,7 +26,6 @@ import {
   Button,
     // NavbarText
 } from 'reactstrap';
-import {useSpring, animated} from 'react-spring';
 import { USER_NAME_SESSION_ATTRIBUTE_NAME } from '../user_management/services/AuthenticationService';
 import AuthenticationService from '../user_management/services/AuthenticationService';
 import NavCharacterList from '../user_management/components/NavCharacterList';
@@ -42,8 +41,6 @@ function Navigation(props) {
 
   // login modal
   const toggleModal = () => setModal(isUserLoggedIn ? false : !modal);
-
-        const an = useSpring({opacity: modal ? 1 : 0})
 
   const [isUserLoggedIn, setUserLoggedIn] = useState(AuthenticationService.isUserLoggedIn());
 
@@ -128,8 +125,8 @@ function Navigation(props) {
 
         </Collapse>
       </Navbar>
-                
-                <Modal isOpen={modal} toggle={toggleModal}>
+
+      <Modal isOpen={modal} toggle={toggleModal} className="" fade={true}>
                     <ModalHeader toggle={toggleModal}>Login</ModalHeader>
                     <ModalBody>
                         <LoginComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} toggleModal={toggleModal}/>
@@ -138,7 +135,6 @@ function Navigation(props) {
                             <Button className=" m-auto w-50 " color="secondary" onClick={toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
-
     </div>
   );
 }

@@ -13,12 +13,6 @@ import NewPasswordComponent from './site_layout/user_management/components/NewPa
 import ForgotPasswordComponent from './site_layout/user_management/components/ForgotPasswordComponent';
 import AuthenticationService from './site_layout/user_management/services/AuthenticationService';
 
-import {Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-Button, } from 'reactstrap';
-
 
  class App extends React.Component {
     state = {
@@ -48,7 +42,6 @@ Button, } from 'reactstrap';
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
-        modal: false,
 
         // SKILL TREES
         combat: [],
@@ -64,26 +57,24 @@ Button, } from 'reactstrap';
         enchantment: []
     }
 
-    toggle() {this.setState(prevState => ({modal: !prevState.modal}))};
-
     componentDidMount() {
 
-        // if (AuthenticationService.isUserLoggedIn()) {
-        //     AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
-        //     console.log(sessionStorage.getItem("USER_TOKEN"))
-        // };
+        if (AuthenticationService.isUserLoggedIn()) {
+            AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
+            console.log(sessionStorage.getItem("USER_TOKEN"))
+        };
 
-        // this.loadCharacterList();
+        this.loadCharacterList();
 
-        // // JSON of all skills
-        // // var skillList = require('./site_layout/skill_trees/skillsjsn.json');
-        // // this.sortSkillsByTree(skillList);
-        // let skills = [];
-        // axios.get('http://localhost:8080/skills')
-        //     .then(res => {
-        //         skills = [...res.data];
-        //         this.sortSkillsByTree(skills);
-        //         console.log(this.state)});
+        // JSON of all skills
+        // var skillList = require('./site_layout/skill_trees/skillsjsn.json');
+        // this.sortSkillsByTree(skillList);
+        let skills = [];
+        axios.get('http://localhost:8080/skills')
+            .then(res => {
+                skills = [...res.data];
+                this.sortSkillsByTree(skills);
+                console.log(this.state)});
     }
 
     componentDidUpdate() {
@@ -423,27 +414,6 @@ Button, } from 'reactstrap';
                 <Router>
                     <Switch>
                         <Route exact path="/">
-
-
-
-
-                        <Button color="danger" onClick={this.toggle.bind(this)
-                        }>name</Button>
-                        <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)}>
-                            <ModalHeader toggle={this.toggle.bind(this)}>Modal title</ModalHeader>
-                            <ModalBody>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </ModalBody>
-                            <ModalFooter>
-                            <Button color="primary" onClick={this.toggle.bind(this)}>Do Something</Button>{' '}
-                            <Button color="secondary" onClick={this.toggle.bind(this)}>Cancel</Button>
-                            </ModalFooter>
-                        </Modal>
-
-
-
-
-
                             <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} deleteCharacter={this.deleteCharacter} staate={this.state} characterList={this.state.characterList}>
 
                             </Header>
