@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.0",
-    "bootstrap": "^4.4.0",
+    "axios": "^0.19.1",
+    "bootstrap": "^4.4.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-spring": "^8.0.27",
-    "reactstrap": "^8.1.1",
+    "reactstrap": "^8.3.1",
     "resize-observer-polyfill": "^1.5.1"
   },
   "scripts": {
@@ -37,7 +37,7 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "devDependencies": {
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.4"
   },
   "keywords": [],
   "author": "",
