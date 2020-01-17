@@ -13,6 +13,8 @@ import NewPasswordComponent from './site_layout/user_management/components/NewPa
 import ForgotPasswordComponent from './site_layout/user_management/components/ForgotPasswordComponent';
 import AuthenticationService from './site_layout/user_management/services/AuthenticationService';
 
+import Alerter from "./Alerter";
+import { withAlert } from 'react-alert';
 
  class App extends React.Component {
     state = {
@@ -42,6 +44,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
+        modal: false,
 
         // SKILL TREES
         combat: [],
@@ -57,11 +60,11 @@ import AuthenticationService from './site_layout/user_management/services/Authen
         enchantment: []
     }
 
-    componentDidMount() {
+    toggle() {this.setState(prevState => ({modal: !prevState.modal}))};
 
+    componentDidMount() {
         if (AuthenticationService.isUserLoggedIn()) {
             AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
-            console.log(sessionStorage.getItem("USER_TOKEN"))
         };
 
         this.loadCharacterList();
@@ -74,7 +77,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
             .then(res => {
                 skills = [...res.data];
                 this.sortSkillsByTree(skills);
-                console.log(this.state)});
+                });
     }
 
     componentDidUpdate() {
@@ -346,7 +349,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
     addResource = (resourceName, cost, max) => {
 
         if (this.calculateSkillPointsRemaining() - cost < 0) {
-            console.log("You do not have enough skill points for " + resourceName);
+            this.props.alert.show("You do not have enough skill points", {type:'error'});
             return false;
         };
 
@@ -364,7 +367,6 @@ import AuthenticationService from './site_layout/user_management/services/Authen
     }
 
     removeResource = (resourceName) => {
-        console.log(this.state.resources)
 
         if (this.state.resources[resourceName] == 0) {
             console.log("you can't go below 0, you idiot")
@@ -384,7 +386,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
                 this.calculateSkillPointsRemaining()
         });
 
-        console.log("You have acquired the " + skill.name + " skill");
+        //this.props.alert.show("You have acquired the " + skill.name + " skill");
         
         return true;
         }
@@ -411,9 +413,49 @@ import AuthenticationService from './site_layout/user_management/services/Authen
     render() {
         return (
             <div className="App">
+                {/* <div style={{
+                    display: 'flex',  
+                    textAlign: 'center',
+                    padding: '10px',
+                    flex: '1 100%',
+                    flexWrap: 'nowrap'
+                }}>
+                    <div style={{display: 'flex',
+                        background: 'gold',
+                        alignSelf: 'stretch',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '10px',
+                        flex: '1 100%',
+                        minWidth: 0,
+                        whiteSpace: 'initial'}}>
+                            BITCH TITS
+                    </div>
+                    <div style={{textAlign: 'left',
+                                background: 'deepskyblue',
+                                padding: '10px',
+                                flex: '1 100%',
+                                minWidth: 0,
+                                whiteSpace: 'initial'
+                                }}>
+                            COCKSUCKER MOTHERFUCKER BIUTCH ASS CUNTING FUCKING WHORE COCK
+
+                    </div>
+                    <div style={{display: 'flex',
+                        background: 'gold',
+                        alignSelf: 'stretch',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '10px',
+                        flex: '1 100%',
+                        minWidth: 0,}}>
+                            BITCH TITS
+                    </div>
+                </div> */}
                 <Router>
                     <Switch>
                         <Route exact path="/">
+                            
                             <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} deleteCharacter={this.deleteCharacter} staate={this.state} characterList={this.state.characterList}>
 
                             </Header>
@@ -505,6 +547,7 @@ import AuthenticationService from './site_layout/user_management/services/Authen
                                     </div>
                                 </Col>
                             </Row>
+
                         </Container>
                         </Route>
                         <Route exact path="/login">
@@ -533,4 +576,4 @@ import AuthenticationService from './site_layout/user_management/services/Authen
     }
 }
 
-export default App;
+export default withAlert()(App);

@@ -2,7 +2,6 @@ import React from 'react'
 import Resource from './Resource';
 // import Skilltree from '../skill_trees/SkillTree'
 // import PropTypes from 'prop-types';
-import {Row} from 'reactstrap';
 
 export default function Resources(props) {
     // props.resources.find(x => x.id === 160) = production

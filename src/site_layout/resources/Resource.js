@@ -4,7 +4,7 @@ import { useSpring, animated } from 'react-spring';
 
 export default function Resource(props) {
     // simplify prop drilling
-    const { removeResource, addResource, lockChanges, getResourceCount } = props.props;
+    const { removeResource, addResource, lockChanges } = props.props;
     const { resourceName, resource, max, skillCss, cost, displayName } = props;
     
     // Resource bar step
