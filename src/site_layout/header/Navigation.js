@@ -31,13 +31,15 @@ import { Transition } from 'react-spring/renderprops';
 import { USER_NAME_SESSION_ATTRIBUTE_NAME } from '../user_management/services/AuthenticationService';
 import AuthenticationService from '../user_management/services/AuthenticationService';
 import NavCharacterList from '../user_management/components/NavCharacterList';
-import { useAlert } from 'react-alert'
+import ConfirmationModal from '../user_management/components/ConfirmationModal';
+import { useAlert } from 'react-alert';
 import { isAbsolute } from 'path';
 
 
 function Navigation(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
+  const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
 
   const alert = useAlert();
 
@@ -47,6 +49,19 @@ function Navigation(props) {
 
   // login modal
   const toggleModal = () => setModal(isUserLoggedIn ? false : !modal);
+
+  // confirmation
+  const toggleConfirmationModalIsOpen = () => {
+    setConfirmationModalIsOpen(!confirmationModalIsOpen)};
+
+  const [handleMethod, setHandleMethod] = useState("");
+  const [message, setMessage] = useState("");
+
+  const setCurrentConfirmationModal = (handleMethodArg, message) => {
+    setHandleMethod(() => handleMethodArg);
+    setMessage(message);
+    toggleConfirmationModalIsOpen();
+  }
 
   const [isUserLoggedIn, setUserLoggedIn] = useState(AuthenticationService.isUserLoggedIn());
 
@@ -113,7 +128,7 @@ function Navigation(props) {
                 </DropdownToggle>
                 <DropdownMenu right>
                     <NavCharacterList characterList={props.characterList} handleCharacter={props.saveCharacter}/>
-                    <div onClick={()=>{props.saveCharacter()}}>New Character</div>
+                    <div onClick={()=>{setCurrentConfirmationModal(props.saveCharacter, "Are you sure you want to save this character?")}}>New Character</div>
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </NavItem>
@@ -146,6 +161,9 @@ function Navigation(props) {
                 <NavLink>
                      <button className="navButton" onClick={logs} > log state</button>
                 </NavLink>
+                <NavLink>
+                     <button className="navButton" onClick={() => {debugger}} > debugger</button>
+                </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -160,6 +178,12 @@ function Navigation(props) {
                             <Button className=" m-auto w-50 " color="secondary" onClick={toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
+
+         
+                <ConfirmationModal confirmationModalIsOpen={confirmationModalIsOpen}
+                toggleConfirmationModalIsOpen={toggleConfirmationModalIsOpen}
+                handleCharacter={handleMethod} message={message} />
+               
         </Navbar>
     </div>
   );

@@ -18,7 +18,6 @@ import NewPasswordComponent from './site_layout/user_management/components/NewPa
 import ForgotPasswordComponent from './site_layout/user_management/components/ForgotPasswordComponent';
 import AuthenticationService from './site_layout/user_management/services/AuthenticationService';
 
-import Alerter from "./Alerter";
 import { withAlert } from 'react-alert';
 
  class App extends React.Component {
@@ -105,6 +104,8 @@ import { withAlert } from 'react-alert';
     };
 
     saveCharacter = (id) => {
+        console.log("we made it doe?")
+
         let values = this.state
 
         let character = {
