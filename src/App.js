@@ -1,3 +1,8 @@
+// TODO: confirm save/load/delete
+// TODO: local storage character
+// TODO: printable?
+// TODO: admin mode?
+
 import React from 'react';
 import { Container, Row, Col, } from 'reactstrap';
 import Header from './site_layout/header/Header';
@@ -406,6 +411,7 @@ import { withAlert } from 'react-alert';
 
 
     lockChanges = () => {
+        this.props.alert.show("Character editing " + (this.state.locked ? "unl" : "l") + "ocked")
         this.setState(prevState => ({locked: !prevState.locked}));
         this.calculateSkillPointsRemaining();
     }

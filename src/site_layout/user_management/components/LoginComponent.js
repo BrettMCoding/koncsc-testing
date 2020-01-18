@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AuthenticationService from '../services/AuthenticationService';
+import { useAlert } from 'react-alert';
 
 function LoginComponent(props) {
 
@@ -7,6 +8,7 @@ function LoginComponent(props) {
     const [password, updatePassword] = useState('');
     const [hasLoginFailed, setLoginFailed] = useState(false);
     const [showSuccessMessage, setSuccessMessage] = useState(false);
+    const alert = useAlert();
 
     const loginClicked = () => {
         ///console.log("\n\n\n\n\n")
@@ -17,6 +19,7 @@ function LoginComponent(props) {
             .executeBasicAuthenticationService(email, password)
             .then(() => {
                 AuthenticationService.registerSuccessfulLogin(email, password)
+                alert.show("Login Successful", {type:'success', timeout: 5000})
                 // this.props.history.push(`/courses`)
 
                 props.toggleModal();
