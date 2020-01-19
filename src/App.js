@@ -24,10 +24,21 @@ import AuthenticationService from './site_layout/user_management/services/Authen
 
 import { withAlert } from 'react-alert';
 
+// TOP LEVEL REACT STATE:::
+
+// All of our character information is stored in state. It is overwritten with a localstorage character (if any),
+// or a Database character when selected by the logged in user
+
+// All of a logged in user's characters are stored in characterList
+
+// All of our skills are loaded into skilltree arrays, and player skills are loaded into the playerHasSkill array
+
+// The switch for enabling/disabling skills is also stored here
+
  class App extends React.Component {
     state = {
         // character info
-        id: 1,
+        id: "",
         characterName: "",
         country: "",
         player: "",
@@ -36,6 +47,7 @@ import { withAlert } from 'react-alert';
         savedXp: 0,
         playerHasSkill: [],
 
+        // list of characters owned by logged in user
         characterList: [],
 
         
@@ -45,6 +57,7 @@ import { withAlert } from 'react-alert';
             craftPoints: 0,
             productionPoints: 0,
         },
+
         // With resources, the cost is set in state, and not in the database. ...For now.
             MAGIC_POINT_COST: 1,
             CRAFT_POINT_COST: 2,
@@ -52,7 +65,6 @@ import { withAlert } from 'react-alert';
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
-        modal: false,
 
         // SKILL TREES
         combat: [],
@@ -68,44 +80,45 @@ import { withAlert } from 'react-alert';
         enchantment: []
     }
 
-    toggle() {this.setState(prevState => ({modal: !prevState.modal}))};
-
+    // componentDidMount is called when react successfully inserts a component into the DOM. 
+    // We then check if the user is logged in to load their characters
+    // Then we load all of our skills from the database
+    // Then we load whatever the user had in localStorage, if anything
     componentDidMount() {
+
         if (AuthenticationService.isUserLoggedIn()) {
             AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
             this.loadCharacterList();
         };
 
-
-        // JSON of all skills
-        // var skillList = require('./site_layout/skill_trees/skillsjsn.json');
-        // this.sortSkillsByTree(skillList);
         let skills = [];
         axios.get('http://localhost:8080/skills')
             .then(res => {
+                // an array of skill objects was obtained from the database
                 skills = [...res.data];
+                // sort them
                 this.sortSkillsByTree(skills);
+
                 });
 
         if (localStorage.getItem("character") !== null){
-            
             this.loadLocalCharacter()
         }
     }
 
+    // Called when state or props update, so we use it to update the localStorage character
     componentDidUpdate() {
-        console.log("CDU")
         this.saveLocalCharacter()
     }
 
-    // sort skills by tree
+    // Called in componentDidUpdate. Called when we get skills from database
     sortSkillsByTree = (skills) => {
         // keys in state currently empty arrays
         for (let key in this.state) {
             for (let skill in skills) {
                 // if state key is the same as skill tree
                 if (key === skills[skill].tree) {
-                    // state is immutable. so, we spread the previous state + add skill to matching key and set state to equal the new array
+                    // state is immutable, and batches updates. We spread the previous state (prevState) and then add the skill so that the correct previous value + new value is added
                     this.setState(prevState => ({
                         [key]: [...prevState[key], skills[skill]]
                     }));
@@ -114,6 +127,7 @@ import { withAlert } from 'react-alert';
         } 
     };
 
+    // called by componentDidUpdate
     saveLocalCharacter = () => {
 
         let values = this.state
@@ -134,6 +148,49 @@ import { withAlert } from 'react-alert';
         localStorage.setItem("character", JSON.stringify(character))
     }
 
+    // load character from localStorage, if any
+    loadLocalCharacter = () => {
+        var localStorageCharacter = JSON.parse(localStorage.getItem("character"));
+        
+        this.setState(prevState =>({
+            ...prevState,
+            
+            characterName: localStorageCharacter.characterName,
+            player: localStorageCharacter.player,
+            race: localStorageCharacter.race,
+            country: localStorageCharacter.country,
+            level: localStorageCharacter.level,
+            savedXp: localStorageCharacter.savedXp,
+            magicPoints: localStorageCharacter.magicPoints,
+            craftPoints: localStorageCharacter.craftPoints,
+            productionPoints: localStorageCharacter.productionPoints,
+            playerHasSkill: localStorageCharacter.skills
+        }))
+    }
+    
+    // load all characters owned by current user
+    loadCharacterList = () => {
+        
+        return axios({
+            method: 'get',
+            url: 'http://localhost:8080/characters'})
+            .then((res) => {
+                this.setState(() =>({
+                    characterList: [...res.data]
+                }))
+                
+            })
+            .catch((err) => {
+                // console.log(err.response.data)
+                alert.show(err.response.data, {timeout: 5000, type: 'error'})
+            })
+        }
+        
+    // Save character to database. If an ID is provided, it will overwrite the database character with the matching ID
+    // Ownership of the character is checked on the backend, so the user cannot overwrite a character that does not
+    // belong to them
+
+    // alert is passed in, because App.js this.props.alert is not accessible.
     saveCharacter = (id, alert) => {
 
         let values = this.state
@@ -157,60 +214,30 @@ import { withAlert } from 'react-alert';
             url: `http://localhost:8080/character`,
             data: character })
             .then((res) => {
-                console.log(res)
+                
+                // reload the character list on success
                 this.loadCharacterList();
+
+                // alert arg use
                 alert.show("Character Saved", {timeout: 5000, type: 'success'})
             }).catch((err) => {
-                console.log(err.response.data)
+
+                // console.log(err.response.data)
+                alert.show(err.response.data, {timeout: 5000, type: 'error'})
             })
         
     }
-
-    loadCharacterList = () => {
-        return axios({
-            method: 'get',
-            url: 'http://localhost:8080/characters'})
-            .then((res) => {
-                console.log(res.data)
-                this.setState(() =>({
-                    characterList: [...res.data]
-                }))
-
-            })
-            .catch((err) => {
-                console.log(err.response.data)
-            })
-    }
-
-    loadLocalCharacter = () => {
-                var localStorageCharacter = JSON.parse(localStorage.getItem("character"));
-
-                this.setState(prevState =>({
-                    ...prevState,
-
-                    characterName: localStorageCharacter.characterName,
-                    player: localStorageCharacter.player,
-                    race: localStorageCharacter.race,
-                    country: localStorageCharacter.country,
-                    level: localStorageCharacter.level,
-                    savedXp: localStorageCharacter.savedXp,
-                    magicPoints: localStorageCharacter.magicPoints,
-                    craftPoints: localStorageCharacter.craftPoints,
-                    productionPoints: localStorageCharacter.productionPoints,
-                    playerHasSkill: localStorageCharacter.skills
-                }))
-    }
-
+    
+    // load a user selected character from the database
     loadCharacter = (id, alert) => {
-
+        
         return axios({
             method: 'get',
             url: 'http://localhost:8080/character',
             params: {"id":id}})
             .then((res) => {
-                console.log(res.data)
-            
                 // react doesnt like nested state, so we need to make a nest for our resources first
+                // due to the way we stored them in this.state
                 var resources = {magicPoints: res.data.magicPoints,
                                     productionPoints: res.data.productionPoints,
                                 craftPoints: res.data.craftPoints}
@@ -229,16 +256,14 @@ import { withAlert } from 'react-alert';
                     // resource nest made above
                     resources: resources,
 
-                    craftPoints: res.data.craftPoints,
-
-                    productionPoints: res.data.productionPoints,
+                    // list of user skills
                     playerHasSkill: res.data.skills
-
                 }))
                 alert.show("Character Loaded", {timeout: 5000, type: 'success'})
             })
             .catch((err) => {
-                console.log(err.response.data)
+                // console.log(err.response.data)
+                alert.show(err.response.data, {timeout: 5000, type: 'error'})
             })
 
     }
@@ -250,20 +275,20 @@ import { withAlert } from 'react-alert';
             url: 'http://localhost:8080/character',
             params: {"id":id}})
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.loadCharacterList()
                 alert.show("Character Deleted", {timeout: 5000, type: 'success'})
             })
             .catch((err) => {
-                console.log(err.response.data)
+                // console.log(err.response.data)
+                alert.show(err.response.data, {timeout: 5000, type: 'error'})
             })
 
     }
 
-    // updateValue = (stateValue) => {
-    //     this.setState(prevState => ({[stateValue]}))
-    // }
-
+    // PASSED TO:
+    // CharacterInfo -> CharacterInfoInput
+    // if the infoName is is "level", we need to update players skill points remaining.
     characterInfoChange = (infoName, updatedInfo) => {
         this.setState({[infoName]: updatedInfo}, function() {
             this.calculateSkillPointsRemaining();
@@ -332,9 +357,10 @@ import { withAlert } from 'react-alert';
     // make sure requirements are met?
     // add skill to playerHasSkill Array, or remove it
     check = (checkedSkill, e) => {
-        console.log(this.state)
+
         if (!this.checkRequirements(checkedSkill)) {
-            console.log("You do not meet the requirements for " + checkedSkill.name)
+            // console.log("You do not meet the requirements for " + checkedSkill.name)
+            this.props.alert.show("You do not meet the requirements for " + checkedSkill.name, {timeout: 5000, type: 'error'})
             return false;
         };
  
@@ -343,7 +369,8 @@ import { withAlert } from 'react-alert';
 
             // check the cost        
             if (this.calculateSkillPointsRemaining() - checkedSkill.cost < 0) {
-                console.log("You do not have enough skill points for " + checkedSkill.name);
+                // console.log("You do not have enough skill points for " + checkedSkill.name);
+                this.props.alert.show("You do not have enough skill points for " + checkedSkill.name, {timeout: 5000, type: 'error'})
                 return false;
             };
 
@@ -396,14 +423,14 @@ import { withAlert } from 'react-alert';
                                 // the player still meets the requirements
                                 // (this took me way too long and it seems overcomplicated)
                                 if (skill.name !== pSkills[pSkill2].name && requirementSkillString.includes(pSkills[pSkill2].name)) {
-                                    console.log(skill.name + " is a prerequisite for " + pSkills[pSkill].name + ", but player has " + pSkills[pSkill2].name + ", which is also a prerequisite")
+                                    //console.log(skill.name + " is a prerequisite for " + pSkills[pSkill].name + ", but player has " + pSkills[pSkill2].name + ", which is also a prerequisite")
                                     return false;
                                 }
                             }
                         }
                     }
-                        console.log("cannot remove " + skill.name + ". it is a prerequisite for " + pSkills[pSkill].name)
-    
+                        // console.log("Cannot remove " + skill.name + ". It is a prerequisite for " + pSkills[pSkill].name)
+                        this.props.alert.show("Cannot remove " + skill.name + ". It is a prerequisite for " + pSkills[pSkill].name, {timeout: 5000, type: 'error'})
                         return true;    
                 }
             }
@@ -421,7 +448,7 @@ import { withAlert } from 'react-alert';
         };
 
         if (this.state.resources[resourceName] >= max) {
-                console.log(resourceName + " limit reached")
+                // console.log(resourceName + " limit reached")
                 return false;
         };
 
@@ -436,7 +463,7 @@ import { withAlert } from 'react-alert';
     removeResource = (resourceName) => {
 
         if (this.state.resources[resourceName] == 0) {
-            console.log("you can't go below 0, you idiot")
+            // console.log("you can't go below 0, you idiot")
             return false;
         }
 
@@ -467,7 +494,7 @@ import { withAlert } from 'react-alert';
             this.calculateSkillPointsRemaining()
         })
 
-        console.log("You have removed the " + skill.name + " skill")
+        // console.log("You have removed the " + skill.name + " skill")
         return false;
     }
 

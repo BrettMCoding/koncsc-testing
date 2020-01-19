@@ -181,7 +181,7 @@ function Navigation(props) {
                     </ModalFooter>
                 </Modal>
 
-         
+                {/* confirm save/load/delete modal */}
                 <ConfirmationModal confirmationModalIsOpen={confirmationModalIsOpen}
                 toggleConfirmationModalIsOpen={toggleConfirmationModalIsOpen}
                 handleCharacter={handleMethod} message={message} id={id} alert={alert} />
