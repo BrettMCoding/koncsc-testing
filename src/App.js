@@ -24,19 +24,20 @@ import AuthenticationService from './site_layout/user_management/services/Authen
 
 import { withAlert } from 'react-alert';
 
-// TOP LEVEL REACT STATE:::
 
-// All of our character information is stored in state. It is overwritten with a localstorage character (if any),
-// or a Database character when selected by the logged in user
-
-// All of a logged in user's characters are stored in characterList
-
-// All of our skills are loaded into skilltree arrays, and player skills are loaded into the playerHasSkill array
-
-// The switch for enabling/disabling skills is also stored here
-
- class App extends React.Component {
+class App extends React.Component {
     state = {
+        // TOP LEVEL REACT STATE:::
+        
+        // All of our character information is stored in state. It is overwritten with a localstorage character (if any),
+        // or a Database character when selected by the logged in user
+        
+        // All of a logged in user's characters are stored in characterList
+        
+        // All of our skills are loaded into skilltree arrays, and player skills are loaded into the playerHasSkill array
+        
+        // The switch for enabling/disabling skills is also stored here
+
         // character info
         id: "",
         characterName: "",
@@ -80,11 +81,11 @@ import { withAlert } from 'react-alert';
         enchantment: []
     }
 
-    // componentDidMount is called when react successfully inserts a component into the DOM. 
-    // We then check if the user is logged in to load their characters
-    // Then we load all of our skills from the database
-    // Then we load whatever the user had in localStorage, if anything
     componentDidMount() {
+        // componentDidMount is called when react successfully inserts a component into the DOM. 
+        // We then check if the user is logged in to load their characters
+        // Then we load all of our skills from the database
+        // Then we load whatever the user had in localStorage, if anything
 
         if (AuthenticationService.isUserLoggedIn()) {
             AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
@@ -106,13 +107,14 @@ import { withAlert } from 'react-alert';
         }
     }
 
-    // Called when state or props update, so we use it to update the localStorage character
     componentDidUpdate() {
+        // Called when state or props update, so we use it to update the localStorage character
         this.saveLocalCharacter()
     }
 
-    // Called in componentDidUpdate. Called when we get skills from database
     sortSkillsByTree = (skills) => {
+        // Called in componentDidUpdate. Called when we get skills from database
+
         // keys in state currently empty arrays
         for (let key in this.state) {
             for (let skill in skills) {
@@ -127,8 +129,8 @@ import { withAlert } from 'react-alert';
         } 
     };
 
-    // called by componentDidUpdate
     saveLocalCharacter = () => {
+        // called by componentDidUpdate
 
         let values = this.state
 
@@ -148,8 +150,10 @@ import { withAlert } from 'react-alert';
         localStorage.setItem("character", JSON.stringify(character))
     }
 
-    // load character from localStorage, if any
     loadLocalCharacter = () => {
+        // CALLED BY: componentDidMount
+        // load character from localStorage, if any
+
         var localStorageCharacter = JSON.parse(localStorage.getItem("character"));
         
         this.setState(prevState =>({
@@ -168,8 +172,10 @@ import { withAlert } from 'react-alert';
         }))
     }
     
-    // load all characters owned by current user
     loadCharacterList = () => {
+        // CALLED BY: componentDidMount, saveCharacter, loadCharacter,
+                    // loginClicked (Header -> Navigation -> LoginComponent)
+        // load all characters owned by current user
         
         return axios({
             method: 'get',
@@ -185,13 +191,16 @@ import { withAlert } from 'react-alert';
                 alert.show(err.response.data, {timeout: 5000, type: 'error'})
             })
         }
+    
         
-    // Save character to database. If an ID is provided, it will overwrite the database character with the matching ID
-    // Ownership of the character is checked on the backend, so the user cannot overwrite a character that does not
-    // belong to them
-
-    // alert is passed in, because App.js this.props.alert is not accessible.
-    saveCharacter = (id, alert) => {
+        saveCharacter = (id, alert) => {
+            // CALLED BY: Navigation(onClick(new Character)) (Header -> Navigation) 
+            // CALLED BY: ConfirmationModal(onClick) (Header -> Navigation -> ConfirmationModal)
+            // Save character to database. If an ID is provided, it will overwrite the database character with the matching ID
+            // Ownership of the character is checked on the backend, so the user cannot overwrite a character that does not
+            // belong to them
+        
+            // alert is passed in, because App.js this.props.alert is not accessible.
 
         let values = this.state
 
@@ -296,21 +305,26 @@ import { withAlert } from 'react-alert';
     }
     
     calculateBaseSkillPoints = () => { 
+        // CALLED BY: calculateSkillPointsRemaining
+        // a level 1 character has 4 skill points. Every level after that is +2
+
         return this.state.level === 1 ? 4 : (this.state.level * 2) + 4
     }
 
+
     calculateSkillPointsRemaining = () => {
+        // used anytime our skill points need to be updated or checked
 
         var newSkillPointsRemaining = this.calculateBaseSkillPoints();
 
         newSkillPointsRemaining -= this.calculateSpentSkillPoints();
 
-        //this.setState({skillPointsRemaining: newSkillPointsRemaining});
-
         return newSkillPointsRemaining;
     }
 
     calculateSpentSkillPoints = () => {
+        // CALLED BY: calculateSkillPointsRemaining
+        // this function is used to determine the total accumulated cost of the characters skills + resources
         var spent = 0;
         var playerSkills = this.state.playerHasSkill;
         var playerResources = this.state.resources;
@@ -324,13 +338,8 @@ import { withAlert } from 'react-alert';
         return spent;
     }
 
-
-    checkAvailableSkillPoints = (cost, skillPointsRemaining) => {
-        return cost < skillPointsRemaining;
-    }
-
-    // return true if player meets requirements for skill
     checkRequirements = (skill) => {
+        // return true if player meets requirements for skill
     
         let requiredSkill = skill.requires
 
@@ -442,7 +451,7 @@ import { withAlert } from 'react-alert';
 
     addResource = (resourceName, cost, max) => {
 
-        if (this.calculateSkillPointsRemaining() - cost <= 0) {
+        if (this.calculateSkillPointsRemaining() - cost < 0) {
             this.props.alert.show("You do not have enough skill points", {type:'error'});
             return false;
         };
