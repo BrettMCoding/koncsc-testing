@@ -1,7 +1,11 @@
-// TODO: negative resource bug
+// TODO: resources are not calculating cost from state values
 // TODO: comment sweep
-// TODO: printable?
-// TODO: admin mode?
+// TODO: refactor sweep
+
+//  OPTIONAL
+    // TODO: Redesign?
+    // TODO: printable?
+    // TODO: admin mode?
 
 import React from 'react';
 import { Container, Row, Col, } from 'reactstrap';
@@ -42,9 +46,9 @@ import { withAlert } from 'react-alert';
             productionPoints: 0,
         },
         // With resources, the cost is set in state, and not in the database. ...For now.
-            MAGIC_POINT_COST: 0,
-            CRAFT_POINT_COST: 0,
-            PRODUCTION_POINT_COST:0,
+            MAGIC_POINT_COST: 1,
+            CRAFT_POINT_COST: 2,
+            PRODUCTION_POINT_COST: 2,
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
@@ -411,7 +415,7 @@ import { withAlert } from 'react-alert';
 
     addResource = (resourceName, cost, max) => {
 
-        if (this.calculateSkillPointsRemaining() - cost < 0) {
+        if (this.calculateSkillPointsRemaining() - cost <= 0) {
             this.props.alert.show("You do not have enough skill points", {type:'error'});
             return false;
         };
@@ -520,7 +524,7 @@ import { withAlert } from 'react-alert';
                     <Switch>
                         <Route exact path="/">
                             
-                            <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} deleteCharacter={this.deleteCharacter} staate={this.state} characterList={this.state.characterList}>
+                            <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} deleteCharacter={this.deleteCharacter} staate={this.state} characterList={this.state.characterList} loadCharacterList={this.loadCharacterList}>
 
                             </Header>
 

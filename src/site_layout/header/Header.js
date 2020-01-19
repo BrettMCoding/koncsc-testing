@@ -13,7 +13,7 @@ class Header extends React.Component {
                     <h1>KINGDOMS OF NOVITAS</h1>
                     <h2>Online Character Sheet | Skill Calculator</h2>
                     <Navigation lockChanges={this.props.lockChanges} locked={this.props.locked} saveCharacter={this.props.saveCharacter} loadCharacter={this.props.loadCharacter} deleteCharacter={this.props.deleteCharacter} staate={this.props.staate}
-                    characterList={this.props.characterList}/>
+                    characterList={this.props.characterList} loadCharacterList={this.props.loadCharacterList}/>
                 </Container>
             </div>
         )

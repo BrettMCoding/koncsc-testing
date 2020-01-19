@@ -23,7 +23,8 @@ function LoginComponent(props) {
                 // this.props.history.push(`/courses`)
 
                 props.toggleModal();
-                props.getUserLoggedInProp(AuthenticationService.isUserLoggedIn())
+                props.getUserLoggedInProp(AuthenticationService.isUserLoggedIn());
+                props.loadCharacterList();
 
             }).catch(() => {
                 setSuccessMessage(false);

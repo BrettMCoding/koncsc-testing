@@ -174,7 +174,7 @@ function Navigation(props) {
                 <Modal isOpen={modal} toggle={toggleModal}>
                     <ModalHeader toggle={toggleModal}>Login</ModalHeader>
                     <ModalBody>
-                        <LoginComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} toggleModal={toggleModal}/>
+                        <LoginComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} toggleModal={toggleModal} loadCharacterList={props.loadCharacterList}/>
                     </ModalBody>
                     <ModalFooter>
                             <Button className=" m-auto w-50 " color="secondary" onClick={toggleModal}>Cancel</Button>
