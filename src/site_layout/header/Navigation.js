@@ -56,10 +56,12 @@ function Navigation(props) {
 
   const [handleMethod, setHandleMethod] = useState("");
   const [message, setMessage] = useState("");
+  const [id, setId] = useState(null);
 
-  const setCurrentConfirmationModal = (handleMethodArg, message) => {
-    setHandleMethod(() => handleMethodArg);
+  const setCurrentConfirmationModal = (handleMethod, message, id) => {
+    setHandleMethod(() => handleMethod);
     setMessage(message);
+    setId(id);
     toggleConfirmationModalIsOpen();
   }
 
@@ -127,8 +129,8 @@ function Navigation(props) {
                     Save Character
                 </DropdownToggle>
                 <DropdownMenu right>
-                    <NavCharacterList characterList={props.characterList} handleCharacter={props.saveCharacter}/>
-                    <div onClick={()=>{setCurrentConfirmationModal(props.saveCharacter, "Are you sure you want to save this character?")}}>New Character</div>
+                    <NavCharacterList characterList={props.characterList} handleCharacter={props.saveCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to save this character? (Character in slot: "}/>
+                    <div onClick={()=>{setCurrentConfirmationModal(props.saveCharacter, "Are you sure you want to save a new character?")}}>New Character</div>
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </NavItem>
@@ -140,7 +142,7 @@ function Navigation(props) {
                     Load Character
                 </DropdownToggle>
                 <DropdownMenu right>
-                    <NavCharacterList characterList={props.characterList} handleCharacter={props.loadCharacter}/>
+                    <NavCharacterList characterList={props.characterList} handleCharacter={props.loadCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to load this character? (Character: "}/>
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </NavItem>
@@ -152,7 +154,7 @@ function Navigation(props) {
                         Delete Character
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <NavCharacterList characterList={props.characterList} handleCharacter={props.deleteCharacter}/>
+                        <NavCharacterList characterList={props.characterList} handleCharacter={props.deleteCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to load this character? (Character: "}/>
                     </DropdownMenu>
                     </UncontrolledDropdown>
             </NavItem>
@@ -182,7 +184,7 @@ function Navigation(props) {
          
                 <ConfirmationModal confirmationModalIsOpen={confirmationModalIsOpen}
                 toggleConfirmationModalIsOpen={toggleConfirmationModalIsOpen}
-                handleCharacter={handleMethod} message={message} />
+                handleCharacter={handleMethod} message={message} id={id} alert={alert} />
                
         </Navbar>
     </div>

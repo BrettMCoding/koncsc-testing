@@ -1,4 +1,3 @@
-// TODO: confirm save/load/delete
 // TODO: local storage character
 // TODO: printable?
 // TODO: admin mode?
@@ -103,8 +102,7 @@ import { withAlert } from 'react-alert';
         } 
     };
 
-    saveCharacter = (id) => {
-        console.log("we made it doe?")
+    saveCharacter = (id, alert) => {
 
         let values = this.state
 
@@ -129,6 +127,7 @@ import { withAlert } from 'react-alert';
             .then((res) => {
                 console.log(res)
                 this.loadCharacterList();
+                alert.show("Character Saved", {timeout: 5000, type: 'success'})
             }).catch((err) => {
                 console.log(err.response.data)
             })
@@ -151,7 +150,7 @@ import { withAlert } from 'react-alert';
             })
     }
 
-    loadCharacter = (id) => {
+    loadCharacter = (id, alert) => {
 
         return axios({
             method: 'get',
@@ -175,7 +174,7 @@ import { withAlert } from 'react-alert';
                     playerHasSkill: res.data.skills
 
                 }))
-
+                alert.show("Character Loaded", {timeout: 5000, type: 'success'})
             })
             .catch((err) => {
                 console.log(err.response.data)
@@ -183,7 +182,7 @@ import { withAlert } from 'react-alert';
 
     }
 
-    deleteCharacter = (id) => {
+    deleteCharacter = (id, alert) => {
 
         return axios({
             method: 'delete',
@@ -192,6 +191,7 @@ import { withAlert } from 'react-alert';
             .then((res) => {
                 console.log(res.data)
                 this.loadCharacterList()
+                alert.show("Character Deleted", {timeout: 5000, type: 'success'})
             })
             .catch((err) => {
                 console.log(err.response.data)

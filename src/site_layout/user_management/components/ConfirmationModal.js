@@ -12,7 +12,7 @@ export default function ConfirmationModal(props) {
                 </ModalBody>
                 <ModalFooter>
                     <Button className=" m-auto w-50 " color="secondary" onClick={props.toggleConfirmationModalIsOpen}>Cancel</Button>
-                    <Button className=" m-auto w-50 " color="success" onClick={() => {props.handleCharacter(); props.toggleConfirmationModalIsOpen()}}>Confirm</Button>
+                    <Button className=" m-auto w-50 " color="success" onClick={() => {props.handleCharacter(props.id, props.alert);props.toggleConfirmationModalIsOpen()}}>Confirm</Button>
                 </ModalFooter>
             </Modal>
         </div>
