@@ -76,20 +76,18 @@ function Navigation(props) {
     toggleConfirmationModalIsOpen();
   }
 
+  // local state isUserLoggedIn is a little clunky, but updating local State makes rendering changes
+  // to the buttons and lists easier
   const [isUserLoggedIn, setUserLoggedIn] = useState(AuthenticationService.isUserLoggedIn());
-  // passing isUserLoggedIn as a prop to the login components, so that on login/logout 
   const getUserLoggedInProp = (boolean) => {
     setUserLoggedIn(boolean);
   }
 
-  // ANIMATION WORK
-  const anim = useSpring({opacity: isUserLoggedIn ? 1 : 0, size: isUserLoggedIn ? '0%' : ' 100%' })
-
-  const saveLoadDeleteAnimation = useSpring({opacity: isUserLoggedIn ? 1 : 0})
-
   // using react-spring render-props API to make an animation transition
   // this will hide the character list features when user is not logged in
   const hideWhenNotLoggedInWrap = (content) => {
+      // Transition object controls opacity animation.
+      // Used to show/hide content on login/logout
     return <div><Transition
         items={isUserLoggedIn}
         from={{ opacity: 0 }}
@@ -121,17 +119,16 @@ function Navigation(props) {
 
             <NavItem>
                 <NavLink>
-                    {/* this might be my favorite piece of code that I've ever written */}
                      <button className="navButton" onClick={props.lockChanges} >{props.locked ? "Unl" : "L"}ock Editing</button>
                 </NavLink>
             </NavItem>
 
             <NavItem>
-                { AuthenticationService.isUserLoggedIn() && <LogoutComponent getUserLoggedInProp={getUserLoggedInProp} /> }
+                { isUserLoggedIn && <LogoutComponent getUserLoggedInProp={getUserLoggedInProp} /> }
             </NavItem>
 
             <NavItem>
-                { !AuthenticationService.isUserLoggedIn() &&<Button color="success" onClick={toggleLoginModal}>Login</Button>}
+                { !isUserLoggedIn &&<Button color="success" onClick={toggleLoginModal}>Login</Button>}
             </NavItem>
 
             {hideWhenNotLoggedInWrap(
