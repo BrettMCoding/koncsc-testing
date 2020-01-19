@@ -40,7 +40,7 @@ function Skill(props){
                     onChange={e => {
 
                         setIsChecked(
-                            props.check(props.skill, e.target.checked)
+                            props.playerCheckedASkillBox(props.skill, e.target.checked)
                         );
 
                 }}/> 

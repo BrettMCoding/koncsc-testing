@@ -1,3 +1,4 @@
+// TODO: register user // forgot password functionality
 // TODO: resources are not calculating cost from state values
 // TODO: comment sweep
 // TODO: refactor sweep
@@ -237,8 +238,8 @@ class App extends React.Component {
         
     }
     
-    // load a user selected character from the database
     loadCharacter = (id, alert) => {
+        // load a user selected character from the database
         
         return axios({
             method: 'get',
@@ -295,10 +296,10 @@ class App extends React.Component {
 
     }
 
-    // PASSED TO:
-    // CharacterInfo -> CharacterInfoInput
-    // if the infoName is is "level", we need to update players skill points remaining.
     characterInfoChange = (infoName, updatedInfo) => {
+        // CALLED BY:
+        // CharacterInfo -> CharacterInfoInput(onChange)
+        // if the infoName is "level", we need to update players skill points remaining.
         this.setState({[infoName]: updatedInfo}, function() {
             this.calculateSkillPointsRemaining();
         });  
@@ -341,6 +342,7 @@ class App extends React.Component {
     checkRequirements = (skill) => {
         // return true if player meets requirements for skill
     
+        // skill.requires is a string that is equal to anotherSkill.name required for skill
         let requiredSkill = skill.requires
 
         // skill does not have a required skill
@@ -348,12 +350,13 @@ class App extends React.Component {
             return true; 
         }
 
+        // player's skills array
         let pSkills = this.state.playerHasSkill;
 
         for (let pSkill in pSkills) {
-
+            // if one of the player's skill contains the required skill name
             if (requiredSkill.includes(pSkills[pSkill].name)) {
-
+                // we're good
                 return true;
             }
         }
@@ -361,11 +364,13 @@ class App extends React.Component {
         return false;
     }
     
-    // add/remove skill
-    // make sure enough skill points are available
-    // make sure requirements are met?
-    // add skill to playerHasSkill Array, or remove it
-    check = (checkedSkill, e) => {
+    playerCheckedASkillBox = (checkedSkill, e) => {
+        // CALLED BY Skill.js(checkBox onChange) (SkillTree.js -> Skill.js)
+
+        // add or remove a skill on checkbox change
+            // make sure enough skill points are available
+            // make sure requirements are met?
+            // add skill to playerHasSkill Array, or remove it
 
         if (!this.checkRequirements(checkedSkill)) {
             // console.log("You do not meet the requirements for " + checkedSkill.name)
@@ -373,7 +378,7 @@ class App extends React.Component {
             return false;
         };
  
-        // add or remove skill on checkbox click
+        // if click detected
         if (e) {
 
             // check the cost        
@@ -383,7 +388,7 @@ class App extends React.Component {
                 return false;
             };
 
-            // add
+            // add skill
             return this.addSkill(checkedSkill);
             
         } else {
@@ -396,12 +401,10 @@ class App extends React.Component {
             // remove
             return this.removeSkill(checkedSkill);
         }
-        // unreachable
-        // return true;
     }
 
-    // don't allow player to remove a skillpoint if it's a necessary requirement for another skill the player has
     skillIsRequired = (skill) => {
+        // don't allow player to remove a skillpoint if it's a necessary requirement for another skill the player has
 
         // THIS FUNCTION IS ATROCIOUS
 
@@ -450,26 +453,32 @@ class App extends React.Component {
     }
 
     addResource = (resourceName, cost, max) => {
+        // CALLED BY: Resources.js -> Resource.js(onClick)
 
         if (this.calculateSkillPointsRemaining() - cost < 0) {
             this.props.alert.show("You do not have enough skill points", {type:'error'});
             return false;
         };
 
+        // check if player maxed out resource amount already
         if (this.state.resources[resourceName] >= max) {
                 // console.log(resourceName + " limit reached")
                 return false;
         };
 
+        // local resources variable
         let resources = this.state.resources
+        // add a point to this resource
         resources[resourceName] += 1;
 
+        // add new resources to state and calc SPR
         this.setState({resources}, () => {this.calculateSkillPointsRemaining()});
 
         return true;
     }
 
     removeResource = (resourceName) => {
+         // CALLED BY: Resources.js -> Resource.js(onClick)
 
         if (this.state.resources[resourceName] == 0) {
             // console.log("you can't go below 0, you idiot")
@@ -483,18 +492,18 @@ class App extends React.Component {
     }
 
     addSkill = (skill) => {
+        // called by playerCheckedASkillBox
 
-        this.setState({
-            playerHasSkill: ([...this.state.playerHasSkill, skill]) }, function ()   {
+        this.setState(prevState => ({
+            playerHasSkill: ([...prevState.playerHasSkill, skill]) }), function ()   {
                 this.calculateSkillPointsRemaining()
         });
-
-        //this.props.alert.show("You have acquired the " + skill.name + " skill");
-        
+        // console.log("You have added the " + skill.name + " skill")
         return true;
         }
    
     removeSkill = (skill) => {
+        // called by playerCheckedASkillBox
 
         this.setState(prevState => ({
             // filter previous state.playerhasskill array to return a new array without matching skill
@@ -509,150 +518,166 @@ class App extends React.Component {
 
 
     lockChanges = () => {
+        // disable inputs on playerInfo, resources, and skill checkboxes
+        
         this.props.alert.show("Character editing " + (this.state.locked ? "unl" : "l") + "ocked")
+
         this.setState(prevState => ({locked: !prevState.locked}));
+
         this.calculateSkillPointsRemaining();
     }
     
     render() {
         return (
             <div className="App">
-                {/* <div style={{
-                    display: 'flex',  
-                    textAlign: 'center',
-                    padding: '10px',
-                    flex: '1 100%',
-                    flexWrap: 'nowrap'
-                }}>
-                    <div style={{display: 'flex',
-                        background: 'gold',
-                        alignSelf: 'stretch',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '10px',
-                        flex: '1 100%',
-                        minWidth: 0,
-                        whiteSpace: 'initial'}}>
-                            BITCH TITS
-                    </div>
-                    <div style={{textAlign: 'left',
-                                background: 'deepskyblue',
-                                padding: '10px',
-                                flex: '1 100%',
-                                minWidth: 0,
-                                whiteSpace: 'initial'
-                                }}>
-                            COCKSUCKER MOTHERFUCKER BIUTCH ASS CUNTING FUCKING WHORE COCK
-
-                    </div>
-                    <div style={{display: 'flex',
-                        background: 'gold',
-                        alignSelf: 'stretch',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '10px',
-                        flex: '1 100%',
-                        minWidth: 0,}}>
-                            BITCH TITS
-                    </div>
-                </div> */}
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            
-                            <Header lockChanges={this.lockChanges} locked={this.state.locked} saveCharacter={this.saveCharacter} loadCharacter={this.loadCharacter} deleteCharacter={this.deleteCharacter} staate={this.state} characterList={this.state.characterList} loadCharacterList={this.loadCharacterList}>
 
+                            <Header 
+                                lockChanges={this.lockChanges}
+                                locked={this.state.locked} 
+                                saveCharacter={this.saveCharacter} 
+                                loadCharacter={this.loadCharacter} 
+                                deleteCharacter={this.deleteCharacter} 
+                                characterList={this.state.characterList} 
+                                loadCharacterList={this.loadCharacterList}
+                                // pass state to a button for testing
+                                staate={this.state} >
                             </Header>
 
                             <CharacterInfo
-                                    level={this.state.level}
-                                    characterName={this.state.characterName}
-                                    country={this.state.country}
-                                    player={this.state.player}
-                                    race={this.state.race}
-                                    savedXp={this.state.savedXp}
-
-                                    characterInfoChange={this.characterInfoChange}
-                                    lockChanges={this.state.locked}
-                                    calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}
+                                level={this.state.level}
+                                characterName={this.state.characterName}
+                                country={this.state.country}
+                                player={this.state.player}
+                                race={this.state.race}
+                                savedXp={this.state.savedXp}
+                                characterInfoChange={this.characterInfoChange}
+                                lockChanges={this.state.locked}
+                                calculateSkillPointsRemaining={this.calculateSkillPointsRemaining}
                             />
 
                             <Container>
-                            <Resources resources={this.state.resources}
+                                <Resources 
+                                    resources={this.state.resources}
+                                    addResource={this.addResource} 
+                                    removeResource={this.removeResource} 
+                                    lockChanges={this.state.locked} 
+                                    MAGIC_POINT_COST={this.state.MAGIC_POINT_COST}
+                                    PRODUCTION_POINT_COST={this.state.PRODUCTION_POINT_COST}
+                                    CRAFT_POINT_COST={this.state.CRAFT_POINT_COST}
+                                />
+                                
+                                <Row>
+                                    <Col className="skilltree">
 
-                            addResource={this.addResource} 
+                                        <div className="combat">
+                                            <h3>Combat</h3>
+                                            <SkillTree 
+                                                skills={this.state.combat} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} 
+                                            />
+                                        </div>
 
-                            removeResource={this.removeResource} 
-                            lockChanges={this.state.locked} 
-                            
-                            MAGIC_POINT_COST={this.state.MAGIC_POINT_COST}
-                            PRODUCTION_POINT_COST={this.state.PRODUCTION_POINT_COST}
-                            CRAFT_POINT_COST={this.state.CRAFT_POINT_COST}/>
-                            
-                            <Row>
-                                <Col className="skilltree">
-                                    <div className="combat">
-                                        <h3>Combat</h3>
-                                        <SkillTree skills={this.state.combat} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
+                                        <div className="general">
+                                            <h3>General</h3>
+                                            <SkillTree 
+                                                skills={this.state.general} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                ockChanges={this.state.locked} />
+                                        </div>
+                                        <div className="nature">
+                                            <h3>Nature</h3>
+                                            <SkillTree 
+                                                skills={this.state.nature} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
+                                        <div className="necromancy">
+                                            <h3>Necromancy</h3>
+                                            <SkillTree 
+                                                skills={this.state.necromancy} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
+                                    </Col>
 
-                                    <div className="general">
-                                        <h3>General</h3>
-                                        <SkillTree skills={this.state.general} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                                    <div className="nature">
-                                        <h3>Nature</h3>
-                                        <SkillTree skills={this.state.nature} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                                    <div className="necromancy">
-                                        <h3>Necromancy</h3>
-                                        <SkillTree skills={this.state.necromancy} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                                </Col>
+                                    <Col className="skilltree">
 
-                                <Col className="skilltree">
+                                        <div className="production">
+                                            <h3>Production</h3>
+                                                <SkillTree 
+                                                skills={this.state.production} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
+                                        
+                                        <div className="aegis">
+                                            <h3>Aegis</h3>
+                                                <SkillTree 
+                                                skills={this.state.aegis} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
 
-                                    <div className="production">
-                                        <h3>Production</h3>
-                                        <SkillTree skills={this.state.production} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                                    
-                                    <div className="aegis">
-                                        <h3>Aegis</h3>
-                                        <SkillTree skills={this.state.aegis} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
+                                        <div className="battle">
+                                            <h3>Battle</h3>
+                                            <SkillTree 
+                                                skills={this.state.battle} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
+                                    </Col>
 
-                                    <div className="battle">
-                                        <h3>Battle</h3>
-                                        <SkillTree skills={this.state.battle} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                                </Col>
+                                    <Col className="skilltree">
 
-                                <Col className="skilltree">
+                                        <div className="roleplaying">
+                                            <h3>Roleplaying</h3>
+                                            <SkillTree 
+                                                skills={this.state.roleplaying} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
 
-                                    <div className="roleplaying">
-                                        <h3>Roleplaying</h3>
-                                        <SkillTree skills={this.state.roleplaying} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
+                                        <div className="compulsion">
+                                            <h3>Compulsion</h3>
+                                            <SkillTree 
+                                                skills={this.state.compulsion} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
+                    
+                                        <div className="restoration">
+                                            <h3>Restoration</h3>
+                                            <SkillTree 
+                                                skills={this.state.restoration} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
 
-                                    <div className="compulsion">
-                                        <h3>Compulsion</h3>
-                                        <SkillTree skills={this.state.compulsion} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                
-                                    <div className="restoration">
-                                        <h3>Restoration</h3>
-                                        <SkillTree skills={this.state.restoration} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-
-                                    <div className="enchantment">
-                                        <h3>Enchantment</h3>
-                                        <SkillTree skills={this.state.enchantment} playerSkills={this.state.playerHasSkill} check={this.check} lockChanges={this.state.locked} />
-                                    </div>
-                                </Col>
-                            </Row>
-
-                        </Container>
+                                        <div className="enchantment">
+                                            <h3>Enchantment</h3>
+                                            <SkillTree 
+                                                skills={this.state.enchantment} 
+                                                playerSkills={this.state.playerHasSkill} 
+                                                playerCheckedASkillBox={this.playerCheckedASkillBox} 
+                                                lockChanges={this.state.locked} />
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </Route>
                         <Route exact path="/login">
                             <UserLoginLogoutComponent />
