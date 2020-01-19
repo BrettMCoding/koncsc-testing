@@ -1,4 +1,5 @@
-// TODO: local storage character
+// TODO: negative resource bug
+// TODO: comment sweep
 // TODO: printable?
 // TODO: admin mode?
 
@@ -23,12 +24,12 @@ import { withAlert } from 'react-alert';
     state = {
         // character info
         id: 1,
-        characterName: "Bryan Callen",
-        country: "LosAngelesita",
-        player: "Chris Deelia",
-        race: "ManDragon",
-        level: 69,
-        savedXp: 4,
+        characterName: "",
+        country: "",
+        player: "",
+        race: "",
+        level: 0,
+        savedXp: 0,
         playerHasSkill: [],
 
         characterList: [],
@@ -36,14 +37,14 @@ import { withAlert } from 'react-alert';
         
         // RESOURCES
         resources: {
-            magicPoints: 5,
-            craftPoints: 7,
-            productionPoints: 8,
+            magicPoints: 0,
+            craftPoints: 0,
+            productionPoints: 0,
         },
         // With resources, the cost is set in state, and not in the database. ...For now.
-            MAGIC_POINT_COST: 1,
-            CRAFT_POINT_COST: 2,
-            PRODUCTION_POINT_COST:2,
+            MAGIC_POINT_COST: 0,
+            CRAFT_POINT_COST: 0,
+            PRODUCTION_POINT_COST:0,
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
@@ -68,9 +69,9 @@ import { withAlert } from 'react-alert';
     componentDidMount() {
         if (AuthenticationService.isUserLoggedIn()) {
             AuthenticationService.setupAxiosInterceptors(sessionStorage.getItem("USER_TOKEN"));
+            this.loadCharacterList();
         };
 
-        this.loadCharacterList();
 
         // JSON of all skills
         // var skillList = require('./site_layout/skill_trees/skillsjsn.json');
@@ -81,9 +82,16 @@ import { withAlert } from 'react-alert';
                 skills = [...res.data];
                 this.sortSkillsByTree(skills);
                 });
+
+        if (localStorage.getItem("character") !== null){
+            
+            this.loadLocalCharacter()
+        }
     }
 
     componentDidUpdate() {
+        console.log("CDU")
+        this.saveLocalCharacter()
     }
 
     // sort skills by tree
@@ -101,6 +109,26 @@ import { withAlert } from 'react-alert';
             }
         } 
     };
+
+    saveLocalCharacter = () => {
+
+        let values = this.state
+
+        let character = {
+            characterName: values.characterName,
+            player: values.player,
+            race: values.race,
+            country: values.country,
+            level: values.level,
+            savedXp: values.savedXp,
+            magicPoints: values.resources.magicPoints,
+            craftPoints: values.resources.craftPoints,
+            productionPoints: values.resources.productionPoints,
+            skills: values.playerHasSkill
+        }
+
+        localStorage.setItem("character", JSON.stringify(character))
+    }
 
     saveCharacter = (id, alert) => {
 
@@ -150,6 +178,25 @@ import { withAlert } from 'react-alert';
             })
     }
 
+    loadLocalCharacter = () => {
+                var localStorageCharacter = JSON.parse(localStorage.getItem("character"));
+
+                this.setState(prevState =>({
+                    ...prevState,
+
+                    characterName: localStorageCharacter.characterName,
+                    player: localStorageCharacter.player,
+                    race: localStorageCharacter.race,
+                    country: localStorageCharacter.country,
+                    level: localStorageCharacter.level,
+                    savedXp: localStorageCharacter.savedXp,
+                    magicPoints: localStorageCharacter.magicPoints,
+                    craftPoints: localStorageCharacter.craftPoints,
+                    productionPoints: localStorageCharacter.productionPoints,
+                    playerHasSkill: localStorageCharacter.skills
+                }))
+    }
+
     loadCharacter = (id, alert) => {
 
         return axios({
@@ -158,15 +205,25 @@ import { withAlert } from 'react-alert';
             params: {"id":id}})
             .then((res) => {
                 console.log(res.data)
+            
+                // react doesnt like nested state, so we need to make a nest for our resources first
+                var resources = {magicPoints: res.data.magicPoints,
+                                    productionPoints: res.data.productionPoints,
+                                craftPoints: res.data.craftPoints}
+
                 this.setState(prevState =>({
+                    ...prevState,
 
                     id : res.data.id,
                     characterName: res.data.characterName,
                     race: res.data.race,
+                    player: res.data.player,
                     country: res.data.country,
                     level: res.data.level,
                     savedXp: res.data.savedXp,
-                    magicPoints: res.data.magicPoints,
+
+                    // resource nest made above
+                    resources: resources,
 
                     craftPoints: res.data.craftPoints,
 
