@@ -33,31 +33,42 @@ import AuthenticationService from '../user_management/services/AuthenticationSer
 import NavCharacterList from '../user_management/components/NavCharacterList';
 import ConfirmationModal from '../user_management/components/ConfirmationModal';
 import { useAlert } from 'react-alert';
-import { isAbsolute } from 'path';
 
+// Navigation is the house for our character / user management
 
 function Navigation(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [navbarIsOpen, setNavbarIsOpen] = useState(false);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
   const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
 
+  // alert popup system
   const alert = useAlert();
 
+  // log state test button
   const logs = () => {console.log(props.staate)}
 
-  const toggle = () => setIsOpen(!isOpen);
+  // navbar collapse/expand
+  const toggleNavbar = () => setNavbarIsOpen(!navbarIsOpen);
 
   // login modal
-  const toggleModal = () => setModal(isUserLoggedIn ? false : !modal);
+  const toggleLoginModal = () => setLoginModalIsOpen(isUserLoggedIn ? false : !loginModalIsOpen);
 
-  // confirmation
+  // confirmation modal
+  // the confirmationModal is setup to handle Save/Load/Delete based on the user 
+  // clicking a character in one of our NavCharacterLists
   const toggleConfirmationModalIsOpen = () => {
     setConfirmationModalIsOpen(!confirmationModalIsOpen)};
+    
+    // handleMethod is Save/Load/Delete character, set by whichever list option is clicked
+    const [handleMethod, setHandleMethod] = useState("");
+    // message is added to confirmationModal as "are you sure you want to save/load/delete?" similarly to the handleMethod
+    const [message, setMessage] = useState("");
+    // id is added to confirmationModal, 
+    const [id, setId] = useState(null);
 
-  const [handleMethod, setHandleMethod] = useState("");
-  const [message, setMessage] = useState("");
-  const [id, setId] = useState(null);
-
+  // when the user clicks to save/load/delete a character,
+  // a confirmationModal is setup with the following args
+  // and then displayed to make sure the user meant to take that action 
   const setCurrentConfirmationModal = (handleMethod, message, id) => {
     setHandleMethod(() => handleMethod);
     setMessage(message);
@@ -66,10 +77,10 @@ function Navigation(props) {
   }
 
   const [isUserLoggedIn, setUserLoggedIn] = useState(AuthenticationService.isUserLoggedIn());
-
-    const getUserLoggedInProp = (boolean) => {
-        setUserLoggedIn(boolean);
-    }
+  // passing isUserLoggedIn as a prop to the login components, so that on login/logout 
+  const getUserLoggedInProp = (boolean) => {
+    setUserLoggedIn(boolean);
+  }
 
   // ANIMATION WORK
   const anim = useSpring({opacity: isUserLoggedIn ? 1 : 0, size: isUserLoggedIn ? '0%' : ' 100%' })
@@ -80,13 +91,14 @@ function Navigation(props) {
   // this will hide the character list features when user is not logged in
   const hideWhenNotLoggedInWrap = (content) => {
     return <div><Transition
-    items={isUserLoggedIn}
-    from={{ opacity: 0 }}
-    enter={{ opacity: 1 }}
-    leave={{ opacity: 0 }}>
-    {isUserLoggedIn => isUserLoggedIn && ((transitionProps) => <animated.div style={transitionProps}> 
-        {/* below content arg is whatever element we want to show when user logs in */}
-        {content}
+        items={isUserLoggedIn}
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}>
+        {isUserLoggedIn => isUserLoggedIn && ((transitionProps) => <animated.div style={transitionProps}> 
+            
+            {/* below content arg is whatever element we want to show when user logs in */}
+            {content}
 
     </animated.div>)}</Transition></div>
   }
@@ -94,9 +106,9 @@ function Navigation(props) {
   return (
     <div>
         <Navbar className="navbar navbar-dark" light expand="md">
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler onClick={toggleNavbar} />
 
-        <Collapse isOpen={isOpen} navbar>
+        <Collapse isOpen={navbarIsOpen} navbar>
           <Nav className="mr-auto" navbar>
 
             <NavItem >
@@ -115,11 +127,11 @@ function Navigation(props) {
             </NavItem>
 
             <NavItem>
-                { isUserLoggedIn && <LogoutComponent getUserLoggedInProp={getUserLoggedInProp} /> }
+                { AuthenticationService.isUserLoggedIn() && <LogoutComponent getUserLoggedInProp={getUserLoggedInProp} /> }
             </NavItem>
 
             <NavItem>
-                { !isUserLoggedIn &&<Button color="success" onClick={toggleModal}>Login</Button>}
+                { !AuthenticationService.isUserLoggedIn() &&<Button color="success" onClick={toggleLoginModal}>Login</Button>}
             </NavItem>
 
             {hideWhenNotLoggedInWrap(
@@ -171,13 +183,13 @@ function Navigation(props) {
         </Collapse>
                 
                 {/* // login modal */}
-                <Modal isOpen={modal} toggle={toggleModal}>
-                    <ModalHeader toggle={toggleModal}>Login</ModalHeader>
+                <Modal isOpen={loginModalIsOpen} toggle={toggleLoginModal}>
+                    <ModalHeader toggle={toggleLoginModal}>Login</ModalHeader>
                     <ModalBody>
-                        <LoginComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} toggleModal={toggleModal} loadCharacterList={props.loadCharacterList}/>
+                        <LoginComponent isUserLoggedIn={isUserLoggedIn} getUserLoggedInProp={getUserLoggedInProp} toggleModal={toggleLoginModal} loadCharacterList={props.loadCharacterList}/>
                     </ModalBody>
                     <ModalFooter>
-                            <Button className=" m-auto w-50 " color="secondary" onClick={toggleModal}>Cancel</Button>
+                            <Button className=" m-auto w-50 " color="secondary" onClick={toggleLoginModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 
