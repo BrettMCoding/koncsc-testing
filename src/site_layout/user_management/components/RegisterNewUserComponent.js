@@ -28,7 +28,7 @@ export default function RegisterNewUserComponent() {
     return (
         <div>
             <div className="container form-group d-flex flex-column">
-            <h1 className="text-center">Register New User</h1>
+                <h1 className="text-center">Register New User</h1>
 
                     {hasRegisterFailed && <div className="alert alert-warning">{"Error: " + errorMessage}</div>}
 
@@ -41,7 +41,8 @@ export default function RegisterNewUserComponent() {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestRegisterNewUser(email);}}>Register</button>
                     </>
                     }
-                </div>
+                    <a href="http://localhost:3000" className="text-center">Back to homepage</a>
+            </div>
         </div>
     )
 }

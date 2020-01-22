@@ -50,6 +50,7 @@ export default function NewPasswordComponent(props) {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestNewPassword(password, password2);}}>Submit</button>
                     </>
                     }
+                    <a href="http://localhost:3000" className="text-center">Back to homepage</a>
                 </div>
         </div>
     )

@@ -1,9 +1,12 @@
+// TODO: header title reactivity
 // TODO: register user // forgot password functionality
 // TODO: resources are not calculating cost from state values
 // TODO: comment sweep
 // TODO: refactor sweep
+// TODO: look into basic auth vs JWT for production
 
 //  OPTIONAL
+    // TODO: pull skill descriptions?
     // TODO: Redesign?
     // TODO: printable?
     // TODO: admin mode?

@@ -41,7 +41,8 @@ export default function ForgotPasswordComponent() {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestRegisterNewUser(email);}}>Submit</button>
                     </>
                     }
-                </div>
+                <a href="http://localhost:3000" className="text-center">Back to homepage</a>
+            </div>
         </div>
     )
 }
