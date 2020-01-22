@@ -52,6 +52,11 @@ function LoginComponent(props) {
                     Password: <input type="password" className="form-control" name="password" value={password} onChange={eventUpdatePassword}/>
 
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={loginClicked}>Login</button>
+                    <div>
+                        <a href="http://localhost:3000/register" className="btn btn-outline-secondary text-center">Create account</a>
+                        <a href="http://localhost:3000/forgot" className="btn btn-outline-secondary text-center">Forgot your password?</a>
+                        
+                    </div>
                 </div>
             }
         </div>

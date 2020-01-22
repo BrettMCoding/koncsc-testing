@@ -1,8 +1,6 @@
-// TODO: header title reactivity
-// TODO: register user // forgot password functionality
 // TODO: resources are not calculating cost from state values
-// TODO: comment sweep
-// TODO: refactor sweep
+// TODO: continue comment sweep
+// TODO: continue refactor sweep
 // TODO: look into basic auth vs JWT for production
 
 //  OPTIONAL
@@ -10,6 +8,7 @@
     // TODO: Redesign?
     // TODO: printable?
     // TODO: admin mode?
+    // TODO: hide unused skills?
 
 import React from 'react';
 import { Container, Row, Col, } from 'reactstrap';
