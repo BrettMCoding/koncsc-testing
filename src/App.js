@@ -85,6 +85,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        document.title = "Kingdoms of Novitas | Character Sheet"
         // componentDidMount is called when react successfully inserts a component into the DOM. 
         // We then check if the user is logged in to load their characters
         // Then we load all of our skills from the database
@@ -482,7 +483,7 @@ class App extends React.Component {
     removeResource = (resourceName) => {
          // CALLED BY: Resources.js -> Resource.js(onClick)
 
-        if (this.state.resources[resourceName] == 0) {
+        if (this.state.resources[resourceName] === 0) {
             // console.log("you can't go below 0, you idiot")
             return false;
         }

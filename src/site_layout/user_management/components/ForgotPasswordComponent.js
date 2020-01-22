@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export default function ForgotPasswordComponent() {
@@ -7,6 +7,10 @@ export default function ForgotPasswordComponent() {
     const [hasRegisterFailed, setRegisterFailed] = useState(false);
     const [showSuccessMessage, setSuccessMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState('')
+
+    useEffect(() => {
+        document.title = "Forgot Password"
+     }, []);
 
     const eventUpdateEmail = (event) => updateEmail(event.target.value);
 
@@ -41,7 +45,7 @@ export default function ForgotPasswordComponent() {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestRegisterNewUser(email);}}>Submit</button>
                     </>
                     }
-                <a href="http://localhost:3000" className="text-center">Back to homepage</a>
+                <a href="http://localhost:3000" className="text-center m-auto w-50 btn btn-secondary">Back to homepage</a>
             </div>
         </div>
     )

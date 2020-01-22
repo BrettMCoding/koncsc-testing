@@ -9,7 +9,7 @@ class Header extends React.Component {
         return (
             <div>
                 <Container>
-                    <div class="header-title">
+                    <div className="header-title">
                         <h1>KINGDOMS OF NOVITAS</h1>
                         <h2>Online Character Sheet | Skill Calculator</h2>
                     </div>

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Container, Row, Col, } from 'reactstrap';
-import PropTypes from 'prop-types';
 import CharacterInfoInput from './CharacterInfoInput';
 
 export class CharacterInfo extends Component {

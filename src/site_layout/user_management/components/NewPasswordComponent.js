@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export default function NewPasswordComponent(props) {
@@ -8,6 +8,10 @@ export default function NewPasswordComponent(props) {
     const [hasRegisterFailed, setRegisterFailed] = useState(false);
     const [showSuccessMessage, setSuccessMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState('')
+
+    useEffect(() => {
+        document.title = "Enter New Password"
+     }, []);
 
     const eventUpdatePassword = (event) => updatePassword(event.target.value);
     const eventUpdatePassword2 = (event) => updatePassword2(event.target.value);
@@ -34,7 +38,7 @@ export default function NewPasswordComponent(props) {
     return (
         <div>
             <div className="container form-group d-flex flex-column">
-            <h1 className="text-center">Enter A Password</h1>
+            <h1 className="text-center">Enter New Password</h1>
 
                     {hasRegisterFailed && <div className="alert alert-warning">{"Error: " + errorMessage}</div>}
 
@@ -50,7 +54,7 @@ export default function NewPasswordComponent(props) {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestNewPassword(password, password2);}}>Submit</button>
                     </>
                     }
-                    <a href="http://localhost:3000" className="text-center">Back to homepage</a>
+                    <a href="http://localhost:3000" className="text-center m-auto w-50 btn btn-secondary">Back to homepage</a>
                 </div>
         </div>
     )

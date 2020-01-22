@@ -1,34 +1,25 @@
-import React, { useState, useRef } from 'react';
-import UserLoginLogoutComponent from '../user_management/components/UserLoginLogoutComponent'
+import React, { useState } from 'react';
 import LoginComponent from '../user_management/components/LoginComponent';
 import LogoutComponent from '../user_management/components/LogoutComponent';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Fade,
-  Form,
-  FormGroup,
-  Label,
-  Input,
   Button,
     // NavbarText
 } from 'reactstrap';
-import {useSpring, animated, useChain, useTransition } from 'react-spring';
+import { animated } from 'react-spring';
 import { Transition } from 'react-spring/renderprops';
-import { USER_NAME_SESSION_ATTRIBUTE_NAME } from '../user_management/services/AuthenticationService';
 import AuthenticationService from '../user_management/services/AuthenticationService';
 import NavCharacterList from '../user_management/components/NavCharacterList';
 import ConfirmationModal from '../user_management/components/ConfirmationModal';

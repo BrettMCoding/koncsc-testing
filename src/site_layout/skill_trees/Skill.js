@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function Skill(props){
 
-    const [isChecked, setIsChecked] = useState(false);
+    // local management. re-enable if skill checking is bugged,
+    // as well as lines 44 & 47
+    //const [isChecked, setIsChecked] = useState(false);
 
     const playerHasSkill = (playerSkills) => { 
         // if state.playerskills are undefined, return false
@@ -18,13 +20,13 @@ function Skill(props){
     }
 
    const addSpaces = (string) => {
-           if (props.skill.tier == 2) {
+           if (props.skill.tier === 2) {
                 return '  ';
-           } else if (props.skill.tier == 3) {
+           } else if (props.skill.tier === 3) {
                 return '    ';
-           } else if (props.skill.tier == 4) {
+           } else if (props.skill.tier === 4) {
                 return '      ';
-           } else if (props.skill.tier == 5) {
+           } else if (props.skill.tier === 5) {
                 return '        ';
            }
    }
@@ -39,10 +41,10 @@ function Skill(props){
                 
                     onChange={e => {
 
-                        setIsChecked(
+                        //(setIsChecked(
                             props.playerCheckedASkillBox(props.skill, e.target.checked)
-                        );
-
+                        ;
+                        //);
                 }}/> 
                     {' '} {addSpaces(props.skill.name)}
                     {props.skill.name}

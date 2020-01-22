@@ -9,7 +9,7 @@ export default function Resource(props) {
     
     // Resource bar step
     const step = () => {
-        if (max == 20) {
+        if (max === 20) {
             return 5;
         }
         return 10;
