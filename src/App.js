@@ -576,8 +576,8 @@ class App extends React.Component {
                                     <Col className="skilltree">
 
                                         <div className="combat">
-                                            <h3>Combat</h3>
                                             <SkillTree 
+                                                treeName="Combat"
                                                 skills={this.state.combat} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -586,24 +586,24 @@ class App extends React.Component {
                                         </div>
 
                                         <div className="general">
-                                            <h3>General</h3>
                                             <SkillTree 
+                                                treeName="General"
                                                 skills={this.state.general} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 ockChanges={this.state.locked} />
                                         </div>
                                         <div className="nature">
-                                            <h3>Nature</h3>
                                             <SkillTree 
+                                                treeName="Nature"
                                                 skills={this.state.nature} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
                                         <div className="necromancy">
-                                            <h3>Necromancy</h3>
                                             <SkillTree 
+                                                treeName="Necromancy"
                                                 skills={this.state.necromancy} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -614,8 +614,8 @@ class App extends React.Component {
                                     <Col className="skilltree">
 
                                         <div className="production">
-                                            <h3>Production</h3>
                                                 <SkillTree 
+                                                treeName="Production"
                                                 skills={this.state.production} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -623,8 +623,8 @@ class App extends React.Component {
                                         </div>
                                         
                                         <div className="aegis">
-                                            <h3>Aegis</h3>
                                                 <SkillTree 
+                                                treeName="Aegis"
                                                 skills={this.state.aegis} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -632,8 +632,8 @@ class App extends React.Component {
                                         </div>
 
                                         <div className="battle">
-                                            <h3>Battle</h3>
                                             <SkillTree 
+                                                treeName="Battle"
                                                 skills={this.state.battle} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -644,8 +644,8 @@ class App extends React.Component {
                                     <Col className="skilltree">
 
                                         <div className="roleplaying">
-                                            <h3>Roleplaying</h3>
                                             <SkillTree 
+                                                treeName="Roleplaying"
                                                 skills={this.state.roleplaying} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -653,8 +653,8 @@ class App extends React.Component {
                                         </div>
 
                                         <div className="compulsion">
-                                            <h3>Compulsion</h3>
                                             <SkillTree 
+                                                treeName="Compulsion"
                                                 skills={this.state.compulsion} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -662,8 +662,8 @@ class App extends React.Component {
                                         </div>
                     
                                         <div className="restoration">
-                                            <h3>Restoration</h3>
                                             <SkillTree 
+                                                treeName="Restoration"
                                                 skills={this.state.restoration} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
@@ -671,8 +671,8 @@ class App extends React.Component {
                                         </div>
 
                                         <div className="enchantment">
-                                            <h3>Enchantment</h3>
                                             <SkillTree 
+                                                treeName="Enchantment"
                                                 skills={this.state.enchantment} 
                                                 playerSkills={this.state.playerHasSkill} 
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 

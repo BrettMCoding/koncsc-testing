@@ -1,14 +1,25 @@
-import React, { Component } from 'react'
-
+import React, { Component, useState } from 'react'
+import { Collapse, Button } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown, faChevronUp, faCheck } from '@fortawesome/free-solid-svg-icons'
 import Skill from './Skill';
 
-export class SkillTree extends Component {
+export default function SkillTree(props){
+    const [isOpen, setIsOpen] = useState(true);
+    const toggle = () => setIsOpen(!isOpen);
 
-    render() {
-        return this.props.skills.map((skill) => (
-            <Skill key={skill.id} skill={skill} playerCheckedASkillBox={this.props.playerCheckedASkillBox} lockChanges={this.props.lockChanges} playerSkills={this.props.playerSkills} />
+    const skills = props.skills.map((skill) => (
+            <Skill key={skill.id} skill={skill} playerCheckedASkillBox={props.playerCheckedASkillBox} lockChanges={props.lockChanges} playerSkills={props.playerSkills} />
         ))
-    }
-}
 
-export default SkillTree
+    return (
+        <div>
+                <h3><button className="btn-sm btn-dark float-left" onClick={toggle}><FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} /></button>
+                {props.treeName}
+                <button className="btn-sm btn-dark float-right" onClick={()=>{}}><FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} /></button></h3>
+            <Collapse isOpen={isOpen}>
+                {skills}
+            </Collapse>
+        </div>
+    )
+}
