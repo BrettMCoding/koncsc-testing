@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export default function NewPasswordComponent(props) {
+    const API_URL = process.env.REACT_APP_API_DOMAIN
+    const APP_URL = process.env.REACT_APP_DOMAIN
 
     const [password, updatePassword] = useState('');
     const [password2, updatePassword2] = useState('');
@@ -19,8 +21,8 @@ export default function NewPasswordComponent(props) {
     console.log(props)
 
     const requestNewPassword = (password, password2) => {
-
-        return axios.post(`http://localhost:8080/confirm?token=` + props.match.params.token,
+        let url = API_URL + '/confirm?token=';
+        return axios.post(url + props.match.params.token,
             { "p1": password,
                 "p2": password2 })
             .then((res) => {
@@ -54,7 +56,7 @@ export default function NewPasswordComponent(props) {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestNewPassword(password, password2);}}>Submit</button>
                     </>
                     }
-                    <a href="http://localhost:3000" className="text-center m-auto w-50 btn btn-secondary">Back to homepage</a>
+                    <a href={APP_URL} className="text-center m-auto w-50 btn btn-secondary">Back to homepage</a>
                 </div>
         </div>
     )

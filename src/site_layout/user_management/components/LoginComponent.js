@@ -3,6 +3,7 @@ import AuthenticationService from '../services/AuthenticationService';
 import { useAlert } from 'react-alert';
 
 function LoginComponent(props) {
+    const APP_URL = process.env.REACT_APP_DOMAIN
 
     const [email, updateEmail] = useState('');
     const [password, updatePassword] = useState('');
@@ -53,8 +54,8 @@ function LoginComponent(props) {
 
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={loginClicked}>Login</button>
                     <div>
-                        <a href="http://localhost:3000/register" className="btn btn-outline-secondary text-center">Create account</a>
-                        <a href="http://localhost:3000/forgot" className="btn btn-outline-secondary text-center">Forgot your password?</a>
+                        <a href={APP_URL + '/register'} className="btn btn-outline-secondary text-center">Create account</a>
+                        <a href={APP_URL + '/forgot'} className="btn btn-outline-secondary text-center">Forgot your password?</a>
                         
                     </div>
                 </div>

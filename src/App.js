@@ -97,7 +97,7 @@ class App extends React.Component {
         };
 
         let skills = [];
-        axios.get('http://localhost:8080/skills')
+        axios.get(process.env.REACT_APP_API_DOMAIN + '/skills')
             .then(res => {
                 // an array of skill objects was obtained from the database
                 skills = [...res.data];
@@ -181,9 +181,10 @@ class App extends React.Component {
                     // loginClicked (Header -> Navigation -> LoginComponent)
         // load all characters owned by current user
         
+        let url = process.env.REACT_APP_API_DOMAIN + '/characters'
         return axios({
             method: 'get',
-            url: 'http://localhost:8080/characters'})
+            url: url})
             .then((res) => {
                 this.setState(() =>({
                     characterList: [...res.data]
@@ -222,9 +223,10 @@ class App extends React.Component {
             skills: values.playerHasSkill
         }
 
+        let url = process.env.REACT_APP_API_DOMAIN + '/character'
         return axios({
             method: 'post',
-            url: `http://localhost:8080/character`,
+            url: url,
             data: character })
             .then((res) => {
                 
@@ -244,9 +246,10 @@ class App extends React.Component {
     loadCharacter = (id, alert) => {
         // load a user selected character from the database
         
+        let url = process.env.REACT_APP_API_DOMAIN + '/character'
         return axios({
             method: 'get',
-            url: 'http://localhost:8080/character',
+            url: url,
             params: {"id":id}})
             .then((res) => {
                 // react doesnt like nested state, so we need to make a nest for our resources first
@@ -282,10 +285,10 @@ class App extends React.Component {
     }
 
     deleteCharacter = (id, alert) => {
-
+        let url = process.env.REACT_APP_API_DOMAIN + '/character'
         return axios({
             method: 'delete',
-            url: 'http://localhost:8080/character',
+            url: url,
             params: {"id":id}})
             .then((res) => {
                 // console.log(res.data)

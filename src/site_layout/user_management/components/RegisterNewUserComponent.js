@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export default function RegisterNewUserComponent() {
+    const API_URL = process.env.REACT_APP_API_DOMAIN
+    const APP_URL = process.env.REACT_APP_DOMAIN
 
     const [email, updateEmail] = useState('');
     const [hasRegisterFailed, setRegisterFailed] = useState(false);
@@ -15,8 +17,8 @@ export default function RegisterNewUserComponent() {
     const eventUpdateEmail = (event) => updateEmail(event.target.value);
 
     const requestRegisterNewUser = (email) => {
-
-        return axios.post(`http://localhost:8080/register`,
+        let url = API_URL + '/register'
+        return axios.post(url,
             { "email": email })
             .then((res) => {
                 console.log(res)
@@ -45,7 +47,7 @@ export default function RegisterNewUserComponent() {
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={(event) => {event.persist(); requestRegisterNewUser(email);}}>Register</button>
                     </>
                     }
-                    <a href="http://localhost:3000" className="text-center m-auto w-50 btn btn-secondary">Back to homepage</a>
+                    <a href={APP_URL} className="text-center m-auto w-50 btn btn-secondary">Back to homepage</a>
             </div>
         </div>
     )
