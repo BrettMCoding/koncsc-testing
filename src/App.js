@@ -1,5 +1,4 @@
 // TODO: character info display change on low res (it could look alot better)
-// TODO: character list redesign / low res redesign
 // TODO: lock level to >0 <999
 // TODO: reset current skills button
 // TODO: resources are not calculating cost from state values
