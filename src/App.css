@@ -172,6 +172,9 @@ a {
 .skillCost {
     color:white;
 }
+.skilltree {
+    min-width: 250px;
+}
 
 .skilltree h3 {
     text-align: center;
