@@ -309,6 +309,19 @@ class App extends React.Component {
 
     }
 
+    resetSkills = () => {
+        let resetResources = {
+            magicPoints: 0,
+            craftPoints: 0,
+            productionPoints: 0 }
+            
+        this.setState({ playerHasSkill: [],
+                        resources: resetResources
+                    });
+        this.calculateSkillPointsRemaining();
+        this.props.alert.show("Skills Reset", {timeout: 5000, type: 'success'})
+    }
+
     characterInfoChange = (infoName, updatedInfo) => {
         // CALLED BY:
         // CharacterInfo -> CharacterInfoInput(onChange)
@@ -549,6 +562,7 @@ class App extends React.Component {
 
                             <Header 
                                 lockChanges={this.lockChanges}
+                                resetSkills={this.resetSkills}
                                 locked={this.state.locked} 
                                 saveCharacter={this.saveCharacter} 
                                 loadCharacter={this.loadCharacter} 

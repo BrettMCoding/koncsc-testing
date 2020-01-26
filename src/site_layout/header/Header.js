@@ -15,6 +15,7 @@ class Header extends React.Component {
                     </div>
                     <Navigation 
                         lockChanges={this.props.lockChanges} 
+                        resetSkills={this.props.resetSkills}
                         locked={this.props.locked} 
                         saveCharacter={this.props.saveCharacter} 
                         loadCharacter={this.props.loadCharacter} 

@@ -30,6 +30,7 @@ import { useAlert } from 'react-alert';
 function Navigation(props) {
   const [navbarIsOpen, setNavbarIsOpen] = useState(false);
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+  const [skillResetModalIsOpen, setSkillResetModalIsOpen] = useState(false);
   const [confirmationModalIsOpen, setConfirmationModalIsOpen] = useState(false);
 
   // alert popup system
@@ -43,6 +44,10 @@ function Navigation(props) {
 
   // login modal
   const toggleLoginModal = () => setLoginModalIsOpen(isUserLoggedIn ? false : !loginModalIsOpen);
+
+  // skill reset modal
+  const toggleSkillResetModalIsOpen = () => {
+    setSkillResetModalIsOpen(!skillResetModalIsOpen)};
 
   // confirmation modal
   // the confirmationModal is setup to handle Save/Load/Delete based on the user 
@@ -110,6 +115,12 @@ function Navigation(props) {
 
             <NavItem>
                 <NavLink>
+                     <button className="navButton" onClick={toggleSkillResetModalIsOpen} >Reset Skills</button>
+                </NavLink>
+            </NavItem>
+
+            <NavItem>
+                <NavLink>
                      <button className="navButton" onClick={props.lockChanges} >{props.locked ? "Unl" : "L"}ock Editing</button>
                 </NavLink>
             </NavItem>
@@ -170,6 +181,17 @@ function Navigation(props) {
                     </ModalBody>
                     <ModalFooter>
                             <Button className=" m-auto w-50 " color="secondary" onClick={toggleLoginModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
+                {/* confirm skill reset modal */}
+                <Modal isOpen={skillResetModalIsOpen} toggle={toggleSkillResetModalIsOpen}>
+                    <ModalBody>
+                        <div>Are you sure you want to reset your skills? (Unsaved changes will be lost)</div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button className=" m-auto w-50 " color="secondary" onClick={props.toggleConfirmationModalIsOpen}>Cancel</Button>
+                        <Button className=" m-auto w-50 " color="success" onClick={() => {props.resetSkills(); toggleSkillResetModalIsOpen();}}>Reset Skills</Button>
                     </ModalFooter>
                 </Modal>
 
