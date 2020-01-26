@@ -7,7 +7,7 @@ export default function NavCharacterList(props) {
     
     return props.characterList.map((character) => {
             
-            return <div 
+            return <div className="character-list-slot"
 
             id={character.id} 
 

@@ -130,7 +130,7 @@ function Navigation(props) {
                 </DropdownToggle>
                 <DropdownMenu right>
                     <NavCharacterList characterList={props.characterList} handleCharacter={props.saveCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to save this character? (Character in slot: "}/>
-                    <div onClick={()=>{setCurrentConfirmationModal(props.saveCharacter, "Are you sure you want to save a new character?")}}>New Character</div>
+                    <div className="character-list-slot" onClick={()=>{setCurrentConfirmationModal(props.saveCharacter, "Are you sure you want to save a new character?")}}>New Character</div>
                 </DropdownMenu>
                 </UncontrolledDropdown>
             </NavItem>
