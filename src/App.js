@@ -51,7 +51,7 @@ class App extends React.Component {
         country: "",
         player: "",
         race: "",
-        level: 0,
+        level: 1,
         savedXp: 0,
         playerHasSkill: [],
 

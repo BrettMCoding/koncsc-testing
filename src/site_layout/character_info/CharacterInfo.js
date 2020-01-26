@@ -68,14 +68,13 @@ export class CharacterInfo extends Component {
                                             infoName="level" 
                                             infoValue={this.props.level}
                                             maxLength="3"
-                                            placeholder="0"
+                                            placeholder="1"
                                             characterInfoChange={this.props.characterInfoChange}/>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <div className="skillpointsremaining">Skill Points Remaining:{this.props.calculateSkillPointsRemaining()}
-                                            </div>
+                                            <div className="skillpointsremaining">Skill Points Remaining: <div></div>{this.props.calculateSkillPointsRemaining()}</div>
                                         </Col>
                                         
                                         <Col>
@@ -84,7 +83,7 @@ export class CharacterInfo extends Component {
                                                 displayName="Saved XP"
                                                 infoName="savedXp" 
                                                 infoValue={this.props.savedXp}
-                                                maxLength="33"
+                                                maxLength="3"
                                                 placeholder="0"
                                                 characterInfoChange={this.props.characterInfoChange}/>
                                         </Col>
