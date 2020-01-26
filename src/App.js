@@ -1,4 +1,3 @@
-// TODO: character info display change on low res (it could look alot better)
 // TODO: lock level to >0 <999
 // TODO: reset current skills button
 // TODO: resources are not calculating cost from state values
@@ -7,10 +6,10 @@
 
 //  OPTIONAL
     // TODO: pull skill descriptions?
-    // TODO: Redesign?
     // TODO: printable?
     // TODO: admin mode?
     // TODO: hide unused skills?
+    // TODO: further character info redisgn?
 
 import React from 'react';
 import { Container, Row, Col, } from 'reactstrap';

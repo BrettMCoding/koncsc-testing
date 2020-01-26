@@ -74,7 +74,7 @@ export class CharacterInfo extends Component {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <div className="skillpointsremaining">Skill Points Remaining: <div></div>{this.props.calculateSkillPointsRemaining()}</div>
+                                            <div className="skillpointsremaining">Skill Points Remaining: <div className="mock-input">&nbsp;&nbsp;{this.props.calculateSkillPointsRemaining()}</div></div>
                                         </Col>
                                         
                                         <Col>

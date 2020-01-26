@@ -1,9 +1,10 @@
 import React from 'react';
 
 function CharacterInfoInput(props) {
-
+    // the display for every character info item except skill points remaining
     return (
-        <div>{props.displayName}:&nbsp;
+        <div>
+            {props.displayName}:<br />&nbsp;
         <input type="text" 
             placeholder={props.placeholder} 
             maxLength={props.maxLength} 

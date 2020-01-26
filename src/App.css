@@ -56,6 +56,10 @@ body {
     display: flex;
 }
 
+.mock-input {
+    color: rgb(255, 148, 49);
+}
+
 input {
     text-shadow: none;
     background: #333;
