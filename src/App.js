@@ -74,6 +74,9 @@ class App extends React.Component {
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
 
+        // SKILLS BEING LOADED?
+        loadingSkills: false,
+
         // SKILL TREES
         combat: [],
         general: [],
@@ -100,6 +103,9 @@ class App extends React.Component {
             this.loadCharacterList();
         };
 
+        // loading skills flag for 'loading...' div
+        this.setState({loadingSkills: true});
+
         let skills = [];
         axios.get(process.env.REACT_APP_API_DOMAIN + '/skills')
             .then(res => {
@@ -107,7 +113,7 @@ class App extends React.Component {
                 skills = [...res.data];
                 // sort them
                 this.sortSkillsByTree(skills);
-
+                this.setState({loadingSkills: false});
                 });
 
         if (localStorage.getItem("character") !== null){
@@ -579,6 +585,7 @@ class App extends React.Component {
                                     CRAFT_POINT_COST={this.state.CRAFT_POINT_COST}
                                 />
                                 
+                                {this.state.loadingSkills ? <div>Loading skills. Please wait...</div> :
                                 <Row>
                                     <Col className="skilltree">
 
@@ -687,6 +694,7 @@ class App extends React.Component {
                                         </div>
                                     </Col>
                                 </Row>
+                                }
                             </Container>
                         </Route>
 
