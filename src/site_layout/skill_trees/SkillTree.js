@@ -5,7 +5,7 @@ import { faChevronDown, faChevronUp, faCheck } from '@fortawesome/free-solid-svg
 import Skill from './Skill';
 
 export default function SkillTree(props){
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const numOfSkillsInTree = props.skills.length;
 
