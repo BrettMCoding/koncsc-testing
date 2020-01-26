@@ -84,7 +84,7 @@ function Navigation(props) {
   const hideWhenNotLoggedInWrap = (content) => {
       // Transition object controls opacity animation.
       // Used to show/hide content on login/logout
-    return <div><Transition
+    return <div className="align-items-center d-flex"><Transition
         items={isUserLoggedIn}
         from={{ opacity: 0 }}
         enter={{ opacity: 1 }}
@@ -105,11 +105,11 @@ function Navigation(props) {
         <Collapse isOpen={navbarIsOpen} navbar>
           <Nav className="mr-auto" navbar>
 
-            <NavItem >
+            <NavItem className="align-items-center d-flex">
               <NavLink href="http://kingdomsofnovitas.net/">kingdomsofnovitas.net</NavLink>
             </NavItem>
 
-            <NavItem>
+            <NavItem className="align-items-center d-flex">
               <NavLink href="https://www.facebook.com/groups/KingdomsOfNovitas/">Facebook</NavLink>
             </NavItem>
 
@@ -125,11 +125,9 @@ function Navigation(props) {
                 </NavLink>
             </NavItem>
 
-            <NavItem>
+            <NavItem className="align-items-center d-flex">
                 { isUserLoggedIn && <LogoutComponent getUserLoggedInProp={getUserLoggedInProp} /> }
-            </NavItem>
 
-            <NavItem>
                 { !isUserLoggedIn &&<Button color="success" onClick={toggleLoginModal}>Login</Button>}
             </NavItem>
 
@@ -137,7 +135,7 @@ function Navigation(props) {
                 <NavItem>
                 <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                    Save Character
+                    Save
                 </DropdownToggle>
                 <DropdownMenu right>
                     <NavCharacterList characterList={props.characterList} handleCharacter={props.saveCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to save this character? (Character in slot: "}/>
@@ -150,7 +148,7 @@ function Navigation(props) {
             <NavItem>
                 <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                    Load Character
+                    Load
                 </DropdownToggle>
                 <DropdownMenu right>
                     <NavCharacterList characterList={props.characterList} handleCharacter={props.loadCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to load this character? (Character: "}/>
@@ -162,7 +160,7 @@ function Navigation(props) {
             <NavItem>
                     <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
-                        Delete Character
+                        Delete
                     </DropdownToggle>
                     <DropdownMenu right>
                         <NavCharacterList characterList={props.characterList} handleCharacter={props.deleteCharacter} setCurrentConfirmationModal={setCurrentConfirmationModal} message={"Are you sure you want to load this character? (Character: "}/>
