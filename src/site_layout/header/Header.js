@@ -22,7 +22,8 @@ class Header extends React.Component {
                         characterList={this.props.characterList} 
                         loadCharacterList={this.props.loadCharacterList}
                         // passed to button for testing
-                        staate={this.props.staate}/>
+                        // staate={this.props.staate}
+                        />
                 </Container>
             </div>
         )

@@ -36,7 +36,7 @@ function Navigation(props) {
   const alert = useAlert();
 
   // log state test button
-  const logs = () => {console.log(props.staate)}
+  // const logs = () => {console.log(props.staate)}
 
   // navbar collapse/expand
   const toggleNavbar = () => setNavbarIsOpen(!navbarIsOpen);
@@ -159,14 +159,6 @@ function Navigation(props) {
                     </UncontrolledDropdown>
             </NavItem>
             )}
-          <NavItem>
-                <NavLink>
-                     <button className="navButton" onClick={logs} > log state</button>
-                </NavLink>
-                <NavLink>
-                     <button className="navButton" onClick={() => {debugger}} > debugger</button>
-                </NavLink>
-            </NavItem>
           </Nav>
         </Collapse>
                 
