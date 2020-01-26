@@ -78,10 +78,12 @@ var _extends = Object.assign || function (target) {
 };
 
 var alertStyle = {
+  borderStyle: 'solid',
+  borderColor: 'black',
   backgroundColor: '#333',
   color: 'white',
   padding: '10px',
-  borderRadius: '3px',
+  borderRadius: '1px',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
