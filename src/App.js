@@ -1,6 +1,5 @@
 // TODO: character info display change on low res (it could look alot better)
-// TODO: remove shadows from account info input boxes
-// TODO: remove shadows, remove line break, add an outline to multi characters
+// TODO: character list redesign / low res redesign
 // TODO: lock level to >0 <999
 // TODO: reset current skills button
 // TODO: resources are not calculating cost from state values
