@@ -54,8 +54,8 @@ function LoginComponent(props) {
 
                     <button className="btn btn-lg btn-success p-1 mt-3 mb-2" onClick={loginClicked}>Login</button>
                     <div>
-                        <a href={APP_URL + '/register'} className="btn btn-outline-secondary text-center">Create account</a>
-                        <a href={APP_URL + '/forgot'} className="btn btn-outline-secondary text-center">Forgot your password?</a>
+                        <a href={APP_URL + '/#/register'} className="btn btn-outline-secondary text-center">Create account</a>
+                        <a href={APP_URL + '/#/forgot'} className="btn btn-outline-secondary text-center">Forgot your password?</a>
                         
                     </div>
                 </div>

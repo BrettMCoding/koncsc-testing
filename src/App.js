@@ -1,7 +1,11 @@
+// TODO: character info display change on low res (it could look alot better)
+// TODO: remove shadows from account info input boxes
+// TODO: remove shadows, remove line break, add an outline to multi characters
+// TODO: lock level to >0 <999
+// TODO: reset current skills button
 // TODO: resources are not calculating cost from state values
 // TODO: continue comment sweep
 // TODO: continue refactor sweep
-// TODO: look into basic auth vs JWT for production
 
 //  OPTIONAL
     // TODO: pull skill descriptions?
@@ -16,7 +20,7 @@ import Header from './site_layout/header/Header';
 import CharacterInfo from './site_layout/character_info/CharacterInfo';
 import Resources from './site_layout/resources/Resources';
 import SkillTree from './site_layout/skill_trees/SkillTree';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import UserLoginLogoutComponent from './site_layout/user_management/components/UserLoginLogoutComponent';
@@ -684,19 +688,6 @@ class App extends React.Component {
                                     </Col>
                                 </Row>
                             </Container>
-                        </Route>
-                        <Route exact path="/login">
-                            <UserLoginLogoutComponent />
-                                <div className="registerbox d-flex flex-column align-items-center m-5">
-                                    <div>No account?</div>
-                                    <Link to="/register">
-                                        <button className="btn btn-success">Register</button>
-                                    </Link>
-                                    <div>Forgot your password?</div>
-                                    <Link to="/forgot">
-                                        <button className="btn btn-success">Reset Password</button>
-                                    </Link>
-                                </div>
                         </Route>
 
                         <Route path="/register" exact component={RegisterNewUserComponent} />
