@@ -7,7 +7,7 @@ export default function NavCharacterList(props) {
     
     return props.characterList.map((character) => {
             
-            return <div className="character-list-slot"
+            return <div className="character-list-slot btn-success btn-sm"
 
             id={character.id} 
 
@@ -21,7 +21,7 @@ export default function NavCharacterList(props) {
                     character.id)}}>
 
                     {/* displayed as "Charactername. level race */}
-                    {character.characterName}.&nbsp;Level&nbsp;{character.level}&nbsp;{character.race}
+                    {character.characterName}.&nbsp;<br />Level&nbsp;{character.level}&nbsp;{character.race}
                 
             </div>
         });

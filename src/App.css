@@ -82,6 +82,18 @@ input {
     margin: 15px;
 }
 
+.character-list-slot {
+    text-shadow: none;
+    outline-style: auto;
+    outline-color: black;
+    background-color: rgb(139, 0, 0);
+}
+
+.dropdown-menu {
+    background-color: #333;
+    padding: 0;
+}
+
 a {
     color: #333;
     text-decoration: none;
@@ -247,8 +259,4 @@ a {
 .skillpointsremaining ::placeholder {
     color: white;
     opacity: 1;
-}
-
-.character-list-slot {
-    text-shadow: none;
 }
