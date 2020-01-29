@@ -1,5 +1,11 @@
+// TODO: remove shadows from server-side alerts
+// TODO: add CHECK YOUR SPAM WARNING to backend email confirmation
+// TODO: RP skills rule
+// TODO: Production cost adjustment
+// TODO: Rare language approval (v1 vs v2 implementation?)
+// TODO: Free appropriate racial language
+
 // TODO: lock level to >0 <999
-// TODO: reset current skills button
 // TODO: resources are not calculating cost from state values
 // TODO: continue comment sweep
 // TODO: continue refactor sweep
