@@ -1,7 +1,5 @@
-// TODO: remove shadows from server-side alerts
 // TODO: add CHECK YOUR SPAM WARNING to backend email confirmation
 // TODO: RP skills rule
-// TODO: Production cost adjustment
 // TODO: Rare language approval (v1 vs v2 implementation?)
 // TODO: Free appropriate racial language
 
@@ -69,10 +67,10 @@ class App extends React.Component {
             productionPoints: 0,
         },
 
-        // With resources, the cost is set in state, and not in the database. ...For now.
+        // Cost is tracked in state instead of database using these constant values
             MAGIC_POINT_COST: 1,
             CRAFT_POINT_COST: 2,
-            PRODUCTION_POINT_COST: 2,
+            PRODUCTION_POINT_COST: 1,
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
@@ -366,7 +364,9 @@ class App extends React.Component {
             spent += playerSkills[skill].cost;
         }
 
-        spent += (playerResources.craftPoints * 2) + (playerResources.productionPoints * 2) + playerResources.magicPoints;
+        spent += (playerResources.craftPoints * this.state.CRAFT_POINT_COST) + 
+                (playerResources.productionPoints * this.state.PRODUCTION_POINT_COST) + 
+                (playerResources.magicPoints * this.state.MAGIC_POINT_COST);
 
         return spent;
     }
