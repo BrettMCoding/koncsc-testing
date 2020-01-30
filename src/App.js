@@ -1,5 +1,4 @@
 // TODO: add CHECK YOUR SPAM WARNING to backend email confirmation
-// TODO: RP skills rule
 // TODO: Rare language approval (v1 vs v2 implementation?)
 // TODO: Free appropriate racial language
 
@@ -410,7 +409,7 @@ class App extends React.Component {
             return false;
         };
  
-        // if click detected
+        // if adding a checkbox was detected
         if (e) {
 
             // check the cost        
@@ -419,6 +418,11 @@ class App extends React.Component {
                 this.props.alert.show("You do not have enough skill points for " + checkedSkill.name, {timeout: 5000, type: 'error'})
                 return false;
             };
+
+            // roleplaying skill rules
+            if (!this.canPlayerGetThisRoleplayingSkill(checkedSkill)) {
+                return false;
+            }
 
             // add skill
             return this.addSkill(checkedSkill);
@@ -433,6 +437,41 @@ class App extends React.Component {
             // remove
             return this.removeSkill(checkedSkill);
         }
+    }
+
+    canPlayerGetThisRoleplayingSkill = (skill) => {
+    // A Character can only have 5 levels in one roleplaying skill tree,
+    // And 2 levels in another maximum
+
+        // filter for player RP skills
+        let playerRPSkills = this.state.playerHasSkill.filter(skill => skill.tree === "roleplaying");
+
+        // filter for tier one skills
+        let tierOnePlayerRPSkills = playerRPSkills.filter(skill => skill.name.includes("1"))
+
+        // if the player has two tier ones already, he is inelligible for another tier one
+        if (tierOnePlayerRPSkills.length === 2) {
+            if (skill.name.includes("1")) {
+                this.props.alert.show("You cannot have more than two types of roleplaying skills", {timeout: 5000, type: 'error'})
+                return false;
+            }
+        }
+
+        // filter for tier three skills
+        let tierThreePlayerRPSkills = playerRPSkills.filter(skill => skill.name.includes(3))
+
+        // if player has any
+        if (tierThreePlayerRPSkills.length !== 0) {
+
+            // if player has one already, inelligible for another
+            if (skill.name.includes(3) && tierThreePlayerRPSkills.length === 1) {
+                this.props.alert.show("You cannot have more than one roleplaying skill above 2nd level", {timeout: 5000, type: 'error'})
+                return false;
+            }
+
+        }
+
+        return true;
     }
 
     skillIsRequired = (skill) => {
