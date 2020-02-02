@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Container, Row, Col, } from 'reactstrap';
 import CharacterInfoInput from './CharacterInfoInput';
+import CharacterInfoDropdownCountries from './CharacterInfoDropdownCountries';
+import CharacterInfoDropdownRaces from './CharacterInfoDropdownRaces';
 
 export class CharacterInfo extends Component {
     
@@ -28,25 +30,27 @@ export class CharacterInfo extends Component {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <CharacterInfoInput 
+                                            {/* <CharacterInfoInput 
                                                 className="inputbox"
                                                 displayName="Race"
                                                 infoName="race" 
                                                 infoValue={this.props.race}
                                                 maxLength="33"
                                                 placeholder="Enter a Race"
-                                                characterInfoChange={this.props.characterInfoChange}/>
+                                                characterInfoChange={this.props.characterInfoChange}/> */}
+                                                <CharacterInfoDropdownRaces />
                                         </Col>
 
                                         <Col>
-                                            <CharacterInfoInput 
+                                            {/* <CharacterInfoInput 
                                             className="inputbox"
                                             displayName="Country"
                                             infoName="country" 
                                             infoValue={this.props.country}
                                             maxLength="33"
                                             placeholder="Enter a Country"
-                                            characterInfoChange={this.props.characterInfoChange}/>
+                                            characterInfoChange={this.props.characterInfoChange}/> */}
+                                            <CharacterInfoDropdownCountries />
                                         </Col>
                                     </Row>
                                     <Row>

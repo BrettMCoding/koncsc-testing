@@ -65,6 +65,13 @@ input {
     flex: 1;
     padding-left: 4px;
 }
+
+.mock-input-dropdown {
+    text-shadow: none;
+    color: rgb(255, 222, 115);
+    border: none;
+    flex: 1;
+}
 /* we want text shadow off of every input except characterinfo */
 .characterinfo-box input {
     text-shadow: 2px 2px 6px black;
@@ -265,4 +272,8 @@ a {
 .alert {
     white-space: initial;
     text-shadow: none;
+}
+
+.info-dropdown-item{
+    color: white;
 }

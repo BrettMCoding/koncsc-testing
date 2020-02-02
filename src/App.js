@@ -1,6 +1,7 @@
 // TODO: add CHECK YOUR SPAM WARNING to backend email confirmation
 // TODO: Rare language approval (v1 vs v2 implementation?)
 // TODO: Free appropriate racial language
+// TODO: racial/country dropdowns
 
 // TODO: lock level to >0 <999
 // TODO: resources are not calculating cost from state values

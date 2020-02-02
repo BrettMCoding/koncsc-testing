@@ -1,7 +1,7 @@
 import React from 'react';
 
 function CharacterInfoInput(props) {
-    // the display for every character info item except skill points remaining
+    // the display for character info where the input should be text
     return (
         <div>
             {props.displayName}:<br />&nbsp;
