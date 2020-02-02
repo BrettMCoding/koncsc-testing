@@ -396,6 +396,7 @@ class App extends React.Component {
     }
     
     playerCheckedASkillBox = (checkedSkill, e) => {
+        console.log("pulled branch from remote-testing OK")
         // CALLED BY Skill.js(checkBox onChange) (SkillTree.js -> Skill.js)
 
         // add or remove a skill on checkbox change
