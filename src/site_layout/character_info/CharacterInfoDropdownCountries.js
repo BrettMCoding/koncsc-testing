@@ -8,9 +8,9 @@ export default function CharacterInfoDropdownCountries(props) {
     const [dropdownValue, setDropdownValue] = useState("Select a country")
 
     // countries placeholder
-    const countries = ["vlean", "civen", "dell", "chicken"]
+    const countries = props.countries
 
-    const optionsMap = countries.map(i => ( <DropdownItem className="info-dropdown-item" onClick={(e) => {debugger;setDropdownValue(i)}}>{i}</DropdownItem> ))
+    const optionsMap = (countries === undefined ? <div>Loading countries...</div> : countries.map(i => ( <DropdownItem className="info-dropdown-item" onClick={(e) => {setDropdownValue(i.name)}}>{i.name}</DropdownItem> )))
 
     const toggle = () => setDropdownOpen(dropdownOpen => !dropdownOpen);
 

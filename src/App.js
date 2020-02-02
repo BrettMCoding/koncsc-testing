@@ -59,6 +59,11 @@ class App extends React.Component {
         // list of characters owned by logged in user
         characterList: [],
 
+        // list of Races
+        races: [],
+
+        // list of Countries
+        countries: [],
         
         // RESOURCES
         resources: {
@@ -115,6 +120,24 @@ class App extends React.Component {
                 // sort them
                 this.sortSkillsByTree(skills);
                 this.setState({loadingSkills: false});
+                });
+
+        let countries = [];
+        axios.get(process.env.REACT_APP_API_DOMAIN + '/countries')
+            .then(res => {
+                // country list obtained
+                countries = [...res.data];
+                this.setState({countries: countries});
+
+                });
+
+        let races = [];
+        axios.get(process.env.REACT_APP_API_DOMAIN + '/races')
+            .then(res => {
+                // race list obtained
+                races = [...res.data];
+                this.setState({races: races});
+                
                 });
 
         if (localStorage.getItem("character") !== null){
@@ -620,6 +643,8 @@ class App extends React.Component {
                             </Header>
 
                             <CharacterInfo
+                                races={this.state.races}
+                                countries={this.state.countries}
                                 level={this.state.level}
                                 characterName={this.state.characterName}
                                 country={this.state.country}

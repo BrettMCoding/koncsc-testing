@@ -38,7 +38,7 @@ export class CharacterInfo extends Component {
                                                 maxLength="33"
                                                 placeholder="Enter a Race"
                                                 characterInfoChange={this.props.characterInfoChange}/> */}
-                                                <CharacterInfoDropdownRaces />
+                                                <CharacterInfoDropdownRaces races={this.props.races} />
                                         </Col>
 
                                         <Col>
@@ -50,7 +50,7 @@ export class CharacterInfo extends Component {
                                             maxLength="33"
                                             placeholder="Enter a Country"
                                             characterInfoChange={this.props.characterInfoChange}/> */}
-                                            <CharacterInfoDropdownCountries />
+                                            <CharacterInfoDropdownCountries countries={this.props.countries} />
                                         </Col>
                                     </Row>
                                     <Row>

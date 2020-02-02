@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-export default function CharacterInfoDropdownCountries(props) {
+export default function CharacterInfoDropdownRaces(props) {
     // the display for character info where the input should be a drop down
     
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownValue, setDropdownValue] = useState("Select a race")
 
     // races placeholder
-    const races = ["Human", "Elf", "Earfkin", "God"]
+    const races = props.races
 
-    const optionsMap = races.map(i => ( <DropdownItem className="info-dropdown-item" onClick={(e) => {debugger;setDropdownValue(i)}}>{i}</DropdownItem> ))
+    const optionsMap = (races === undefined ? <div>Loading races...</div> : races.map(i => ( <DropdownItem className="info-dropdown-item" onClick={(e) => {setDropdownValue(i.name)}}>{i.name}</DropdownItem> )))
 
     const toggle = () => setDropdownOpen(dropdownOpen => !dropdownOpen);
 
