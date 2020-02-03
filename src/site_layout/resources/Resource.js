@@ -58,7 +58,7 @@ export default function Resource(props) {
                 
             </button>
 
-            <div className="resource-cost">{cost}</div>
+            <div className="resource-cost">{cost * props.pointsGrantedPerSkillPoint}</div>
 
             </Row>
 

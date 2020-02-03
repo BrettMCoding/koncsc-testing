@@ -4,9 +4,6 @@ import Resource from './Resource';
 // import PropTypes from 'prop-types';
 
 export default function Resources(props) {
-    // props.resources.find(x => x.id === 160) = production
-    // props.resources.find(x => x.id === 161) = craft
-    // props.resources.find(x => x.id === 162) = magic power
 
     return (
         <div>
@@ -21,6 +18,7 @@ export default function Resources(props) {
                                 displayName={"Magic Power"} 
                                 cost={props.MAGIC_POINT_COST} 
                                 max={20}
+                                pointsGrantedPerSkillPoint={"1"}
                                 
                                 resourceName={"magicPoints"}
 
@@ -32,7 +30,8 @@ export default function Resources(props) {
                     <Resource props={props} 
                                 displayName={"Production"} 
                                 cost={props.PRODUCTION_POINT_COST} 
-                                max={10} 
+                                max={20} 
+                                pointsGrantedPerSkillPoint={"2"}
 
                                 resourceName={"productionPoints"}
 
@@ -43,7 +42,8 @@ export default function Resources(props) {
                     <Resource props={props}
                                 displayName={"Craft"} 
                                 cost={props.CRAFT_POINT_COST} 
-                                max={10} 
+                                max={20}
+                                pointsGrantedPerSkillPoint={"2"} 
 
                                 resourceName={"craftPoints"}
 
