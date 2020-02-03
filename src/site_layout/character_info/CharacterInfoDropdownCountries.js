@@ -5,12 +5,11 @@ export default function CharacterInfoDropdownCountries(props) {
     // the display for character info where the input should be a drop down
     
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [dropdownValue, setDropdownValue] = useState("Select a country")
 
     // countries placeholder
     const countries = props.countries
 
-    const optionsMap = (countries === undefined ? <div>Loading countries...</div> : countries.map(i => ( <DropdownItem className="info-dropdown-item" onClick={(e) => {setDropdownValue(i.name)}}>{i.name}</DropdownItem> )))
+    const optionsMap = (countries === undefined ? <div>Loading countries...</div> : countries.map(i => ( <DropdownItem className="info-dropdown-item" onClick={(e) => {props.characterInfoChange("country", i.name)}}>{i.name}</DropdownItem> )))
 
     const toggle = () => setDropdownOpen(dropdownOpen => !dropdownOpen);
 
@@ -18,7 +17,9 @@ export default function CharacterInfoDropdownCountries(props) {
         <div>Country:
             <Dropdown isOpen={dropdownOpen} toggle={toggle} setActiveFromChild={true} size="md">
                 <DropdownToggle caret className="navButton p-0 pl-2">
-                    <span className={(dropdownValue === "Select a country" ? "" : "mock-input-dropdown")}>{dropdownValue}</span>
+                    <span className={(props.country === "" ? "" : "mock-input-dropdown")}>
+                    {(props.country === "" ? "Select a country" : props.country)}
+                    </span>
                 </DropdownToggle>
                 <DropdownMenu>
                     {optionsMap}
