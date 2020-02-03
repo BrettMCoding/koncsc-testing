@@ -1,8 +1,9 @@
 // TODO: add CHECK YOUR SPAM WARNING to backend email confirmation
 // TODO: Rare language approval (v1 vs v2 implementation?)
 // TODO: Free appropriate racial language
+// TODO: dead skills removed for RP reasons
 
-// TODO: lock level to >0 <999
+// TODO: lock level to >0 <999?
 // TODO: resources are not calculating cost from state values
 // TODO: continue comment sweep
 // TODO: continue refactor sweep
@@ -58,6 +59,11 @@ class App extends React.Component {
         // list of characters owned by logged in user
         characterList: [],
 
+        // list of Races
+        races: [],
+
+        // list of Countries
+        countries: [],
         
         // RESOURCES
         resources: {
@@ -68,8 +74,10 @@ class App extends React.Component {
 
         // Cost is tracked in state instead of database using these constant values
             MAGIC_POINT_COST: 1,
-            CRAFT_POINT_COST: 2,
-            PRODUCTION_POINT_COST: 1,
+        
+            // Costs 1 point to get 2 Skill points
+            CRAFT_POINT_COST: 0.5,
+            PRODUCTION_POINT_COST: 0.5,
         
         // LOCK BUTTONS TO PREVENT EDITING
         locked: false,
@@ -114,6 +122,24 @@ class App extends React.Component {
                 // sort them
                 this.sortSkillsByTree(skills);
                 this.setState({loadingSkills: false});
+                });
+
+        let countries = [];
+        axios.get(process.env.REACT_APP_API_DOMAIN + '/countries')
+            .then(res => {
+                // country list obtained
+                countries = [...res.data];
+                this.setState({countries: countries});
+
+                });
+
+        let races = [];
+        axios.get(process.env.REACT_APP_API_DOMAIN + '/races')
+            .then(res => {
+                // race list obtained
+                races = [...res.data];
+                this.setState({races: races});
+                
                 });
 
         if (localStorage.getItem("character") !== null){
@@ -338,7 +364,7 @@ class App extends React.Component {
         // CALLED BY: calculateSkillPointsRemaining
         // a level 1 character has 4 skill points. Every level after that is +2
 
-        return this.state.level === 1 ? 4 : (this.state.level * 2) + 4
+        return this.state.level === 1 ? 6 : (this.state.level * 2) + 4
     }
 
 
@@ -540,8 +566,14 @@ class App extends React.Component {
 
         // local resources variable
         let resources = this.state.resources
-        // add a point to this resource
-        resources[resourceName] += 1;
+        
+        // add to this resource
+        // hard coded rule to give non magic points +2 per skill
+        if (resourceName==="magicPoints"){
+            resources[resourceName] += 1;
+        } else {
+            resources[resourceName] += 2;
+        }
 
         // add new resources to state and calc SPR
         this.setState({resources}, () => {this.calculateSkillPointsRemaining()});
@@ -558,7 +590,13 @@ class App extends React.Component {
         }
 
         let resources = this.state.resources
-        resources[resourceName] -= 1;
+        
+        // hard coded rule to give non magic points +2 per skill
+        if (resourceName==="magicPoints"){
+            resources[resourceName] -= 1;
+        } else {
+            resources[resourceName] -= 2;
+        }
 
         this.setState({resources});
     }
@@ -620,6 +658,8 @@ class App extends React.Component {
                             </Header>
 
                             <CharacterInfo
+                                races={this.state.races}
+                                countries={this.state.countries}
                                 level={this.state.level}
                                 characterName={this.state.characterName}
                                 country={this.state.country}
