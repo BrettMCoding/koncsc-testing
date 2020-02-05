@@ -33,8 +33,24 @@ function Skill(props){
 
    const checkedStyle = playerHasSkill(props.playerSkills) ? " checked" : "";
 
+   // check if this skill was located in the free language array
+   if (props.freeLanguages[0] !== undefined){
+        if (props.freeLanguages.find(foundSkill => foundSkill.name === props.skill.name)) {
+            return <div className={"skill row d-flex flex-nowrap checked"}>
+                        <div className={"skillBody col pl-1 checked"}>
+                            <p>
+                            <input disabled={true} type="checkbox" checked={true} /> 
+                                {' '} {addSpaces(props.skill.name)}
+                                {props.skill.name}
+                            </p>
+                            </div>
+                        <div className="skillCost d-inline-flex flex-nowrap pr-1">{props.skill.cost}</div>
+                    </div>
+        }
+    }
+
     return (
-        <div className={"skill row d-flex flex-nowrap" + checkedStyle}>
+        <div className={"skill row d-flex flex-nowrap " + checkedStyle}>
             <div className={"skillBody col pl-1" + checkedStyle}>
                 <p>
                 <input disabled={props.lockChanges} type="checkbox" checked={playerHasSkill(props.playerSkills)} 
