@@ -54,6 +54,11 @@ class App extends React.Component {
         race: "",
         level: 1,
         savedXp: 0,
+
+        // languages a character has for free (to be stored/retrieved from a relational table)
+        freeLanguages: [],
+
+        // character's owned skills
         playerHasSkill: [],
 
         // list of characters owned by logged in user
@@ -138,7 +143,10 @@ class App extends React.Component {
             .then(res => {
                 // race list obtained
                 races = [...res.data];
-                this.setState({races: races});
+
+                this.setState(({races: races}), function () {
+                    this.checkCharacterFreeLanguages();
+                    });
                 
                 });
 
@@ -310,7 +318,9 @@ class App extends React.Component {
 
                     // list of user skills
                     playerHasSkill: res.data.skills
-                }))
+                }), function () {
+                    this.checkCharacterFreeLanguages();
+                })
                 alert.show("Character Loaded", {timeout: 5000, type: 'success'})
             })
             .catch((err) => {
@@ -357,7 +367,73 @@ class App extends React.Component {
         // if the infoName is "level", we need to update players skill points remaining.
         this.setState({[infoName]: updatedInfo}, function() {
             this.calculateSkillPointsRemaining();
+            this.checkCharacterFreeLanguages();
         });  
+    }
+
+    checkCharacterFreeLanguages = () => {
+        let playerSkills = this.state.playerHasSkill;
+        let generalSkills = this.state.general
+
+        switch (this.state.race) {
+            case "Human":
+                this.addFreeLanguages([""]);
+            break;
+            case "Drake":
+                this.addFreeLanguages(["Language: Draconian"]);
+            break;
+            case "Snow Goblin":
+                this.addFreeLanguages(["Language: Snow Goblin"]);
+            break;
+            case "Elf":
+                this.addFreeLanguages(["Language: Elven"]);
+            break;
+            case "Earthkin":
+                this.addFreeLanguages(["Language: Terran"]);
+            break;
+            case "Faekin Elf":
+                this.addFreeLanguages(["Language: Elven", "Language: Sylvan"]);
+            break;
+            case "Faekin Earthkin":
+                this.addFreeLanguages(["Language: Terran", "Language: Sylvan"]);
+            break;
+            case "Faekin Human":
+                this.addFreeLanguages(["Language: Sylvan"]);
+            break;
+        }
+    }
+
+    addFreeLanguages = (languageNamesArray) => {
+        let hasFreeLanguages = [];
+        let generalSkills = this.state.general
+
+        // if playerHasSkill so we can refund maybe?
+        // for (let languageName in languageNamesArray) {
+        //     let languageFound = this.state.playerHasSkill.find(skill => skill.name === languageName)
+        //     if (languageFound !== undefined) {
+        //         hasFreeLanguages.push(languageFound);
+        //     };
+        // }
+
+        for (let languageName in languageNamesArray) {
+                let getLanguageByName = generalSkills.find(skill => skill.name === languageNamesArray[languageName])
+                
+                if (getLanguageByName !== undefined) {
+                    hasFreeLanguages.push(getLanguageByName);
+                }
+        }
+
+
+        this.setState(prevState => ({
+            freeLanguages: hasFreeLanguages }), function() {
+                for (let lang in hasFreeLanguages) {
+                    this.removeSkill(hasFreeLanguages[lang]);
+                }
+        });  
+
+        
+        
+        // if player has skill, refund it? lock it? check it?
     }
     
     calculateBaseSkillPoints = () => { 
@@ -689,7 +765,8 @@ class App extends React.Component {
                                             <SkillTree 
                                                 treeName="Combat"
                                                 skills={this.state.combat} 
-                                                playerSkills={this.state.playerHasSkill} 
+                                                playerSkills={this.state.playerHasSkill}
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} 
                                             />
@@ -700,14 +777,16 @@ class App extends React.Component {
                                                 treeName="General"
                                                 skills={this.state.general} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
-                                                ockChanges={this.state.locked} />
+                                                lockChanges={this.state.locked} />
                                         </div>
                                         <div className="nature">
                                             <SkillTree 
                                                 treeName="Nature"
                                                 skills={this.state.nature} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -716,6 +795,7 @@ class App extends React.Component {
                                                 treeName="Necromancy"
                                                 skills={this.state.necromancy} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -728,6 +808,7 @@ class App extends React.Component {
                                                 treeName="Production"
                                                 skills={this.state.production} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -737,6 +818,7 @@ class App extends React.Component {
                                                 treeName="Aegis"
                                                 skills={this.state.aegis} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -746,6 +828,7 @@ class App extends React.Component {
                                                 treeName="Battle"
                                                 skills={this.state.battle} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -758,6 +841,7 @@ class App extends React.Component {
                                                 treeName="Roleplaying"
                                                 skills={this.state.roleplaying} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -767,6 +851,7 @@ class App extends React.Component {
                                                 treeName="Compulsion"
                                                 skills={this.state.compulsion} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -776,6 +861,7 @@ class App extends React.Component {
                                                 treeName="Restoration"
                                                 skills={this.state.restoration} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
@@ -785,6 +871,7 @@ class App extends React.Component {
                                                 treeName="Enchantment"
                                                 skills={this.state.enchantment} 
                                                 playerSkills={this.state.playerHasSkill} 
+                                                freeLanguages={this.state.freeLanguages}
                                                 playerCheckedASkillBox={this.playerCheckedASkillBox} 
                                                 lockChanges={this.state.locked} />
                                         </div>
