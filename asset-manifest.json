@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/koncsc-testing/static/css/main.219f3366.chunk.css",
-    "main.js": "/koncsc-testing/static/js/main.9b338a2d.chunk.js",
-    "main.js.map": "/koncsc-testing/static/js/main.9b338a2d.chunk.js.map",
-    "runtime-main.js": "/koncsc-testing/static/js/runtime-main.205dffcf.js",
-    "runtime-main.js.map": "/koncsc-testing/static/js/runtime-main.205dffcf.js.map",
-    "static/css/2.7aa6f31f.chunk.css": "/koncsc-testing/static/css/2.7aa6f31f.chunk.css",
-    "static/js/2.182e0fdd.chunk.js": "/koncsc-testing/static/js/2.182e0fdd.chunk.js",
-    "static/js/2.182e0fdd.chunk.js.map": "/koncsc-testing/static/js/2.182e0fdd.chunk.js.map",
+    "main.css": "/koncsc-testing/static/css/main.2cdade4c.chunk.css",
+    "main.js": "/koncsc-testing/static/js/main.0db38398.chunk.js",
+    "main.js.map": "/koncsc-testing/static/js/main.0db38398.chunk.js.map",
+    "runtime-main.js": "/koncsc-testing/static/js/runtime-main.975bcdec.js",
+    "runtime-main.js.map": "/koncsc-testing/static/js/runtime-main.975bcdec.js.map",
+    "static/css/2.f450d554.chunk.css": "/koncsc-testing/static/css/2.f450d554.chunk.css",
+    "static/js/2.879e633b.chunk.js": "/koncsc-testing/static/js/2.879e633b.chunk.js",
+    "static/js/2.879e633b.chunk.js.map": "/koncsc-testing/static/js/2.879e633b.chunk.js.map",
     "index.html": "/koncsc-testing/index.html",
-    "precache-manifest.b0704fc9dc081870ae5625e201291d09.js": "/koncsc-testing/precache-manifest.b0704fc9dc081870ae5625e201291d09.js",
+    "precache-manifest.7c83f08c1f693cee3aa523706c56c707.js": "/koncsc-testing/precache-manifest.7c83f08c1f693cee3aa523706c56c707.js",
     "service-worker.js": "/koncsc-testing/service-worker.js",
-    "static/css/2.7aa6f31f.chunk.css.map": "/koncsc-testing/static/css/2.7aa6f31f.chunk.css.map",
-    "static/css/main.219f3366.chunk.css.map": "/koncsc-testing/static/css/main.219f3366.chunk.css.map"
+    "static/css/2.f450d554.chunk.css.map": "/koncsc-testing/static/css/2.f450d554.chunk.css.map",
+    "static/css/main.2cdade4c.chunk.css.map": "/koncsc-testing/static/css/main.2cdade4c.chunk.css.map",
+    "static/js/2.879e633b.chunk.js.LICENSE.txt": "/koncsc-testing/static/js/2.879e633b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.205dffcf.js",
-    "static/css/2.7aa6f31f.chunk.css",
-    "static/js/2.182e0fdd.chunk.js",
-    "static/css/main.219f3366.chunk.css",
-    "static/js/main.9b338a2d.chunk.js"
+    "static/js/runtime-main.975bcdec.js",
+    "static/css/2.f450d554.chunk.css",
+    "static/js/2.879e633b.chunk.js",
+    "static/css/main.2cdade4c.chunk.css",
+    "static/js/main.0db38398.chunk.js"
   ]
 }
