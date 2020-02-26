@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/koncsc-testing/static/css/main.449faf59.chunk.css",
-    "main.js": "/koncsc-testing/static/js/main.dbf1d1ef.chunk.js",
-    "main.js.map": "/koncsc-testing/static/js/main.dbf1d1ef.chunk.js.map",
+    "main.js": "/koncsc-testing/static/js/main.1bc30b0e.chunk.js",
+    "main.js.map": "/koncsc-testing/static/js/main.1bc30b0e.chunk.js.map",
     "runtime-main.js": "/koncsc-testing/static/js/runtime-main.975bcdec.js",
     "runtime-main.js.map": "/koncsc-testing/static/js/runtime-main.975bcdec.js.map",
     "static/css/2.f450d554.chunk.css": "/koncsc-testing/static/css/2.f450d554.chunk.css",
     "static/js/2.c2e96515.chunk.js": "/koncsc-testing/static/js/2.c2e96515.chunk.js",
     "static/js/2.c2e96515.chunk.js.map": "/koncsc-testing/static/js/2.c2e96515.chunk.js.map",
     "index.html": "/koncsc-testing/index.html",
-    "precache-manifest.6894bc14ddbcd2de3dba20791ca131dd.js": "/koncsc-testing/precache-manifest.6894bc14ddbcd2de3dba20791ca131dd.js",
+    "precache-manifest.7e74dd6b6d6d761cfc377d896b1d237f.js": "/koncsc-testing/precache-manifest.7e74dd6b6d6d761cfc377d896b1d237f.js",
     "service-worker.js": "/koncsc-testing/service-worker.js",
     "static/css/2.f450d554.chunk.css.map": "/koncsc-testing/static/css/2.f450d554.chunk.css.map",
     "static/css/main.449faf59.chunk.css.map": "/koncsc-testing/static/css/main.449faf59.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.f450d554.chunk.css",
     "static/js/2.c2e96515.chunk.js",
     "static/css/main.449faf59.chunk.css",
-    "static/js/main.dbf1d1ef.chunk.js"
+    "static/js/main.1bc30b0e.chunk.js"
   ]
 }
