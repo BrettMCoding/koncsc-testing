@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/koncsc-testing/static/css/main.8e6160bc.chunk.css",
-    "main.js": "/koncsc-testing/static/js/main.5bacfbd0.chunk.js",
-    "main.js.map": "/koncsc-testing/static/js/main.5bacfbd0.chunk.js.map",
-    "runtime-main.js": "/koncsc-testing/static/js/runtime-main.975bcdec.js",
-    "runtime-main.js.map": "/koncsc-testing/static/js/runtime-main.975bcdec.js.map",
-    "static/css/2.f450d554.chunk.css": "/koncsc-testing/static/css/2.f450d554.chunk.css",
-    "static/js/2.b6f913a7.chunk.js": "/koncsc-testing/static/js/2.b6f913a7.chunk.js",
-    "static/js/2.b6f913a7.chunk.js.map": "/koncsc-testing/static/js/2.b6f913a7.chunk.js.map",
-    "index.html": "/koncsc-testing/index.html",
-    "precache-manifest.5e03b581befc3532ff2fcdf5e42fa1cb.js": "/koncsc-testing/precache-manifest.5e03b581befc3532ff2fcdf5e42fa1cb.js",
-    "service-worker.js": "/koncsc-testing/service-worker.js",
-    "static/css/2.f450d554.chunk.css.map": "/koncsc-testing/static/css/2.f450d554.chunk.css.map",
-    "static/css/main.8e6160bc.chunk.css.map": "/koncsc-testing/static/css/main.8e6160bc.chunk.css.map",
-    "static/js/2.b6f913a7.chunk.js.LICENSE.txt": "/koncsc-testing/static/js/2.b6f913a7.chunk.js.LICENSE.txt",
-    "static/media/default.png": "/koncsc-testing/static/media/default.79216e9e.png",
-    "static/media/ncs_2019.pdf": "/koncsc-testing/static/media/ncs_2019.7f181374.pdf"
+    "main.css": "/koncsc/static/css/main.e6b2b965.chunk.css",
+    "main.js": "/koncsc/static/js/main.b789bcb9.chunk.js",
+    "main.js.map": "/koncsc/static/js/main.b789bcb9.chunk.js.map",
+    "runtime-main.js": "/koncsc/static/js/runtime-main.1a1fc49f.js",
+    "runtime-main.js.map": "/koncsc/static/js/runtime-main.1a1fc49f.js.map",
+    "static/css/2.f450d554.chunk.css": "/koncsc/static/css/2.f450d554.chunk.css",
+    "static/js/2.d49e1a85.chunk.js": "/koncsc/static/js/2.d49e1a85.chunk.js",
+    "static/js/2.d49e1a85.chunk.js.map": "/koncsc/static/js/2.d49e1a85.chunk.js.map",
+    "index.html": "/koncsc/index.html",
+    "precache-manifest.fbbd450e4f4a32e3b28d2140518fbf7e.js": "/koncsc/precache-manifest.fbbd450e4f4a32e3b28d2140518fbf7e.js",
+    "service-worker.js": "/koncsc/service-worker.js",
+    "static/css/2.f450d554.chunk.css.map": "/koncsc/static/css/2.f450d554.chunk.css.map",
+    "static/css/main.e6b2b965.chunk.css.map": "/koncsc/static/css/main.e6b2b965.chunk.css.map",
+    "static/js/2.d49e1a85.chunk.js.LICENSE.txt": "/koncsc/static/js/2.d49e1a85.chunk.js.LICENSE.txt",
+    "static/media/default.png": "/koncsc/static/media/default.79216e9e.png",
+    "static/media/ncs_2022.pdf": "/koncsc/static/media/ncs_2022.49d98bb3.pdf"
   },
   "entrypoints": [
-    "static/js/runtime-main.975bcdec.js",
+    "static/js/runtime-main.1a1fc49f.js",
     "static/css/2.f450d554.chunk.css",
-    "static/js/2.b6f913a7.chunk.js",
-    "static/css/main.8e6160bc.chunk.css",
-    "static/js/main.5bacfbd0.chunk.js"
+    "static/js/2.d49e1a85.chunk.js",
+    "static/css/main.e6b2b965.chunk.css",
+    "static/js/main.b789bcb9.chunk.js"
   ]
 }
