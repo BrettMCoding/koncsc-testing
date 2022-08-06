@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a0b17dbb07c8a74327442b6c04718572",
+    "revision": "260120667a40295db0712e00bcc608d9",
     "url": "/koncsc-testing/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/koncsc-testing/static/css/2.f450d554.chunk.css"
   },
   {
-    "revision": "1b7271482445692350a4",
+    "revision": "e750c646adbd807537ec",
     "url": "/koncsc-testing/static/css/main.ea2925b2.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/koncsc-testing/static/js/2.2d42269e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1b7271482445692350a4",
-    "url": "/koncsc-testing/static/js/main.a1d428b6.chunk.js"
+    "revision": "e750c646adbd807537ec",
+    "url": "/koncsc-testing/static/js/main.31759d82.chunk.js"
   },
   {
     "revision": "374e99f03cc8ce72f265",
@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/koncsc-testing/static/media/default.79216e9e.png"
   },
   {
-    "revision": "b04925b23c9e3abff995785f29656324",
-    "url": "/koncsc-testing/static/media/ncs_2022.b04925b2.pdf"
+    "revision": "14175e17c5ff49050c75fabfae38ab6e",
+    "url": "/koncsc-testing/static/media/ncs_2022.14175e17.pdf"
   }
 ]);
